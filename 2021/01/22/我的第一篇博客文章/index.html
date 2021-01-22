@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://LuHawXem.github.io">
   <title>我的第一篇博客文章 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通过观看羊哥(CodeSheep)的视频，终于搭建好了自己的个人博客。如视频所说，本博客通过hexo框架部署在了github上(白嫖使我快乐)。在这里说一下Windows系统(本人系统版本是Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。   一. Node.js安装这个其实没什么说的，Windows">
+  <meta name="description" content="通过观看羊哥(CodeSheep)的视频，终于搭建好了自己的个人博客。如视频所说，本博客通过hexo框架部署在了github上(白嫖使我快乐)。在这里说一下Windows系统(本人系统版本是Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的第一篇博客文章">
 <meta property="og:url" content="http://luhawxem.github.io/2021/01/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="通过观看羊哥(CodeSheep)的视频，终于搭建好了自己的个人博客。如视频所说，本博客通过hexo框架部署在了github上(白嫖使我快乐)。在这里说一下Windows系统(本人系统版本是Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。   一. Node.js安装这个其实没什么说的，Windows">
+<meta property="og:description" content="通过观看羊哥(CodeSheep)的视频，终于搭建好了自己的个人博客。如视频所说，本博客通过hexo框架部署在了github上(白嫖使我快乐)。在这里说一下Windows系统(本人系统版本是Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://luhawxem.github.io/2021/01/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/NodeJsSetup_1.png">
 <meta property="og:image" content="http://luhawxem.github.io/2021/01/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/NodeJsSetup_2.png">
@@ -183,7 +183,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>通过观看羊哥(CodeSheep)的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">视频</a>，终于搭建好了自己的个人博客。如视频所说，本博客通过<b>hexo框架</b>部署在了<b>github</b>上(白嫖使我快乐)。在这里说一下Windows系统(<em>本人系统版本是Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大</em>)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。</p>
-<!-- ShowAll -->
+<a id="more"></a>
 
 <h4 id="一-Node-js安装"><a href="#一-Node-js安装" class="headerlink" title="一. Node.js安装"></a>一. Node.js安装</h4><p>这个其实没什么说的，Windows系统直接去<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/download/">官网下载</a>对应的64位或32位的安装包双击安装即可。这里要值得注意的是要<b>记得配置环境变量</b>。右键此电脑，点击属性。这里由于我的系统版本是20H2，点击属性之后不是直接打开系统属性页面，而是跳转到了以下界面：<img src="/2021/01/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/NodeJsSetup_1.png" class="">。此时我们点击右边的<b>高级系统属性</b>。<img src="/2021/01/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/NodeJsSetup_2.png" class=""> 然后在打开的界面中点击<b>环境变量</b>。在<code>Path</code>这一项中添加你刚刚安装Node.js的文件夹路径。这里我安装在了D盘根目录下的NodeJs文件夹中，所以这里我就需要在<code>Path</code>这一项中新建一个环境变量，路径为<code>D:\NodeJs\</code>。</p>
 <p>这里还有一步可选操作：由于Node.js自带的包管理器<code>npm</code>在进行全局安装时会默认安装到C盘，为了减轻C盘的存储空间负担可以将全局安装文件夹的默认路径修改到其他盘符。在管理员模式的cmd窗口下(按win键直接敲cmd搜索或者win键+R输入cmd)执行：</p>
