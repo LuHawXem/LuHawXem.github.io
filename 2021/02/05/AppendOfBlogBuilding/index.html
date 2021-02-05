@@ -171,6 +171,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>上一篇文章中，我们将博客部署在了<b>github/gitee</b>上，由于当时的网络环境为教育网，github.io此类域名可以正常使用，寒假离校后发现github.io此类域名会被DNS污染(127.0.0.1)，而同为git pages项目的gitee.io虽然可以正常使用，但在每次<code>hexo deploy</code>后仍需进入到仓库页面重新刷新Gitee Pages服务，多有不便，于是便趁着<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up?spm=5176.10695662.1173276.1.3ad2315cTchlcQ">阿里云云翼计划</a>的优惠入手了一台轻量应用服务器用于部署个人博客。在此对在服务器上搭建博客进行一点小小的补充。</p>
+<a id="more"></a>
+
 <h4 id="服务器上的环境搭建"><a href="#服务器上的环境搭建" class="headerlink" title="服务器上的环境搭建"></a>服务器上的环境搭建</h4><p>一开始时个人选择了阿里云的LAMP镜像，后来发现一大堆东西(配置文件、自带软件安装路径等)找不到在哪，又重置成了CentOS7.3的系统镜像，自己配置安装博客搭建所需的东西。首先为了远程管理服务器，个人选择使用账号密码进行连接的方式，设置root账号密码进行SSH连接以及SFTP连接。SSH连接所用软件为微软商店下载的<b>Windows Terminal</b>及Win10自带的<b>OpenSSH client</b>功能。SFTP连接所用软件为<b><a target="_blank" rel="noopener" href="https://winscp.net/">WinSCP</a></b>。通过SSH及SFTP连接上服务器后准备工作就完成了。</p>
 <ol>
 <li>首先，我们部署的hexo博客是基于Node环境的，所以服务器上也少不了Node环境。通过SSH终端输入<code>yum install nodejs</code>直接通过CentOS的包管理器下载Node环境。</li>
