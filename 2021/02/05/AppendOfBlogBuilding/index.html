@@ -186,10 +186,12 @@
 <p>修改此处的user为root避免出现权限问题。error_log是发生错误时日志文件的保存路径，有需要可以自行改动。</p>
 <img src="/2021/02/05/AppendOfBlogBuilding/Nginx.conf_2.png" class="">
 
-<p>修改http下server的监听端口，默认为80端口，而使用80端口需要备案，个人暂时不想备案(感觉好麻烦)。此处我改成了hexo在本地运行实例时所使用的4000端口。修改完成之后就可以通过<code>公网ip:端口</code>直接访问服务器上Nginx驱动的网页了，绑定域名后也可使用<code>域名:端口</code>的形式来访问。同时，修改server的root目录，即Nginx的驱动目录，此处我改为了我博客文件的存放目录<code>/root/workspace/myblog/public</code>，注意，此目录下一定要找得到index.html这个文件，如果你是直接将<code>hexo generate</code>生成的public文件夹中的文件复制到myblog文件夹下，则为<code>/root/workspace/myblog</code>。</p>
+<p>修改http下server的监听端口，默认为80端口（因为使用80端口需要备案）。此处我改成了hexo在本地运行实例时所使用的4000端口。修改完成之后就可以通过<code>公网ip:端口</code>直接访问服务器上Nginx驱动的网页了，绑定域名后也可使用<code>域名:端口</code>的形式来访问。同时，修改server的root目录，即Nginx的驱动目录，此处我改为了我博客文件的存放目录<code>/root/workspace/myblog/public</code>，注意，此目录下一定要找得到index.html这个文件，如果你是直接将<code>hexo generate</code>生成的public文件夹中的文件复制到myblog文件夹下，则为<code>/root/workspace/myblog</code>。</p>
 <p>如果是使用vim编辑器打开的配置文件，需要按一下<code>Insert</code>键才可开始修改文本，再按一下则是正常的Insert功能。需要退出时按<code>Esc</code>再输入<code>:wq</code>，此处w为write即写入保存的意思，而q为quit为退出。</p>
 <p>然后直接输入<code>nginx</code>启动Nginx服务，此时我们就可以在4000端口上访问到我们的个人博客了。</p>
-<p>至此，整个hexo博客在服务器上的搭建部署就完成了，唯一不足的一点就是博客更新需要手动上传，后续考虑一下是否使用脚本进行自动上传，但大致上算是完成了。</p>
+<p>当然，每次博客有改动时需要手动上传生成的文件也比较繁琐，可以通过创建shell脚本完成，仅需一行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r localfolder user@host:remotefolder</span><br></pre></td></tr></table></figure>
+<p>此处<code>localfolder</code>为本地博客生成的静态文件路径，即public文件夹的完整路径，如/d:/MyBlog/public/。<code>user</code>为远程登录服务器的用户，<code>host</code>为服务器的ip地址，默认使用22端口进行scp连接，如果服务器开放scp的端口不为22端口可以使用<code>-p</code>指定端口号。<code>remotefolder</code>为远程存放博客文件的目录路径，即Nginx所驱动的上层目录，如<code>/root/workspace/myblog/</code>。</p>
 
       
 
