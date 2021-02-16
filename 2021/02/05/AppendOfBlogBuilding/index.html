@@ -172,14 +172,14 @@
       
         <p>上一篇文章中，我将博客部署在了<b>github/gitee</b>上，由于当时的网络环境为教育网，github.io此类域名可以正常使用，寒假离校后发现github.io此类域名会被DNS污染(127.0.0.1)，而同为git pages项目的gitee.io虽然可以正常使用，但在每次<code>hexo deploy</code>后仍需进入到仓库页面重新更新Gitee Pages服务(付费用户可以自动更新)，多有不便，于是便趁着<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up?spm=5176.10695662.1173276.1.3ad2315cTchlcQ">阿里云云翼计划</a>的优惠入手了一台轻量应用服务器用于部署个人博客，现在本博客有三个部署地址：<a target="_blank" rel="noopener" href="https://luhawxem.github.io/">github.io</a>、<a target="_blank" rel="noopener" href="https://luhawxem.gitee.io/">gitee.io</a>以及<a target="_blank" rel="noopener" href="http://www.luhawxem.cn:4000/">阿里云服务器</a>。在此对在服务器上搭建博客进行一点小小的补充。</p>
 <a id="more"></a>
-<h4 id="服务器上的环境搭建"><a class="header-anchor" href="#服务器上的环境搭建"></a>服务器上的环境搭建</h4>
+<h4 id="服务器上的环境搭建">服务器上的环境搭建</h4>
 <p>一开始时个人选择了阿里云的LAMP镜像，后来发现一大堆东西(配置文件、自带软件安装路径等)找不到在哪，又重置成了CentOS7.3的系统镜像，自己配置安装博客搭建所需的东西。首先为了远程管理服务器，个人选择使用账号密码进行连接的方式，设置root账号密码进行SSH连接以及SFTP连接。SSH连接所用软件为微软商店下载的<b>Windows Terminal</b>及Win10自带的<b>OpenSSH client</b>功能。SFTP连接所用软件为<b><a target="_blank" rel="noopener" href="https://winscp.net/">WinSCP</a></b>。通过SSH及SFTP连接上服务器后准备工作就完成了。</p>
 <ol>
 <li>首先，我们部署的hexo博客是基于Node环境的，所以服务器上也少不了Node环境。通过SSH终端输入<code>yum install nodejs</code>直接通过CentOS的包管理器下载Node环境。</li>
 <li>然后就是进行Nginx部署了，由于我们部署的hexo博客为静态博客，直接使用Nginx驱动博客根目录下的<code>index.html</code>文件即可。而Nginx的安装需要三个前置依赖：openssl库、zlib库和pcre库用于支持Nginx的ssl功能、gzip模块和rewrite模块。如果不清楚服务器上是否原生安装有这三个库可以使用<code>rpm -qa|grep openssl</code>、<code>rpm -qa|grep zlib</code>、<code>rpm -qa|grep pcre</code>进行查询。安装方法同Node.js，直接使用包管理器进行下载：<code>yum install openssl</code>、<code>yum install zlib</code>、<code>yum install pcre</code>。全部下载安装完成之后就可以安装部署Nginx了，同样是<code>yum install nginx</code>一行命令完成。</li>
 </ol>
 <p>至此，驱动hexo博客的环境就已搭建完成，接下来就是配置文件的更改及博客上传了。</p>
-<h4 id="博客上传及驱动"><a class="header-anchor" href="#博客上传及驱动"></a>博客上传及驱动</h4>
+<h4 id="博客上传及驱动">博客上传及驱动</h4>
 <p>为了管理方便，本人直接在<code>/root</code>目录下创建了workspace文件夹、并在<code>/root/workspace</code>下创建了myblog文件夹，后续博客上传直接将<code>hexo generate</code>生成的public文件夹上传到myblog文件夹下即可。多层文件夹嵌套创建可以使用一行命令<code>cd /root &amp;&amp; mkdir workspace &amp;&amp; cd workspace/ &amp;&amp; mkdir myblog</code>完成。然后去SFTP软件里将本地生成的public文件夹上传到<code>/root/workspace/myblog</code>路径下并修改Nginx配置文件驱动该文件夹根目录。</p>
 <p>如果在安装Nginx时未手动指定目录，默认安装位置为yum包管理器同级目录下即<code>/etc/nginx</code>。直接输入<code>vim /etc/nginx/nginx.conf</code>使用vim编辑器打开Nginx的配置文件或者从SFTP软件中找到该文件打开。</p>
 <img src="/2021/02/05/AppendOfBlogBuilding/Nginx.conf_1.png" class="">

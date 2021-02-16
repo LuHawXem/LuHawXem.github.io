@@ -183,7 +183,7 @@
       
         <p>通过观看CodeSheep的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">教学视频</a>，终于搭建好了自己的个人博客。如视频所说，本博客使用<b>hexo框架</b>，通过Git Pages服务部署在了<b>github/gitee</b>上(白嫖使我快乐)。在这里说一下Windows系统(<em>本人系统版本是Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大</em>)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。</p>
 <a id="more"></a>
-<h4 id="一-Node-js安装"><a class="header-anchor" href="#一-Node-js安装"></a>一. Node.js安装</h4>
+<h4 id="一-Node-js安装">一. Node.js安装</h4>
 <p>这个其实没什么说的，Windows系统直接去<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/download/">官网下载</a>对应的64位或32位的安装包双击安装即可。这里要值得注意的是要<b>记得配置环境变量</b>。右键此电脑，点击属性。这里由于我的系统版本是20H2，点击属性之后不是直接打开系统属性页面，而是跳转到了以下界面：<img src="/2021/01/22/MyFirstBlogArticle/NodeJsSetup_1.png" class="">此时我们点击右边的<b>高级系统属性</b>。</p>
 <img src="/2021/01/22/MyFirstBlogArticle/NodeJsSetup_2.png" class=""> 
 <p>然后在打开的界面中点击<b>环境变量</b>。在<code>Path</code>这一项中添加你刚刚安装Node.js的文件夹路径。这里我安装在了D盘根目录下的NodeJs文件夹中，所以这里我就需要在<code>Path</code>这一项中新建一个环境变量，路径为<code>D:\NodeJs\</code>。</p>
@@ -193,7 +193,7 @@
 <p>由于国内直接使用<code>npm</code>的官方镜像比较慢，所以一般我们安装完<code>Node.js</code>之后都会配置一个淘宝的<code>cnpm</code>镜像源用来代替<code>npm</code>官方的镜像源。淘宝这个镜像源更新还是比较快的，一般不会出现版本不一样的问题。直接在cmd窗口中执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
 <p>完成之后就可以通过<code>cnpm install 模块名</code>来安装模块了，速度会快很多。</p>
-<h4 id="二-git安装及配置"><a class="header-anchor" href="#二-git安装及配置"></a>二. git安装及配置</h4>
+<h4 id="二-git安装及配置">二. git安装及配置</h4>
 <p>跟Node.js一样，git也是直接去<a target="_blank" rel="noopener" href="https://git-scm.com/">官网</a>下载对应的64位或32位安装包双击即可。git在安装过程中的选项比较多，这里说一下每个选项大概的意思。</p>
 <img src="/2021/01/22/MyFirstBlogArticle/GitSetup_1.png" class="">
 <p>这里的选项基本上不用动，用默认就行。这个桌面图标一般用不到，都是直接在文件夹下直接右键在此处打开Git Bash。</p>
@@ -222,7 +222,7 @@
 <p>再然后生成SSH公钥：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 <p>然后连敲三次回车(默认yes)，之后去<code>C:\Users\用户名\.ssh</code>文件夹中将<code>id_rsa.pub</code>文件中的内容复制出来。去github或者gitee的设置中找到SSH这一项，将复制的内容粘贴到Key中保存配置。这里是设置与git仓库以SSH的方式通信，不过只能在你是仓库所有人的情况下才能使用，在参与多人协作时非仓库所有者仅能通过HTTPS方式进行通信。</p>
-<h4 id="三-hexo框架安装及上手"><a class="header-anchor" href="#三-hexo框架安装及上手"></a>三. hexo框架安装及上手</h4>
+<h4 id="三-hexo框架安装及上手">三. hexo框架安装及上手</h4>
 <p>有了前面安装的NodeJs及其包管理器npm与镜像源cnpm，hexo框架的安装就十分简单了。可以通过Windows自带的cmd或者git所带的Git Bash执行以下命令全局安装hexo框架：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <p>安装完成之后，我们就可以在本地生成自己的博客了。新建一个文件夹如myblog，进去之后右键在此处打开Git Bash。</p>
@@ -248,7 +248,7 @@
 <p>创建完成后将SSH中的链接复制一下，打开你的博客根文件夹下的_config.yml文件。在最底部找到这一段，填入对应的参数即可，注意<b>冒号之后均有空格且不可省略</b>。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span> <span class="comment">#填入git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">刚刚复制的链接</span> <span class="comment">#填入仓库链接</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span> <span class="comment">#这个可以不填，git仓库默认也是master</span></span><br></pre></td></tr></table></figure>
 <p>保存退出后我们可以直接通过<code>hexo deploy</code>命令将本地文件部署到git仓库，之后就可以通过<code>https://github用户名.github.io</code>直接访问我们的个人博客了。部署在github上的话可能国内连接速度有点慢，gitee会好很多。</p>
-<h4 id="四-更换yilia主题及过程中遇到的问题"><a class="header-anchor" href="#四-更换yilia主题及过程中遇到的问题"></a>四. 更换yilia主题及过程中遇到的问题</h4>
+<h4 id="四-更换yilia主题及过程中遇到的问题">四. 更换yilia主题及过程中遇到的问题</h4>
 <p>直接在博客的根目录下执行以下命令将yilia主题clone到themes文件夹下的yilia文件夹：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br></pre></td></tr></table></figure>
 <p>当然也可以直接访问<a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia">yilia主题</a>的github仓库地址下载压缩包解压到themes/yilia文件夹下。</p>
@@ -265,7 +265,7 @@
 <p>将所用图片放到/themes/yilia/source/img下，然后在yilia的配置文件_config.yml中将路径填入avatar及favicon参数中，如<code>avatar: /img/Avatar.png</code>。此方法使用的图片存储路径不一定是正确修改hexo主题头像所用的路径，但方法可行。</p>
 <p>4.解决标题中英文字母自动大写的问题。</p>
 <p>修改/themes/source文件夹下的css文件，用编辑器的搜索功能查找<code>text-transform</code>属性，将所有<code>text-transform</code>对应的值都改成none。此处修改原有已经生成好的css文件以省去修改源码中scss文件后仍需重新进行打包生成这一步骤。</p>
-<h4 id="参考资料"><a class="header-anchor" href="#参考资料"></a>参考资料</h4>
+<h4 id="参考资料">参考资料</h4>
 <p><a target="_blank" rel="noopener" href="https://runoob.com/">菜鸟教程</a></p>
 <p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">hexo官方文档</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia/issues">yilia主题官方仓库Issues</a></p>
