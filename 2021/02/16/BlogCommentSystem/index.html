@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://luhawxem.cn:4000">
   <title>添加博客评论系统——yilia主题 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。">
+  <meta name="description" content="前两篇文章中，博客搭建的大部分步骤都已经完成了。但是，作为一个博客，最重要的评论系统还未添加。此篇文章就来说一下个人在yilia主题下添加评论系统的过程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="添加博客评论系统——yilia主题">
 <meta property="og:url" content="http://luhawxem.cn:4000/2021/02/16/BlogCommentSystem/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。">
+<meta property="og:description" content="前两篇文章中，博客搭建的大部分步骤都已经完成了。但是，作为一个博客，最重要的评论系统还未添加。此篇文章就来说一下个人在yilia主题下添加评论系统的过程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://luhawxem.cn:4000/2021/02/16/BlogCommentSystem/OAuth_1.png">
 <meta property="og:image" content="http://luhawxem.cn:4000/2021/02/16/BlogCommentSystem/OAuth_2.png">
@@ -170,16 +170,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。</p>
+        <p>前两篇文章中，博客搭建的大部分步骤都已经完成了。但是，作为一个博客，最重要的评论系统还未添加。此篇文章就来说一下个人在yilia主题下添加评论系统的过程。</p>
 <a id="more"></a>
 <h4 id="踩坑">踩坑</h4>
-<p>其实yilia主题中已经集成了几种博客评论系统：<b>多说、网易云跟帖、畅言、Disqus、Gitment</b>。其中<b>多说</b>于<b>2017年6月1日</b>已经正式关停服务；<b>网易云跟帖</b>于<b>2017年8月1日</b>关停服务(这俩是不是说好的，你关我也关)；<b>畅言</b>仍在继续提供服务，但使用<b>需要备案</b>(网站都没备案呢用个评论我还得备案)；<b>Disqus</b>则是国外的评论系统，且不说广告等等，就这个网速以及需要科学上网才能评论，还是算了吧。那看起来，似乎只有<b>Gitment</b>可以直接使用了，而使用方法也很简单，直接把yilia主题下的<code>_config.yml</code>中</p>
+<p>yilia主题中原生集成了几种博客评论系统：<b>多说、网易云跟帖、畅言、Disqus、Gitment</b>。其中<b>多说</b>于<b>2017年6月1日</b>已经正式关停服务；<b>网易云跟帖</b>也于<b>2017年8月1日</b>关停服务；<b>畅言</b>则仍在继续提供服务，但使用其评论系统<b>需要备案</b>；<b>Disqus</b>服务器位于国外，访问速度不太理想。看起来似乎只有<b>Gitment</b>可以直接使用了，而<b>Gitment</b>使用方法也很简单，将yilia主题下的<code>_config.yml</code>文件中</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gitment_owner:</span> <span class="literal">false</span>	<span class="comment">#Github账号ID</span></span><br><span class="line"><span class="attr">gitment_repo:</span> <span class="string">&#x27;&#x27;</span>		<span class="comment">#储存评论的仓库名</span></span><br><span class="line"><span class="attr">gitment_oauth:</span></span><br><span class="line">  <span class="attr">client_id:</span> <span class="string">&#x27;&#x27;</span>			<span class="comment">#OAuth应用生成的ClientID</span></span><br><span class="line">  <span class="attr">client_secret:</span> <span class="string">&#x27;&#x27;</span>		<span class="comment">#OAuth应用创建的密钥</span></span><br></pre></td></tr></table></figure>
-<p>这些信息填上就行。其中<code>gitment_oauth</code>这里的OAuth应用在<code>Github-设置-开发者设置-OAuth Apps</code>(<a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">链接</a>)中注册一个新的应用。</p>
+<p>这些信息填上就行。其中<code>gitment_oauth</code>这里的OAuth应用需要在<code>Github-设置-开发者设置-OAuth Apps</code>中<a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">注册</a>。</p>
 <img src="/2021/02/16/BlogCommentSystem/OAuth_1.png" class="">
-<p>此处需要注意的只有<code>Authorization callback URL</code>这一项，这里填写你的博客地址，<code>Application name</code>和<code>Homepacg URL</code>可以随意填写。填写完成后点击注册即可。</p>
+<p>此处需要注意<code>Authorization callback URL</code>这一项，这里填写你的博客地址，<code>Application name</code>和<code>Homepacg URL</code>可以随意填写。填写完成后点击注册即可。</p>
 <img src="/2021/02/16/BlogCommentSystem/OAuth_2.png" class="">
-<p>此处的<code>Client ID</code>即为<code>_config.yml</code>文件中需要填写的<code>client_id</code>，而<code>client_secret</code>则需要手动点击<code>Generate a new client secret</code>创建。还有一点就是，在网上看到的其他教程中此处users数为1而非0，不知道是否与此有关，总之最终完成之后个人发现Gitment虽然被渲染到页面上了，但是仅有一个空<code>&lt;div&gt;</code>标签。而依据搜到的一些办法将yilia主题下的<code>gitment.ejs</code>文件中</p>
+<p>此处的<code>Client ID</code>即为<code>_config.yml</code>文件中需要填写的<code>client_id</code>，而<code>client_secret</code>则需要手动点击<code>Generate a new client secret</code>创建。还有一点就是，在网上看到的其他教程中此处users数为1而非0。不知道是否与此有关，总之最终完成之后个人发现Gitment虽然被渲染到页面上了，但是仅有一个空<code>&lt;div&gt;</code>标签。依据搜到的一些办法将yilia主题下的<code>gitment.ejs</code>文件中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;jjeejj.github.io&#x2F;css&#x2F;gitment.css&quot;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;www.wenjunjiang.win&#x2F;js&#x2F;gitment.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 <p>改成</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;www.jermey.cn&#x2F;gitment&#x2F;style&#x2F;default.css&quot;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;www.jermey.cn&#x2F;gitment&#x2F;dist&#x2F;gitment.browser.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
@@ -187,11 +187,11 @@
 <p>然后我就去看了一下gitment的官方仓库，发现这个项目已经停更4年了，issue中大大小小各种问题。</p>
 <h4 id="更换选择">更换选择</h4>
 <p>没办法只能继续找别的评论系统，找了一圈，发现有这么两个基于Git仓库Issue的评论系统：<a target="_blank" rel="noopener" href="https://github.com/apps/utterances"><b>utterance</b></a>和<a target="_blank" rel="noopener" href="https://gitee.com/eillott/giteement"><b>giteement</b></a>。因为<code>utterance</code>可以同时在多个网站上使用，而<code>giteement</code>由于需要填写回调地址仅能在一个网站上使用；同时<code>giteement</code>需要外部服务器解决跨域问题；且<code>utterance</code>登录时所需的权限也比<code>gitment</code>少很多；对于使用<code>utterance</code>的多个网站仅需要进行一次授权；以及<code>utterance</code>的评论系统是自动初始化而非手动点击初始化等优点，最后个人选择了<code>utterance</code>。</p>
-<p>在yilia主题中使用<code>utterance</code>只需要在<code>_config.yml</code>中加入</p>
+<p>为了在yilia主题中使用<code>utterance</code>，需要在<code>_config.yml</code>中加入</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">utterance:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 仓库名字，格式：Github账户ID/储存评论的仓库名称</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="comment"># 主题</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">&#x27;github-light&#x27;</span></span><br><span class="line">  <span class="comment"># 映射配置</span></span><br><span class="line">  <span class="attr">issue_term:</span> <span class="string">&#x27;title&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>同时，在yilia主题中的<code>layout/_partial/article.ejs</code>中<code>&lt;% if (!index &amp;&amp; post.comments)&#123; %&gt;</code>这一句之后插入</p>
+<p>同时，在yilia主题的<code>layout/_partial/article.ejs</code>文件中<code>&lt;% if (!index &amp;&amp; post.comments)&#123; %&gt;</code>这一句之后插入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.utterance &amp;&amp; theme.utterance.enable)&#123; %&gt;</span><br><span class="line">    &lt;section id&#x3D;&quot;comments&quot; class&#x3D;&quot;comments&quot;&gt;</span><br><span class="line">      &lt;style&gt;</span><br><span class="line">        .utterances&#123;max-width: 100%;&#125;</span><br><span class="line">      &lt;&#x2F;style&gt;</span><br><span class="line">      &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;utteranc.es&#x2F;client.js&quot;</span><br><span class="line">        repo&#x3D;&quot;&lt;%&#x3D; theme.utterance.repo %&gt;&quot;</span><br><span class="line">        issue-term&#x3D;&quot;&lt;%&#x3D; theme.utterance.issue_term %&gt;&quot;</span><br><span class="line">        theme&#x3D;&quot;&lt;%&#x3D; theme.utterance.theme %&gt;&quot;</span><br><span class="line">        crossorigin&#x3D;&quot;anonymous&quot;</span><br><span class="line">        async&gt;</span><br><span class="line">      &lt;&#x2F;script&gt;</span><br><span class="line">    &lt;&#x2F;section&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p>再重新生成静态文件即可。至此，评论系统添加完成。</p>
+<p>再重新生成静态文件即可。</p>
 <h4 id="参考资料">参考资料</h4>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43935907/article/details/89335062">Hexo博客yilia主题添加Gitment评论系统</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.jermey.cn/posts/2017-08-29-1.html#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">理解OAuth</a></p>
