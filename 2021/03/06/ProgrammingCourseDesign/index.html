@@ -6,25 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://luhawxem.cn:4000">
-  <title>博客搭建的补充 | BBSD丿草丶帽的个人博客</title>
+  <title>程序设计课程设计 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇文章中，我将博客部署在了github&#x2F;gitee上，由于当时的网络环境特殊，github.io此类域名可以正常使用，之后发现github.io此类域名会被DNS污染(127.0.0.1)，而同为git pages项目的gitee.io虽然可以正常使用，但在每次hexo deploy后仍需进入到仓库页面重新更新Gitee Pages服务(付费用户可以自动更新)，多有不便，于是便趁着阿里云云翼计">
+  <meta name="description" content="这个课程设计其实是去年下学期期末做的，不过今年才搭建了博客，把这个课程设计的过程写一下，顺便给这学期即将要课程设计的学弟们做个参考。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客搭建的补充">
-<meta property="og:url" content="http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/index.html">
+<meta property="og:title" content="程序设计课程设计">
+<meta property="og:url" content="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="上一篇文章中，我将博客部署在了github&#x2F;gitee上，由于当时的网络环境特殊，github.io此类域名可以正常使用，之后发现github.io此类域名会被DNS污染(127.0.0.1)，而同为git pages项目的gitee.io虽然可以正常使用，但在每次hexo deploy后仍需进入到仓库页面重新更新Gitee Pages服务(付费用户可以自动更新)，多有不便，于是便趁着阿里云云翼计">
+<meta property="og:description" content="这个课程设计其实是去年下学期期末做的，不过今年才搭建了博客，把这个课程设计的过程写一下，顺便给这学期即将要课程设计的学弟们做个参考。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/Nginx.conf_1.png">
-<meta property="og:image" content="http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/Nginx.conf_2.png">
-<meta property="article:published_time" content="2021-02-05T02:11:40.000Z">
-<meta property="article:modified_time" content="2021-02-18T14:41:40.591Z">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/PdCs_1.png">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/PdCs_2.png">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/PdCs_3.png">
+<meta property="article:published_time" content="2021-03-06T14:54:06.000Z">
+<meta property="article:modified_time" content="2021-03-07T13:09:43.783Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="博客搭建">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="yilia">
+<meta property="article:tag" content="程序设计">
+<meta property="article:tag" content="课程设计">
+<meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/Nginx.conf_1.png">
+<meta name="twitter:image" content="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/PdCs_1.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -152,47 +153,102 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-AppendOfBlogBuilding" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ProgrammingCourseDesign" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      博客搭建的补充
+      程序设计课程设计
     </h1>
   
 
         
-        <a href="/2021/02/05/AppendOfBlogBuilding/" class="archive-article-date">
-  	<time datetime="2021-02-05T02:11:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
+        <a href="/2021/03/06/ProgrammingCourseDesign/" class="archive-article-date">
+  	<time datetime="2021-03-06T14:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>上一篇文章中，我将博客部署在了<b>github/gitee</b>上，由于当时的网络环境特殊，github.io此类域名可以正常使用，之后发现github.io此类域名会被DNS污染(127.0.0.1)，而同为git pages项目的gitee.io虽然可以正常使用，但在每次<code>hexo deploy</code>后仍需进入到仓库页面重新更新Gitee Pages服务(付费用户可以自动更新)，多有不便，于是便趁着<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up?spm=5176.10695662.1173276.1.3ad2315cTchlcQ">阿里云云翼计划</a>的优惠入手了一台轻量应用服务器用于部署个人博客，现在本博客有三个部署地址：<a target="_blank" rel="noopener" href="https://luhawxem.github.io/">github.io</a>、<a target="_blank" rel="noopener" href="https://luhawxem.gitee.io/">gitee.io</a>以及<a target="_blank" rel="noopener" href="http://www.luhawxem.cn:4000/">阿里云服务器</a>。在此对在服务器上搭建博客进行一点小小的补充。</p>
+        <p>这个课程设计其实是去年下学期期末做的，不过今年才搭建了博客，把这个课程设计的过程写一下，顺便给这学期即将要课程设计的学弟们做个参考。</p>
 <a id="more"></a>
-<h4 id="服务器上的环境搭建">服务器上的环境搭建</h4>
-<p>一开始时个人选择了阿里云的LAMP镜像，后来又重置成了CentOS7.3的系统镜像，自己配置安装博客搭建所需的东西。首先为了远程管理服务器，个人选择了使用账号密码进行连接的方式，设置了root账号密码进行SSH连接以及SFTP连接。SSH连接所用软件为微软商店下载的<b>Windows Terminal</b>及Win10自带的<b>OpenSSH client</b>功能。SFTP连接所用软件为<b><a target="_blank" rel="noopener" href="https://winscp.net/">WinSCP</a></b>。通过SSH及SFTP连接上服务器后准备工作就完成了。</p>
-<ol>
-<li>首先，我们部署的hexo博客是基于Node环境的，所以服务器上也少不了Node环境。SSH终端输入<code>yum install nodejs</code>下载Node.js。</li>
-<li>然后就是进行Nginx部署了，由于我们部署的hexo博客为静态博客，直接使用Nginx驱动博客根目录下的<code>index.html</code>文件即可。而Nginx的安装需要三个前置依赖：openssl库、zlib库和pcre库用于支持Nginx的ssl功能、gzip模块和rewrite模块。如果不清楚服务器上是否原生安装有这三个库可以使用<code>rpm -qa|grep openssl</code>、<code>rpm -qa|grep zlib</code>、<code>rpm -qa|grep pcre</code>进行查询。安装方法同Node.js，直接使用包管理器进行下载：<code>yum install openssl</code>、<code>yum install zlib</code>、<code>yum install pcre</code>。全部下载安装完成之后就可以安装部署Nginx了：<code>yum install nginx</code>。</li>
-</ol>
-<p>至此，驱动hexo博客的环境就已搭建完成，接下来就是配置文件的更改及博客上传了。</p>
-<h4 id="博客上传及驱动">博客上传及驱动</h4>
-<p>为了管理方便，本人直接在<code>/root</code>目录下创建了workspace文件夹、并在<code>/root/workspace</code>下创建了myblog文件夹，后续博客上传直接将<code>hexo generate</code>生成的public文件夹上传到myblog文件夹下即可。多层文件夹嵌套创建可以使用一行命令<code>cd /root &amp;&amp; mkdir workspace &amp;&amp; cd workspace/ &amp;&amp; mkdir myblog</code>完成。然后去SFTP软件里将本地生成的public文件夹上传到<code>/root/workspace/myblog</code>路径下并修改Nginx配置文件驱动该文件夹根目录。</p>
-<p>如果在安装Nginx时未手动指定目录，默认安装位置为yum包管理器同级目录下即<code>/etc/nginx</code>。直接输入<code>vim /etc/nginx/nginx.conf</code>使用vim编辑器打开Nginx的配置文件或者从SFTP软件中找到该文件打开。</p>
-<img src="/2021/02/05/AppendOfBlogBuilding/Nginx.conf_1.png" class="">
-<p>修改此处的user为root避免出现权限问题。error_log是发生错误时日志文件的保存路径，有需要可以自行改动。</p>
-<img src="/2021/02/05/AppendOfBlogBuilding/Nginx.conf_2.png" class="">
-<p>修改http下server的监听端口，默认为80端口(使用80端口需要备案)，此处我改成了4000端口。修改完成之后就可以通过<code>公网ip:端口</code>直接访问服务器上Nginx驱动的网页了，绑定域名后也可使用<code>域名:端口</code>的形式来访问。同时，修改server的root目录，即Nginx的驱动目录，此处我改为了博客文件的存放目录<code>/root/workspace/myblog/public</code>，注意，此目录即为index.html文件的完整路径，如果你是直接将<code>hexo generate</code>生成的public文件夹中的文件复制到myblog文件夹下，则为<code>/root/workspace/myblog</code>。</p>
-<p>如果是使用vim编辑器打开的配置文件，需要按一下<code>Insert</code>键才可开始修改文本，再按一下则是正常的Insert功能。需要退出时按<code>Esc</code>再输入<code>:wq</code>，此处w为write即写入保存的意思，而q为quit为退出。</p>
-<p>然后直接在SSH终端输入<code>nginx</code>启动Nginx服务，此时我们就可以访问到我们的个人博客了。</p>
-<p>每次博客改动时需要手动上传文件的操作也比较繁琐，可以通过创建shell脚本完成：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r localfolder user@host:remotefolder</span><br></pre></td></tr></table></figure>
-<p>此处<code>localfolder</code>为本地博客生成的静态文件路径，即public文件夹的完整路径，如/d:/MyBlog/public/。<code>user</code>为远程登录服务器的用户，<code>host</code>为服务器的ip地址，默认使用22端口进行scp连接，如果服务器开放scp的端口不为22端口可以使用<code>-p</code>指定端口号。<code>remotefolder</code>为远程存放博客文件的目录路径，即Nginx所驱动的目录的上层目录，如<code>/root/workspace/myblog/</code>。</p>
+<h4 id="一-课程设计题目选择">一. 课程设计题目选择</h4>
+<p>题目有如下五个：</p>
+<p>1.学生成绩管理系统，要求：</p>
+<p>(1)设计一个学生类Student，包括数据成员：姓名、学号、二门课程(面向对象程序设计、高等数学)的成绩。</p>
+<p>(2)创建一个管理学生的类Management，包括实现学生的数据的增加、删除、修改、按课程成绩排序、保存学生数据到文件及加载文件中的数据等功能。</p>
+<p>(3)创建一个基于对话框的MFC应用程序，程序窗口的标题上有你姓名、学号和应用程序名称。使用(1)和(2)中的类，实现对学生信息和成绩的输入和管理。</p>
+<p>(4)创建一个单文档的MFC应用程序，读取(3)中保存的文件中的学生成绩，分别用直方图和折线方式显示所有学生某课程的成绩分布图。</p>
+<p>2.简单几何的绘制与管理系统，要求：</p>
+<p>(1)创建一个单（或多）文档/视图的Windows应用程序，进行平面几何图形的绘制和管理。</p>
+<p>(2)程序窗口的标题上有你姓名、学号和应用程序名称，并包含各种功能菜单。</p>
+<p>(3)几何图形的种类包括圆、矩形、三角形、平行四边形等。</p>
+<p>(4)程序初次运行时已至少内置6个几何图形。</p>
+<p>(5)功能有选取当前几何图形、添加几何图形、删除几何图形、变换几何图形(放缩、平移)。</p>
+<p>(6)计算窗口中几何图形总数；求选定几何图形面积、周长；计算所有图形的总面积和总周长等。</p>
+<p>(7)支持保存和加载程序绘制的几何图形文件。</p>
+<p>3.学生学籍管理系统，要求设计一个程序，对学生的学籍信息进行管理。通过该系统实现对学生基本信息的录入、保存、删除、修改、查询等操作。设计要求：</p>
+<p>(1)学生基本信息包括：学号、姓名、性别、年龄、班号、专业名称、系别等。</p>
+<p>(2)使用类和对象的概念实现程序设计。</p>
+<p>(3)以菜单形式显示各功能项。</p>
+<p>(4)各功能项如下：</p>
+<p>​	——学生基本信息的录入</p>
+<p>​	——学生基本信息的删除</p>
+<p>​	——学生基本信息的修改</p>
+<p>​	——学生基本信息的查询</p>
+<p>​			——按学号查询单个学生信息</p>
+<p>​			——按姓名查询单个学生信息</p>
+<p>​			——按性别查询学生信息</p>
+<p>​			——按班号查询学生信息</p>
+<p>​	——学生基本信息的统计</p>
+<p>​			——按性别统计学生人数</p>
+<p>​			——按班号统计学生人数</p>
+<p>​			——按年龄统计学生人数</p>
+<p>​			——按系别统计学生人数</p>
+<p>​	——退出系统</p>
+<p>(5)执行某个功能之后，程序将重新显示菜单供用户选择。</p>
+<p>(6)将学生学籍信息保存到文件中。</p>
+<p>4.高校人员信息管理系统(这个和上面一个特别像，就不再放具体要求了)</p>
+<p>5.停车场管理系统：编写停车场管理程序，用于停车场对车辆的管理。程序能够实现可用车位统计与查询、零车位提示、停车时长统计、按车型时长收费、管理员收费累计等功能。设计要求与提示如下：编写停车场收费管理系统，定义汽车类Car和管理员类CarManager，Car类有number(车牌号),model(车型)、enterTime(入场时间)、 quitTime(出场时间)、price(每小时收费价)、cost(费用)等属性，CarManager类有id和key等，实现以下收费功能：</p>
+<p>(1)可用车位统计与查询</p>
+<p>(2)零车位提示</p>
+<p>(3)停车时长统计</p>
+<p>(4)按车型时长收费</p>
+<p>(5)管理员收费累计</p>
+<p><b>第一个题目选的人太多了，百度一搜一大片，第二个题目本人当时做不出(I am so vegetable)，第三第四都差不多，第五个当初好像是没有思路。最终个人选择了第三个，此处将第三个题目的整体设计思路呈现一下，有写的不好的地方你自己改改就好了(个人感觉这个程序当时设计出来的鲁棒性和健壮性都是不错的😁)。</b></p>
+<h4 id="二-编程语言选择">二. 编程语言选择</h4>
+<p>虽然，这个课程设计的全称叫C++程序设计课程设计；虽然，这个课程设计的本意是设计一个MFC程序；但是呢，老师并没有说不能用别的编程语言设计这个可视化界面(当时好像是有人问过的)。于是呢，面向这个题目，为了让信息存储更美观(MFC目测只能用下拉列表存，而且还没有多项的下拉列表)，个人在几种编程语言的可视化控件中找了一圈，最终选择了拥有<code>DataGridView</code>控件的<code>C#</code>（Qt没找，Qt开源版的开源协议没有完全看懂不敢用，Java要装Qt插件才有可视化控件直接选择，所以也没用)。</p>
+<h4 id="三-页面设计布局">三. 页面设计布局</h4>
+<img src="/2021/03/06/ProgrammingCourseDesign/PdCs_1.png" class="">
+<p>首先，根据设计要求，先把<b>学号、姓名、性别、年龄、班号、专业名称、系别</b>的标签栏(Label)和文本框(TextBox)都添加上并一一改好控件名(别都是什么TextBox1,TextBox2的，鬼知道你哪个是哪个)</p>
+<p>然后呢，再把最最重要的数据存储控件<code>DataGridView</code>加上，并修改初始行(每个初始列的首项)。</p>
+<p>再把要求的<b>“以菜单形式显示各功能项”</b>的菜单加上，并把各功能项添加好，如图：</p>
+<img src="/2021/03/06/ProgrammingCourseDesign/PdCs_2.png" class="">
+<img src="/2021/03/06/ProgrammingCourseDesign/PdCs_3.png" class="">
+<h4 id="四-功能编写">四. 功能编写</h4>
+<h5 id="4-1-录入">4.1. 录入</h5>
+<p>我校学号为10位数字，通过Textbox的Text.Length属性控制学号仅能为10位长度；通过KeyPress事件的e.KeyChar判断，使得学号栏仅能输入数字0-9和退格键。</p>
+<p>同理，年龄仅能为数字且限制位数为3，班号仅能为数字且限制位数为3~4，姓名仅能为中英文等等。</p>
+<p>同时，由于学号唯一不可重复，在录入时遍历学号列判重。且学号姓名必填，缺一不可(提示错误)。</p>
+<p>添加全局变量用于保存总行数。</p>
+<p><em>Tip:系别专业班号三项可以用下拉列表框提前写死，免去输入的麻烦</em></p>
+<h5 id="4-2-查询">4.2. 查询</h5>
+<p>使用一个全局变量来记录当前状态：录入/查询。</p>
+<p>当不同的查询按钮(按学号、按姓名)被单击时，修改全局变量值，搜索<code>DataGridView</code>中对应列的数据，将匹配的数据行设为可见、不匹配则设置为不可见。搜索结束后再遍历所有行判断是否有可见行，若无可见行则提示“未找到有关数据”并将所有行的可见性还原。</p>
+<p>单击退出查询时将全局变量恢复默认值并将所有行的可见性还原。</p>
+<h5 id="4-3-修改">4.3. 修改</h5>
+<p>判断是否有选中单元格，且对应的输入栏是否为空，以及对应输入栏的输入判断，无误则允许修改。允许先进行查询再进行修改(正常思路，如果有一万项的列表，总不能一项项翻找吧)。</p>
+<h5 id="4-4-统计">4.4. 统计</h5>
+<p>置全局变量作计数器。遍历数据项判断，相同则计数器加一，遍历完成后与总数比较计算出百分比，对话框显示百分比及人数。</p>
+<h5 id="4-5-删除">4.5. 删除</h5>
+<p>判选中。声明局部变量用于保存选中行的行号。从选中行开始遍历，将下一行的值赋给上一行，遍历结束后删除最末行(若直接删除选中行会出现行索引NULL导致查询操作遍历行索引时报错)，并将保存总行数的全局变量减一。</p>
+<h5 id="4-6-保存">4.6. 保存</h5>
+<p>即数据导出。你看这个碗它又大又宽，你看这个<code>DataGridView</code>它就特别像Excel。上网一搜还真有直接把<code>DataGridView</code>的数据导出成Excel表格的，所以此处面向CV编程即可(老师看起来也不是很注重这一块，当时直接没问这里)。</p>
+<h4 id="五-源码">五. 源码</h4>
+<p><a target="_blank" rel="noopener" href="https://github.com/LuHawXem/Programming-Course-Design---2019">https://github.com/LuHawXem/Programming-Course-Design---2019</a></p>
 
       
 
@@ -211,16 +267,16 @@
     
     <br>
     <strong class="create-time">发布时间：</strong>
-    2021-02-05
+    2021-03-06
     <br>
     <strong class="update-time">最后更新：</strong>
-    2021-02-18
+    2021-03-07
     <br>
     <strong class="article-titles">本文标题：</strong>
-    <a href="http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/" title="博客搭建的补充" target="_blank">博客搭建的补充</a>
+    <a href="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/" title="程序设计课程设计" target="_blank">程序设计课程设计</a>
     <br>
     <strong class="article-url">本文链接：</strong>
-    <a href="http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/" title="博客搭建的补充" target="_blank">http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/</a>
+    <a href="http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/" title="程序设计课程设计" target="_blank">http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/</a>
     <br>
     <strong class="copyright">版权声明：</strong>
     本作品采用
@@ -243,15 +299,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">程序设计</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
       		
 		</ul>
@@ -307,7 +363,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://luhawxem.cn:4000/2021/02/05/AppendOfBlogBuilding/" alt="微信分享二维码">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://luhawxem.cn:4000/2021/03/06/ProgrammingCourseDesign/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -321,18 +377,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/16/BlogCommentSystem/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          添加博客评论系统——yilia主题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/01/22/MyFirstBlogArticle/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">我的第一篇博客文章</div>
+    <a href="/2021/02/18/BusuanziCounter/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">添加不蒜子访问量统计功能</div>
       <i class="icon-circle-right"></i>
     </a>
   
