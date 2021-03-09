@@ -6,18 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://luhawxem.cn:4000">
-  <title>Archives: 2021/2 | BBSD丿草丶帽的个人博客</title>
+  <title>计算机组成原理与体系结构课程设计 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="http://luhawxem.cn:4000/archives/2021/02/index.html">
+  <meta name="description" content="上学期期末做的，这学期又要学汇编😅，这都快忘光了，复习一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理与体系结构课程设计">
+<meta property="og:url" content="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="上学期期末做的，这学期又要学汇编😅，这都快忘光了，复习一下。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_1.png">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_2.png">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_3.png">
+<meta property="og:image" content="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_4.png">
+<meta property="article:published_time" content="2021-03-09T11:33:09.000Z">
+<meta property="article:modified_time" content="2021-03-09T12:58:49.486Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="计组">
+<meta property="article:tag" content="课程设计">
+<meta property="article:tag" content="汇编语言">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_1.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -145,160 +154,243 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PrincipleOfComputerCompositionCourseDesign" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机组成原理与体系结构课程设计
+    </h1>
+  
+
+        
+        <a href="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" class="archive-article-date">
+  	<time datetime="2021-03-09T11:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上学期期末做的，这学期又要学汇编😅，这都快忘光了，复习一下。</p>
+<a id="more"></a>
+<h4 id="一-课设题目">一. 课设题目</h4>
+<p>设计并实现具有以下16条指令的指令集结构的模型计算机：</p>
+<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_1.png" class="">
+<h4 id="二-检查方式">二. 检查方式</h4>
+<p>跑两个指定的测试程序，要求实验箱显示正确结果。如果题目不变的话，测试13条非转移指令的测试程序结果为：寄存器R0-R3分别显示00、11、22、33，IOH显示33。测试3条转移指令的测试程序结果为：寄存器R0-R3分别显示00、11、22、33，若显示EE则程序有误。</p>
+<h4 id="三-设计思路">三. 设计思路</h4>
+<p>其实前12条指令加上最后一条HALT停机指令都没有什么难度，如果前面的计组实验是认真做过的应该很快能搞定。这里的HALT指令我是偷鸡做的，因为CMStudio里的MXJ4.IS自带这条HALT指令，并且恰好在所需要的07E0H这个位置，所以我这个课设其实是基于MXJ4这一条HALT再去做的其他15条指令的。</p>
+<p>1.微指令起始入口(0000H~0001H)</p>
+<p>不过也有同学是直接从头到尾自己写的微指令文件，<b>出现了一个很神奇的问题就是：</b></p>
+<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_2.png" class="">
+<p>程序入口语句0001H此处的uPC，正常来说是填的程序入口地址，即第一条汇编指令的微指令地址(0600H)，如果此处是手写的，很可能出现忘了将<b>+1</b>改成0600H的情况。导致<b>脱机时完全没有问题，联机微单步运行大概7、8步之后运行顺序紊乱。</b></p>
+<p>经过与老师探讨，此处的问题貌似是<b>软件硬件状态不匹配</b>，若uPC为<b>+1</b>，硬件执行指令时，需要多次自增以达到指令位置(大概就是要等他慢慢+1+1一直加到比如0600H这样才行)，而软件仅能以一条汇编指令为单位运行，出现了汇编指令栏运行结束、微指令还不知道在哪的问题。</p>
+<p>2.SUB指令(0600H~0602H)</p>
+<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_3.png" class="">
+<p>减法指令，取数、取数、相减、放回目标寄存器。这里<b>要注意的是此处取数的总线规则</b>。为什么同样能取R0寄存器，一个是偶送偶、一个是奇送偶呢？</p>
+<p>如果你认真思考我这个问题那说明你还没有完全理解。此处偶送偶、奇送偶其实只是<em>表象</em>，SUB指令的指令码是0000RdRs，取数是从Rd取还是从Rs取<em>其实是看XP、OP控制位的</em>，但是这两个控制位的改变会导致总线规则的改变，于是表现出偶送偶和奇送偶的差异。</p>
+<p>3.ADD指令、AND指令同SUB指令，不再赘述。</p>
+<p>4.DEC指令，其实也就是从寄存器里取数送到ALU计算后送回寄存器而已，比较简单，CLR指令同理。</p>
+<p>5.RL、RR指令。还是同上，取数计算送回。但是<b>这里有个比较奇怪的bug</b>就是，RL循环左移指令是完全没有问题的，但是RR循环右移指令在CMStudio脱机运行时ALU输出会直接消失，不管什么数进去，输出都是0000H。而带进位右移RRC指令则可以正常运行，原因不明，忘了当时是否有联机测试过RR指令。总之最后老师修改了课设要求，从RL、RR改成了RL、RRC，于是也不了了之。</p>
+<p>6.MOV指令。<b>注意控制位</b>，直接源寄存器送目标寄存器就行，不用拿别的寄存器中转。</p>
+<p>7.LDI指令。将指令中的立即数送入Rd。首先要注意到，这条指令的机器指令码为<b>1000 Rd00 XXXX XXXX</b>，为两字节的指令，即指令长度为2。同时，<b>指令中的立即数</b>，立即数即为指令码中XXXX XXXX这一段。要注意到的是，<b>指令和数据(立即数)，本质上都是0/1字符</b>，都是储存在程序存储器(ROM)中的，所以此处的取立即数，需要在执行指令时，取出当前指令的下一个ROM单元内的数据，例如这条指令它存在了ROM中00H和01H号单元中，那么00H存放的即为1000 Rd00这一段指令码，而01H中即为指令所操作的立即数。需要注意的是，<b>ROM(程序存储器)和RAM(数据存储器)每个单元均只能存放一字节数据</b>(其实寄存器也是，R0-R7都是只能存放一字节数据，在本实验中你所能看到的AX、BX、CX、DX其实都是两个寄存器所组成的，容易给人一种错觉就是一个寄存器能存放两字节数据)。同时，由于本条指令的指令长度为2(占据两个ROM单元)，需要在指令执行过程中手动将PC自增，否则会出现找不到下一条指令的情况。因为正常执行完一条指令总会回到0000H-0001H，而在0001H处PC自增是为了寻找下一条指令所存放的ROM单元，但是<b>本条指令长度为2，自增一次时所读取到的ROM单元存放的是当前指令的操作数(立即数)</b>，将操作数当作指令执行于是出现问题。同理，若指令长度为3，则需要在执行过程中自增两次，自增位置视情况而定。</p>
+<p>8.OUT指令。Rs送IOH，没啥好说的，注意控制位和总线规则，送IO口高位，别送到低位了。</p>
+<p>9.LDA指令。数据存储器单元中的数据送寄存器。</p>
+<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_4.png" class="">
+<p>此处要<b>注意</b>的是，首先这是一条长度为3的指令，需要在过程中自增两次。同时，要从数据存储器中取数，必须要先知道数据存放的单元地址，而数据地址长度为两字节，从程序存储器中取出数据时只能取一字节，所以还需要进行<b>拼地址</b>的操作。先从ROM的第一个单元(假设为00H)取出数据地址的低八位，送到AL/BL；再将PC自增，从ROM的第二个单元(01H)取出数据地址的高八位，送到AH/BH拼成两字节的数据地址(此处显示为TmpB=ROM,PC++；但实际运行顺序是PC++,TmpB=ROM)。拼完地址后由ALU送AR地址寄存器，再由该地址取出预先存放在该地址单元的数据(<b>注意E/M控制位</b>，此控制位决定是从ROM取数据还是从RAM取数据)。</p>
+<p>10.STA指令。寄存器数据送数据存储器单元。其实就是把LDA指令的最后一步反一下，前面仍旧是拼地址、送AR，只是最后一步从RAM送寄存器变成了从寄存器送RAM。</p>
+<p>11.JMP指令。跳转。其实跟上面两条差不多，也是拼地址，只是这时候不送AR地址寄存器而是直接送PC了。</p>
+<p>12.JC/JZ指令。带控制跳转。<b>其实就是加一个判断条件的跳转</b>，条件成立就是普通的JMP，条件不成立则直接跳过当前指令不执行。直接在变址位置选择CY标志变址/Z标志变址，当CY标志/Z标志亮起时，视为1，此时会将这个1填入下址段ud0位置，与原本填在uPC位置的ud10~ud1组成真正的下址段进行跳转，简单来说就是，如果uPC填了0000H，那么此时最后一位(二进制位)为0，当CY/Z亮起时，最后一位被填入1，则为0001H，跳转到0001H执行；若CY/Z不亮，则正常跳转到0000H执行。倒是没有试过如果末位本来是1的情况，猜想应该是末位加上控制位而不是直接变成控制位(ud0+1/ud0+0而不是ud0=1/ud0=0)。</p>
+<p>13.HALT指令。停机指令。其实就是一个死循环，指令过程中使得PC-1，而指令执行后跳转回0001H时又使得PC+1，循环往复一直执行HALT指令，达到停机效果。</p>
+<h4 id="四-遇到的问题">四. 遇到的问题</h4>
+<p>软件脱机模拟的时候，AL+BL送ALU，然后再从ALU输出的过程中，若从ALU的高位输出，则AL+BL的结果也会送到FUN的高位(即总线规则若是从ALU的高位输出数据，ALU的运算结果也会送到高位)，进而输出；但硬件联机时发现，若从高位输出，AL+BL仍会送到FUN的低位(即总线规则不影响运算结果，运算结果总是送到低位)，导致程序出现问题。</p>
+<p>软件脱机时，ADD/SUB指令可以使用暂存器(TmpA、TmpB)也可以使用寄存器(AX、BX)相加/减，此时发生进位/结果为0时CY/Z灯亮持续到下一次使用ALU；但硬件联机时，若使用暂存器，在离开当前指令时ALU会被清空(这恒河里，说了是暂存器，就是用完就丢的，暂存器谁给你保存状态啊，吃饱了撑的)，CY/Z灯也会随之熄灭，导致JC/JZ变址不能达到理想结果。</p>
+<h4 id="五-微码及检查程序源文件">五. 微码及检查程序源文件</h4>
+<p><a target="_blank" rel="noopener" href="https://github.com/LuHawXem/Principle-of-Computer-Composition-Course-Design---2020">https://github.com/LuHawXem/Principle-of-Computer-Composition-Course-Design---2020</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/LuHawXem/Principle-of-Computer-Composition-Course-Design---2020">https://gitee.com/LuHawXem/Principle-of-Computer-Composition-Course-Design---2020</a></p>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare">
+    <strong class="author">本文作者：</strong>
+    
+      BBSD丿草丶帽
+    
+    <br>
+    <strong class="create-time">发布时间：</strong>
+    2021-03-09
+    <br>
+    <strong class="update-time">最后更新：</strong>
+    2021-03-09
+    <br>
+    <strong class="article-titles">本文标题：</strong>
+    <a href="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" title="计算机组成原理与体系结构课程设计" target="_blank">计算机组成原理与体系结构课程设计</a>
+    <br>
+    <strong class="article-url">本文链接：</strong>
+    <a href="http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" title="计算机组成原理与体系结构课程设计" target="_blank">http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/</a>
+    <br>
+    <strong class="copyright">版权声明：</strong>
+    本作品采用
+    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+    许可协议进行许可。转载请注明出处！
+    
+  </div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/18/BusuanziCounter/" class="archive-article-date">
-  	<time datetime="2021-02-18T13:37:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/18/BusuanziCounter/">添加不蒜子访问量统计功能</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计组</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">汇编语言</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://luhawxem.cn:4000/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/16/BlogCommentSystem/" class="archive-article-date">
-  	<time datetime="2021-02-16T03:53:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/06/ProgrammingCourseDesign/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">程序设计课程设计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/16/BlogCommentSystem/">添加博客评论系统——yilia主题</a>
-    </h1>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/05/AppendOfBlogBuilding/" class="archive-article-date">
-  	<time datetime="2021-02-05T02:11:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/05/AppendOfBlogBuilding/">博客搭建的补充</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -359,8 +451,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
