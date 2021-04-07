@@ -60,24 +60,24 @@
 			
 				<li><a href="/">主页</a></li>
 	        
+				<li><a href="/archives">目录</a></li>
+	        
 				<li><a href="/tags/%E7%AC%94%E8%AE%B0">笔记</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94">随笔</a></li>
+				<li><a href="/about">关于我</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
-            
-    			
     			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">常用链接</a>
     			
             
     			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">搜索文章-&gt;</a>
+    			
+            
     			
             
 		</nav>
@@ -120,6 +120,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -136,11 +138,13 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/tags/%E7%AC%94%E8%AE%B0">笔记</a></li>
+					<li style="width: 25%"><a href="/archives">目录</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/tags/%E9%9A%8F%E7%AC%94">随笔</a></li>
+					<li style="width: 25%"><a href="/tags/%E7%AC%94%E8%AE%B0">笔记</a></li>
+		        
+					<li style="width: 25%"><a href="/about">关于我</a></li>
 		        
 				</ul>
 			</nav>
@@ -455,8 +459,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
       
     
       
-      
-      
     
     
 
@@ -464,15 +466,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">常用链接</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">常用链接</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索文章-&gt;</a></li>
       
         
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
@@ -653,12 +653,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     	</section>
     
 
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">什么都略懂一点，生活才更多彩一些。&lt;br/&gt;——《三国杀》神吕蒙</div>
-  	  	
-    	</section>
     
   </div>
   
