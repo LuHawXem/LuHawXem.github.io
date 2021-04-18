@@ -8,19 +8,40 @@
   <link rel="dns-prefetch" href="https://www.luhawxem.com:4000">
   <title>操作系统——第二章(进程和线程) | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="😅这章得上四五节课，知识点比较多。未完待续~">
+  <meta name="description" content="😅大坑填完了，字数将近1w5，P、V操作实现进程同步和互斥问题属于研究生考试中的重难点，所以这一章上课也上了蛮久的，P、V操作就至少上了三小时左右的课。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统——第二章(进程和线程)">
 <meta property="og:url" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="😅这章得上四五节课，知识点比较多。未完待续~">
+<meta property="og:description" content="😅大坑填完了，字数将近1w5，P、V操作实现进程同步和互斥问题属于研究生考试中的重难点，所以这一章上课也上了蛮久的，P、V操作就至少上了三小时左右的课。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_1.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_2.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_3.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_4.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_5.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_6.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_7.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_8.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_9.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_10.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_11.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_12.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_13.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_14.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_18.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_19.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_15.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_16.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_17.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_20.png">
 <meta property="article:published_time" content="2021-03-27T06:24:21.000Z">
-<meta property="article:modified_time" content="2021-03-27T07:37:27.199Z">
+<meta property="article:modified_time" content="2021-04-18T13:18:16.318Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.luhawxem.com:4000/2021/03/27/OperatingSystem-ChapterTwo/OS2_1.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -194,25 +215,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>😅这章得上四五节课，知识点比较多。未完待续~</p>
+        <p>😅大坑填完了，字数将近1w5，P、V操作实现进程同步和互斥问题属于研究生考试中的重难点，所以这一章上课也上了蛮久的，P、V操作就至少上了三小时左右的课。</p>
 <a id="more"></a>
 <h4 id="2-1-进程概念">2.1 进程概念</h4>
+<p>进程是程序及其数据在计算机上的一次运行，是系统进行调度和资源分配的独立单位。</p>
+<p>僵尸进程(病毒)：进程运行结束后没有释放PCB。</p>
 <h5 id="2-1-1-多道程序设计">2.1.1 多道程序设计</h5>
-<p>**在早期单道程序系统中，**内存中除操作系统的程序外，只有一个用户程序存在，并且系统中的其他资源(如CPU、I/O设备等)也由这个程序单独使用，不与其他用户程序共享上述资源。这样，<strong>单道程序就严格按顺序方式执行。</strong></p>
+<p><strong>在早期单道程序系统中</strong>，内存中除操作系统的程序外，只有一个用户程序存在，并且系统中的其他资源(如CPU、I/O设备等)也由这个程序单独使用，不与其他用户程序共享上述资源。这样，<strong>单道程序就严格按顺序方式执行。</strong></p>
 <p><strong>1.顺序程序活动的特点</strong></p>
 <p>顺序程序活动具有<strong>顺序性、封闭性</strong>和<strong>可再现性</strong>三个特点(这个时候不需要进程)。</p>
 <p>①<strong>顺序性</strong>是指程序所规定的每个动作都在上个动作结束后才开始。</p>
 <p>②<strong>封闭性</strong>是指只有程序本身的动作才能改变程序的运行环境。</p>
-<p>③<strong>可再现性</strong>是指程序的执行结果与程序运行的速度无关。</p>
+<p>③<strong>可再现性</strong>是指程序的执行结果与程序运行的速度无关，只与执行环境和初始条件有关。</p>
 <p><strong>2.多道程序设计</strong></p>
 <p>单道程序系统具有资源浪费、效率低等明显缺点，所以现代计算机系统中几乎不再采用这种技术，而广泛采用的是多道程序设计技术。</p>
 <p>多道程序设计是在内存中同时存放多道程序，它们在管理程序的控制下交替地在CPU上运行。由于CPU执行指令的方式一般是流水线方式，即顺序执行，所以在每一时刻真正在CPU上执行的程序只有一个(宏观上并行，微观上串行)。</p>
 <p>多道程序设计具有提高系统资源(包括CPU、内存和I/O设备)利用率和增加作业吞吐量的优点。然而，程序的并发执行和系统资源的共享使得操作系统的工作变得很复杂，不像单道程序顺序执行时那样简单、直观。</p>
 <p><strong>3.程序并发执行的特征</strong></p>
 <p>程序并发执行时产生了以下三个新特征：</p>
-<p>①**失去封闭性。**并发执行的多个程序共享系统中的资源，因而这些资源的使用状态不再仅由某个程序所决定，而是受到并发程序的共同影响，因而具有一定的随机性。</p>
+<p>①<strong>失去封闭性。</strong> 并发执行的多个程序共享系统中的资源，因而这些资源的使用状态不再仅由某个程序所决定，而是受到并发程序的共同影响，因而具有一定的随机性。</p>
 <p>②<strong>程序与计算不再一一对应。</strong>“程序”是指令的有序集合，是“静态”概念；而“计算”是指令序列在处理机上的执行过程，是“动态”概念。在并发执行过程中，一个共享程序可被多个用户作业调用，从而形成多个“计算”。</p>
-<p>③**并发程序在执行期间相互制约。各程序活动的工作状态与所处的系统环境密切相关。**系统中很多资源具有独占性质，这就使逻辑上彼此独立的程序由于共用这类独占资源而形成相互制约的关系——在顺序执行时可连续运行的程序，在并发执行时却不得不暂停下来，等待其他程序释放自己所需的资源。</p>
+<p>③<strong>并发程序在执行期间相互制约。各程序活动的工作状态与所处的系统环境密切相关。</strong> 系统中很多资源具有独占性质，这就使逻辑上彼此独立的程序由于共用这类独占资源而形成相互制约的关系——在顺序执行时可连续运行的程序，在并发执行时却不得不暂停下来，等待其他程序释放自己所需的资源。</p>
 <h5 id="2-1-2-进程概念">2.1.2 进程概念</h5>
 <p><strong>1.进程概念的引入</strong></p>
 <p><strong>多道程序并发执行时，用程序这个静态概念已经不能如实反映程序并发执行过程中的这些特征。为此，人们引入“进程(Process)”这一概念来描述程序动态执行过程的性质。</strong></p>
@@ -231,6 +254,12 @@
 <p>(4)<strong>异步性</strong>：各进程向前推进的速度是不可预知的，即异步方式运行。这造成进程间的相互制约，使程序执行失去再现性。</p>
 <p>(5)<strong>结构性</strong>：进程有一定的结构，它由程序段、数据段和控制结构(如进程控制块)以及堆栈等组成。程序规定了该进程所要执行的任务，数据是程序操作的对象，而控制结构中含有进程的描述信息和控制信息，是进程组成中最关键的部分。</p>
 <p>(6)<strong>交互性</strong>：并发进程之间存在直接或间接的关系，运行进程中需要进行必要的交互(同步、互斥、数据通信等)。</p>
+<h5 id="2-1-3-进程和程序的区别">2.1.3 进程和程序的区别</h5>
+<p>1.进程是程序及其数据在计算机上的一次运行活动，它属于一种<strong>动态</strong>的概念。进程的运行实体是程序，离开程序进程没有存在的意义。从静态角度看，进程是由程序、数据和进程控制块 PCB三部分组成的。而程序是一组有序的指令集合，属于一种<strong>静态</strong>的概念。</p>
+<p>2.进程是程序的一次执行过程，它是动态地创建和消亡的，具有一定的<strong>生命期</strong>，是<strong>暂时</strong>存在的；而程序则是<strong>永久</strong>存在的，可长期保存。</p>
+<p>3.一个进程可以执行一个或几个程序，一个程序也可以构成多个进程。</p>
+<p>4.进程在宏观上并发执行，是异步的，而程序本身是顺序执行的。</p>
+<p>5.进程具有独立性，程序是可以共享的。</p>
 <h4 id="2-2-进程的状态和组成">2.2 进程的状态和组成</h4>
 <h5 id="2-2-1-进程的状态及其转换">2.2.1 进程的状态及其转换</h5>
 <p><strong>1.进程的基本状态：运行状态、就绪状态和阻塞状态(或等待状态)。</strong></p>
@@ -240,6 +269,12 @@
 <p>在很多系统中，除了以上三种基本进程状态，还有另外两种基本进程状态：新建状态和终止状态。</p>
 <p>(4)新建状态(New)：是指进程刚被创建，尚未放入就绪队列时的状态。处于此种状态的进程还是不完全的。当创建新进程的所有工作(包括分配一个进程控制块，分配内存空间，对进程控制块初始化等)完成后，操作系统就把该进程送入就绪队列中。</p>
 <p>(5)终止状态(Terminated)：是指进程完成自己的任务而正常终止时或在运行期间由于出现某些错误和故障而被迫终止(非正常终止)时所处的状态。处于终止状态的进程不能再被调度执行，下一步必然的结局是被系统撤销，进而从系统中永久消失。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_1.png" class="">
+<p>挂起：把进程移入进程交换区，回收内存，但不消亡PCB。</p>
+<p>有的操作系统中把等待状态(阻塞)分为不可中断等待态和可中断等待态。不可中断等待态等待的资源是message(信息、数据)，此时资源必须传输完毕进程才能执行(就绪)；可中断等待态等待的资源是signal(信号、通知)，只要资源开始传输的信号到达，进程就可以开始执行(就绪)。</p>
+<p>停止态：调试程序时才出现。</p>
+<p>进程交换区：linux中为交换分区/扩展分区。</p>
+<p>现代操作系统的交换分区空间可以临时申请。</p>
 <p><strong>2.UNIX进程状态</strong></p>
 <p>①用户运行态——在CPU上执行用户程序。</p>
 <p>②核心运行态——在CPU上执行核心程序。</p>
@@ -252,46 +287,395 @@
 <p>⑨终止态——进程终止自己。</p>
 <p>“在外存就绪”和“在外存睡眠”两种状态在有的系统中称作挂起状态。挂起，是使处于基本状态的进程(就绪、运行、阻塞/睡眠)处于静止(非终止)状态，此时系统回收被这些进程占用的内存资源，将其实体复制到外存的进程交换区。挂起不等于撤销，可通过解挂(换入)重新分配内存。</p>
 <p><strong>3.进程状态的切换</strong></p>
+<p>1.就绪→运行</p>
+<p>2.运行→阻塞</p>
+<p>3.阻塞→就绪</p>
+<p>4.运行→就绪</p>
 <h5 id="2-2-2-进程描述">2.2.2 进程描述</h5>
 <p><strong>1.进程映像(mapping)：通常由程序、数据集合、栈和进程控制块PCB等4部分组成。</strong></p>
+<p>改变进程映像的工作很复杂，其主要过程是：</p>
+<p>(1)释放子进程原来的程序和数据所占用的内存空间；</p>
+<p>(2)从磁盘上找出子进程所要执行的程序和数据（通常以可执行文件的形式存放）；</p>
+<p>(3)分配内存空间，装入新的程序和数据；</p>
+<p>(4)为子进程建立初始的运行环境——主要是对各个寄存器初始化，返回到用户态，运行该进程的程序。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_2.png" class="">
+<p>3G~3G+16M(虚存地址)用于存放所有外设的驱程(中断向量表)，初始实地址为0地址。当系统由实模式进入虚模式时系统会移动中断向量表的实地址(保护模式)。</p>
+<p>Mem-map和Kernel Image是Boot启动程序存放的地方。</p>
+<p>虚存到实存的映射称为地址的动态重定位。</p>
+<p>虚地址起始位置为0x08048000，前面的0~0x08047FFF实际上是留给中断向量表的(但是中断向量表在虚模式中会移动位置，所以其实这块空间是空着的，都不用)。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_3.png" class="">
 <p><strong>2.进程控制块的组成：进程控制块(PCB)有时也称进程描述块(Process Descriptor)，它是进程组成中最关键的部分，其中含有进程的描述信息和控制信息，是进程动态特性的集中反映，是系统对进程施行识别和控制的依据</strong>(进程控制块是一个进程的灵魂，是进程的户口)。<strong>进程控制块一般应包括如下内容：</strong></p>
-<p>①**进程名。**它是唯一的标志对应进程的一个标志符或数字。有的系统用进程标识符作为进程的外部标志，用进程标识号(PID，在一定数值范围内的进程编号)作为进程的内部标志。</p>
-<p>②**特征信息。**包括是系统进程还是用户进程，进程实体是否常驻内存等信息。</p>
-<p>③**进程状态信息。**表明该进程的执行状态，是运行状态、就绪状态还是阻塞状态。</p>
-<p>④**调度优先权。**表示进程获取CPU的优先级别。当多个就绪进程竞争CPU时，系统一般让优先权高的进程先占用CPU。</p>
-<p>⑤**通信信息。**反映该进程与哪些进程有什么样的通信关系，如等待哪个进程的信号等。</p>
-<p>⑥**现场保护区。**当对应进程由于某种原因放弃使用CPU时，需要把它的一部分与运行环境有关的信息保存起来，以便在重新获得CPU后恢复正常运行。<strong>通常被保护的信息有程序计数器、程序状态字、各工作寄存器的内容等。</strong></p>
-<p>⑦**资源需求、分配和控制方面的信息。**如进程所需要或占有的I/O设备、磁盘空间、数据区等。</p>
-<p>⑧**进程实体信息。**指出该进程的程序和数据的存储情况，在内存或外存的地址、大小等。</p>
-<p>⑨**族系关系。**反映父子进程的隶属关系。</p>
-<p>⑩**其他信息。**如文件信息、工作单元等。</p>
+<p>①<strong>进程名。</strong> 它是唯一的标志对应进程的一个标志符或数字。有的系统用进程标识符作为进程的外部标志，用进程标识号(PID，在一定数值范围内的进程编号)作为进程的内部标志。</p>
+<p>②<strong>特征信息。</strong> 包括是系统进程还是用户进程，进程实体是否常驻内存等信息。</p>
+<p>③<strong>进程状态信息。</strong> 表明该进程的执行状态，是运行状态、就绪状态还是阻塞状态。</p>
+<p>④<strong>调度优先权。</strong> 表示进程获取CPU的优先级别。当多个就绪进程竞争CPU时，系统一般让优先权高的进程先占用CPU。</p>
+<p>⑤<strong>通信信息。</strong> 反映该进程与哪些进程有什么样的通信关系，如等待哪个进程的信号等。</p>
+<p>⑥<strong>现场保护区。</strong> 当对应进程由于某种原因放弃使用CPU时，需要把它的一部分与运行环境有关的信息保存起来，以便在重新获得CPU后恢复正常运行。<strong>通常被保护的信息有程序计数器、程序状态字、各工作寄存器的内容等。</strong></p>
+<p>⑦<strong>资源需求、分配和控制方面的信息。</strong>  如进程所需要或占有的I/O设备、磁盘空间、数据区等。</p>
+<p>⑧<strong>进程实体信息。</strong> 指出该进程的程序和数据的存储情况，在内存或外存的地址、大小等。</p>
+<p>⑨<strong>族系关系。</strong> 反映父子进程的隶属关系。</p>
+<p>⑩<strong>其他信息。</strong> 如文件信息、工作单元等。</p>
+<p><strong>3.进程控制块的作用：</strong></p>
+<ul>
+<li>
+<p>每个进程有唯一的进程控制块</p>
+</li>
+<li>
+<p>操作系统根据PCB对进程实施控制和管理</p>
+</li>
+<li>
+<p>进程的动态、并发等特征是利用PCB表现出来的</p>
+</li>
+<li>
+<p>PCB是进程存在的唯一标识</p>
+</li>
+</ul>
 <h5 id="2-2-3-进程队列">2.2.3 进程队列</h5>
+<p>1.线性方式：操作系统预先确定整个系统中同时存在的进程的最大数目，然后静态分配空间时，把所有进程的PCB都放在这个队列表中。</p>
+<p>2.链接方式：按照各进程的不同状态分别将它们的PCB放在不同的队列中。</p>
+<p>3.索引方式：利用索引表记载不同状态进程的PCB地址。系统建立几张索引表，各对应进程的不同状态，如就绪索引表、阻塞索引表等。</p>
 <h4 id="2-3-进程管理">2.3 进程管理</h4>
+<p>内核库例程：不需要用户操作，系统自动执行的操作(如自动保存)。</p>
+<p>系统消耗时间：系统运行内存调度、进程调度等非执行程序的时间。</p>
 <h5 id="2-3-1-进程图">2.3.1 进程图</h5>
+<p>进程图(Process Graph)是描述进程族系关系的有向树。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_4.png" class="">
+<p>其中0号进程为系统进程，1号进程为所有进程的父进程/祖先进程。当其他进程异常停止导致资源无法回收时，父进程或1号进程会进行资源回收。</p>
 <h5 id="2-3-2-进程创建">2.3.2 进程创建</h5>
+<p>引发创建进程的事件通常是调度新的批作业，交互式用户登录，操作系统提供服务和现有进程派生新进程。</p>
+<p>创建新进程时要执行创建进程的系统调用(如UNIX/Linux的fork)，其主要操作过程有以下四步：</p>
+<p>1.申请一个空闲的PCB</p>
+<p>2.为新进程分配资源</p>
+<p>3.将新进程的PCB初始化</p>
+<p>4.将新进程加到就绪队列中</p>
+<p>fork()无参，但有两个返回值(else和else if 并发)，0(表示子进程在自己的内存空间运行，表示子进程为自创旁支的祖先)或大于0(子进程在父进程的内存空间运行)为正常，-1为错误。</p>
+<p>子进程被创建后，一般使用execlp(家族树函数)系统调用——用一个程序(如可执行文件)取代原来内存空间中的内存，然后开始执行。</p>
+<p>父进程创建子进程时，子进程的PCB先是完全复制父进程的PCB，操作系统此时并没有为子进程申请内存，当子进程执行了execlp系统调用之后，系统才为其申请内存并刷新子进程的PCB数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;//统一标准库</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/types.h&gt;//类型库</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;//IO操作</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> pid; </span><br><span class="line">    pid = fork();<span class="comment">//创建一个子进程</span></span><br><span class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;        </span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Fork Failed&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>)<span class="comment">//子进程执行</span></span><br><span class="line">    &#123;        </span><br><span class="line">        execlp( <span class="string">&quot;/bin/ls&quot;</span>, <span class="string">&quot;ls&quot;</span>,<span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//父进程执行</span></span><br><span class="line">    &#123;  </span><br><span class="line">        wait(<span class="literal">NULL</span>);<span class="comment">//父进程等待子进程执行完毕,可以清除子进程产生的游离内存</span></span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;Child Complete&quot;</span> );</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在以上程序中，如果没有wait则父子进程优先级相同(并发执行)，execlp和printf的执行顺序就不一定了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//问此段程序执行完之后有多少个进程</span></span><br><span class="line">main()<span class="comment">//主进程,初始只有这一个</span></span><br><span class="line">&#123;</span><br><span class="line">    fork();<span class="comment">//第一次fork，主进程产生一个子进程，2个进程</span></span><br><span class="line">    fork();<span class="comment">//第二次fork，主进程产生第二个子进程，主进程的第一个子进程也产生一个子进程，4个进程</span></span><br><span class="line">    fork();<span class="comment">//第三次fork，同理，上一步产生的4个进程分别产生一个子进程，最终共8个进程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="2-3-3-进程终止">2.3.3 进程终止</h5>
+<p>导致进程终止的三种情况：正常终止、异常终止(容错程序处理，属于软中断)、外部干扰。</p>
+<p>终止进程的主要操作过程如下：</p>
+<p>1.找到指定进程的PCB，终止该进程的运行</p>
+<p>2.回收该进程所占用的全部资源</p>
+<p>3.终止其所有子孙进程，回收它们所占用的全部资源。</p>
+<p>4.将被终止进程的PCB从原来队列中摘走</p>
+<p>容错程序大多数是冗余程序，大多数时间不允许，但是一旦出错必须运行(不然系统就运行不下去了)。</p>
+<p>子进程向父进程报告如何结束(正常、异常、外部干扰)的状态称为僵死态，此时结构task_struct(即PCB)仍然保留。</p>
 <h5 id="2-3-4-进程阻塞">2.3.4 进程阻塞</h5>
+<p>进程阻塞的过程如下：</p>
+<p>1.立即停止当前进程的执行</p>
+<p>2.现行进程的CPU现场保存(PSW、IP/PC、IDTR寄存器的数据入栈)</p>
+<p>3.现行状态由“运行”改为“阻塞”</p>
+<p>4.转到进程调度程序</p>
+<p>运行环境指的是CPU内部各个寄存器的状态。</p>
+<p>保存现场及恢复现场需要入栈出栈，比较浪费时间，所以同等优先级下轻易不会切换进程运行。</p>
+<p>递归算法每次进行函数调用都产生了软中断，反复进行入栈出栈，相较于非递归算法更浪费时间空间。</p>
 <h5 id="2-3-5-进程唤醒">2.3.5 进程唤醒</h5>
+<p>唤醒原语执行过程如下：</p>
+<p>1.把阻塞进程从相应的阻塞队列中摘下(先进就绪队列再争CPU，不能一唤醒就直接争夺CPU)</p>
+<p>2.将现行状态改为就绪状态，然后把该进程插入就绪队列中</p>
+<p>3.如果被唤醒的进程比当前运行进程的优先级更高，则设置重新调度标志(立刻停止当前进程重新筛选，抢占式优先级调度)</p>
+<p>原语：一旦运行就不能停止。</p>
+<h5 id="2-3-6-Linux进程管理">2.3.6 Linux进程管理</h5>
+<p>1.Linux进程状态：</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_5.png" class="">
+<p>子进程结束的状态属于僵尸状态，需要等待父进程进行收尾处理工作。收尾工作中包括接收孙子进程作为子进程等操作。</p>
+<p>子进程结束时，先通过带参数的exit()向父进程报告如何结束，再执行do.exit()结束进程。</p>
+<p>2.Linux进程结构：</p>
+<p>(1)进程系统堆栈</p>
+<p>(2)task_struct结构：Linux系统中的每个进程都有一个名为task_struct的数据结构，它相当于“进程控制块”，其中包含进程状态、调度信息、标识符、内部进程通信、链接信息、时间和计时器、文件系统、虚拟内存、处理器信息等信息。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_6.png" class="">
+<p>rt：real time 实时</p>
+<p>fd：file description 文件描述</p>
+<p>open：建立虚存和磁盘上文件的映射，但文件还未加载进内存。</p>
+<h5 id="2-3-7-有关进程操作的命令">2.3.7 有关进程操作的命令</h5>
+<p>1.ps命令：查看进程状态</p>
+<p>ps命令的一般格式是：ps [选项]</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ps</span><br><span class="line"> PID    TTY        TIME      CMD</span><br><span class="line">1788   pts/1       00:00:00  bash</span><br><span class="line">1822   pts/1       00:00:00  ps</span><br></pre></td></tr></table></figure>
+<p>2.kill命令：终止一个进程的执行</p>
+<p>kill命令的一般格式是：</p>
+<p>kill [-s 信号|-p ] [-a] 进程号…</p>
+<p>kill -l [信号]</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">kill</span> 1651</span><br></pre></td></tr></table></figure>
+<p>3.sleep命令：使进程暂停执行一段时间</p>
+<p>一般使用格式为:sleep 时间值</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sleep 100;who | grep <span class="string">&#x27;mengqc&#x27;</span></span><br></pre></td></tr></table></figure>
 <h4 id="2-4-线程">2.4 线程</h4>
 <h5 id="2-4-1-线程概念">2.4.1 线程概念</h5>
+<p>在操作系统中引入进程的目的，是为了使多个程序并发执行，以改善资源利用率及提高系统的吞吐量；那么，在操作系统中再引入线程，则是为了减少程序并发执行时所付出的时空开销，使OS具有更好的并发性。</p>
+<p>现代操作系统中，进程只作为资源拥有者，而调度和运行的属性赋予新的实体——线程。</p>
+<p><strong>线程(Thread)</strong> 是进程中执行运算的最小单位，亦即执行处理机调度的基本单位。</p>
+<p>引入线程概念的理由主要有：</p>
+<p>① 使并行实体获得共享同一地址空间和所有可用数据的能力。</p>
+<p>② 易于切换，代价低。</p>
+<p>③ 可以改善系统的性能。</p>
+<ul>
+<li>
+<p>线程自己基本上不拥有系统资源，只拥有一点在运行中必不可少的资源（如程序计数器、一组寄存器和栈），但它可与同属一个进程的其它线程共享进程所拥有的全部资源。</p>
+</li>
+<li>
+<p>一个线程可以创建和撤消另一个线程</p>
+</li>
+<li>
+<p>同一进程中的多个线程之间可以并发执行</p>
+</li>
+<li>
+<p>由于线程之间的相互制约，致使线程在运行中也呈现出间断性</p>
+</li>
+</ul>
+<p><strong>1.线程的组成</strong></p>
+<p>线程，有时也称轻载进程(LWP)。每个线程有一个thread结构，即线程控制块，用于保存自己私有的信息，主要由以下4个基本部分组成：</p>
+<p>①一个唯一的线程标识符</p>
+<p>②一组寄存器</p>
+<p>③两个栈指针</p>
+<p>④一个私有存储区</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_7.png" class="">
+<ul>
+<li>
+<p>线程必须在某个进程内执行</p>
+</li>
+<li>
+<p>一个进程可以包含一个线程或多个线程</p>
+</li>
+</ul>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_8.png" class="">
+<p><strong>2.线程的状态</strong></p>
+<p>与进程相似，线程也有若干种状态：如运行状态、阻塞状态、就绪状态和终止状态。</p>
+<p><strong>3.线程的管理</strong></p>
+<p>①线程创建：通过调用过程库中的thread_create可以创建新线程。</p>
+<p>②线程终止：通过调用过程库中的thread_exit终止自身。</p>
+<p>③线程等待：通过调用过程库中的thread_wait可以等待指定线程终止。</p>
+<p>④线程让权：线程自愿放弃CPU让给另外的线程运行时，调用过程thread_yield。</p>
+<p><strong>4.线程和进程的关系</strong></p>
+<p>① 一个进程可以有多个线程，但至少要有一个线程；而一个线程只能在一个进程的地址空间内活动。</p>
+<p>② 资源分配给进程，同一进程的所有线程共享该进程的所有资源。</p>
+<p>③ 处理机分配给线程，即真正在处理机上运行的是线程。</p>
+<p>④ 线程在执行过程中需要协作同步。不同进程的线程间要利用消息通信(在两个进程之外通信)的办法实现同步。</p>
+<p><strong>5.引入线程的好处(线程与进程的区别)</strong></p>
+<p>1.调度：在传统的操作系统中，拥有资源的基本单位和独立调度、分派的基本单位都是进程。而在引入线程的OS中，则把线程作为调度和分派的基本单位，而把进程作为资源拥有的基本单位．</p>
+<p>2.并发性：在引入线程的操作系统中，不仅进程之间可以并发执行，而且在一个进程中的多个线程之间．亦可并发执行．</p>
+<p>3.拥有资源：进程是拥有资源的一个独立单位，它可以拥有自己的资源，且可供同一进程的所有线程共享这些资源。一般地说，线程自己不拥有系统资源（也有一点必不可少的资源），但它可以访问其隶属进程的资源。</p>
+<p>4.系统开销：在创建或撤消进程时，系统都要为之分配或回收资源。在进行进程切换时，涉及到整个进程 CPU环境切换。而线程切换只须保存和设置少量寄存器的内容，并不涉及存储器管理方面的操作</p>
 <h5 id="2-4-2-线程的实现">2.4.2 线程的实现</h5>
+<p><strong>1.用户级线程</strong></p>
+<p>线程库放在用户空间，管理线程的工作全部由用户空间的应用程序实现，内核不知道线程的存在。</p>
+<p>优点：切换速度快，进程内部无需进行系统调度，这比陷入内核进行进程调度要快得多；调度算法可以是应用程序专用的；可运行在任何操作系统上。</p>
+<p>缺点：系统调用的阻塞问题，多数系统调用是阻塞式的，当一个线程被系统调用阻塞时，它所在的同一个进程内的所有线程都被阻塞；多线程应用程序不具有多处理器的优点，即当一个线程获得CPU运行时，它所在的同一个进程内的其他线程都不会被执行</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_9.png" class="">
+<p><strong>2.核心级线程</strong></p>
+<p>内核知道线程的存在。</p>
+<p>优点：在多处理器系统中，内核可以同时为同一进程内的多个线程分配处理器，真正实现并行操作；克服阻塞问题：如果一个进程的某个线程被阻塞，内核也可以为同一进程的另外的线程分配处理器，使该进程不被阻塞；核心线程本身也可以是多线程的。</p>
+<p>缺点：控制转移开销大；调度算法由核心确定，应用进程无法影响线程的切换。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_10.png" class="">
 <h4 id="2-5-进程的同步和互斥">2.5 进程的同步和互斥</h4>
+<p>进程间的相互关系主要分为如下三种形式：</p>
+<p>① 互斥——竞争同一资源而发生相互制约</p>
+<p>② 同步——协同完成一项任务(知道对方的存在)</p>
+<p>③ 通信——交换信息</p>
+<p>互斥和同步都是属于信号(signal)争夺，通信是信息(message)交换，涉及的资源不一样。</p>
 <h5 id="2-5-1-进程同步与互斥的概念">2.5.1 进程同步与互斥的概念</h5>
+<p><strong>1.同步</strong></p>
+<p>进程的同步是指进程之间的一种直接的协同工作关系。当某进程运行到某点时要求另一伙伴进程为它提供消息。在未得到对方的消息时，该进程必须处于等待状态，直到收到消息后被唤醒，这种关系就是进程之间的同步关系。即进程之间相互制约的等待与互通消息。(类似接力跑中等待接力棒)</p>
+<p>同步进程通过共享资源来协调活动，在执行时间的次序上有一定约束。虽然彼此不直接知道对方的名字，但知道对方的存在和作用。在协调动作的情况下，多个进程可以共同完成一项任务。</p>
+<p><strong>2.互斥</strong></p>
+<p>进程的互斥是指进程之间的一种间接关系。是由各进程排它性使用共享资源引起的。即两个或两个以上的进程之间互相争夺临界资源的现象。(类似打印作业争夺打印机)</p>
+<p>在逻辑上这两个进程本来完全独立，毫无关系，只是由于竞争同一个物理资源而相互制约。它们的运行不具有时间次序的特征。</p>
+<p>两个或多个进程同时访问和操纵相同的数据时，最后的执行结果取决于进程运行的精确时序，这种情况称为竞争条件。</p>
 <h5 id="2-5-2-临界资源和临界区">2.5.2 临界资源和临界区</h5>
+<p><strong>1.临界资源和临界区</strong></p>
+<p>临界资源(Critical Resource)：一次仅允许一个进程使用的共享资源称为临界资源。</p>
+<p>临界区(Critical Section，简称CS区)：在每个进程中访问临界资源的那段程序称为临界区。</p>
+<p><strong>2.进程的一般结构</strong></p>
+<p>典型进程进入临界区的一般结构：</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_11.png" class="">
+<p><strong>3.临界区进入准则</strong></p>
+<p>①独占临界区(每次只允许一个进程进入临界区)</p>
+<p>②前进速度不确定(若有进程欲进入临界区时，不能互相封锁，致使进程都不能进入)</p>
+<p>③区内进程不受干扰</p>
+<p>④有期等待 (进入临界区的进程要限时退出)</p>
+<p><strong>4.临界区调用原则</strong></p>
+<p>①有空让进：没有任何一个进程处于临界区内时，允许一个进程进入临界区</p>
+<p>②忙则等待：已有进程进入临界区时，其他欲进入进程必须等待</p>
+<p>③有限等待：一个进程离开临界区时，若发现有进程正在等待进入临界区，则要唤醒这些进程，以免进程陷入“死等待”</p>
+<p>④让权等待：当进程不能进入临界区时，应立即释放CPU，以免进程陷入“忙等待”</p>
 <h5 id="2-5-3-互斥实现方式">2.5.3 互斥实现方式</h5>
+<p><strong>1.利用硬件方法解决进程互斥问题</strong></p>
+<p>(1)禁止中断：进入临界区之后立即关闭所有的中断</p>
+<p>(2)专用机器指令：TSL(Test and Set Lock，即测试并上锁)：TSL RX，LOCK。汇编代码示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enter_region:</span><br><span class="line">        TSL REGISTER,LOCK</span><br><span class="line">        CMP REGISTER,#0</span><br><span class="line">        JNE enter_region</span><br><span class="line">        RET</span><br><span class="line">leave_region:</span><br><span class="line">        MOVE LOCK,#0</span><br><span class="line">        RET </span><br></pre></td></tr></table></figure>
+<p><strong>2.原语</strong></p>
+<p><strong>原语(primitive)</strong> 是机器指令的延伸，往往是为完成某些特定的功能而编制的一段系统程序。原语操作也称做“原子操作”(atomic action)，即一个操作中的所有动作要么全做，要么全不做。执行原语操作时，要屏蔽中断(原语操作与中断同等优先级)，以保证其操作的不可分割性。</p>
+<p>Linux内核提供了一个专门的atomic_t类型和原子操作函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> counter;<span class="comment">//int型变量的累加可以直接使用AX寄存器完成</span></span><br><span class="line">&#125;<span class="keyword">atomic_t</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>3.利用软件方法解决进程互斥问题</strong></p>
+<p>可为每类临界区设置一把锁，该锁有打开和关闭两种状态。进程执行临界区程序的操作按下列步骤进行：关锁→执行临界区程序→开锁。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">关锁原语lock (W):</span><br><span class="line">	<span class="keyword">while</span> (W==<span class="number">1</span>);</span><br><span class="line">		W=<span class="number">1</span>;</span><br><span class="line">开锁原语unlock (W):</span><br><span class="line">	w=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>例：用锁实现进程互斥。设系统中有一台打印机，有两个进程A和B都要使用它，以变量W表示锁，预先把它的值置为0。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">进程A </span><br><span class="line">…… </span><br><span class="line">lock(W);</span><br><span class="line">打印信息S;<span class="comment">//CS区 </span></span><br><span class="line">unlock(W);</span><br><span class="line">……</span><br><span class="line">进程B </span><br><span class="line">…… </span><br><span class="line">lock(W);</span><br><span class="line">打印信息S;<span class="comment">//CS区 </span></span><br><span class="line">unlock(W);</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<p>软件方式解决互斥可能造成进程的忙等待，而忙等待可能导致系统死锁。</p>
 <h5 id="2-5-4-信号量">2.5.4 信号量</h5>
+<p>信号量(Semaphore)是为了解决进程同步、互斥问题的更通用的工具。</p>
+<p>最初，将信号量定义为一个共享的整型量，称为整型信号量。但整型信号量仍会出现忙式等待。为克服忙式等待的缺点，人们对信号量和P、V操作的定义进行改进，采用结构型信号量。</p>
+<p>结构型信号量又称计数信号量，简称信号量。一般是由两个成员组成的数据结构。其中一个成员是整型变量，表示该信号量的值；另一个是指向PCB的指针。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">PCB</span> *<span class="title">list</span>;</span></span><br><span class="line">&#125; semaphore;</span><br></pre></td></tr></table></figure>
+<p>信号量的值与相应资源的使用情况有关。信号量的一般结构及PCB队列：</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_12.png" class="">
+<p>对信号量的操作有如下严格限制：</p>
+<p>①信号量可以赋初值，且初值为非负数。</p>
+<p>②在使用过程中，信号量的值可以修改，但只能由P和V操作来访问，不允许通过其他方式来查看或操纵信号量。</p>
+<p>设信号量为S，对S的P操作记为P(S)，对S的V操作记为V(S)。</p>
+<p>P(S)：顺序执行下述两个动作：</p>
+<p>①信号量的值减1，即S=S-1；</p>
+<p>②如果S≥0，则该进程继续执行；如果S＜0，则把该进程的状态置为阻塞态，把相应的PCB连入该信号量队列的末尾，并放弃处理机，进行等待(直至其它进程在S上执行V操作，把它释放出来为止)。</p>
+<p>V(S)：顺序执行下述两个动作：</p>
+<p>①S值加1，即S=S+1；</p>
+<p>②如果S＞0，则该进程继续运行；如果S≤0，则释放信号量队列上的第一个PCB(即信号量指针项所指向的PCB)所对应的进程(把阻塞态改为就绪态)，执行V操作的进程继续运行。</p>
+<p>Ｐ、Ｖ操作都应作为一个整体实施，不允许分割或相互穿插执行。P、V操作相互穿插执行会引起系统死锁。</p>
 <h5 id="2-5-5-信号量的一般应用">2.5.5 信号量的一般应用</h5>
+<p><strong>1. 用信号量实现进程互斥</strong></p>
+<p>打印机分配表的互斥使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pa:                         Pb:</span><br><span class="line">…                           …</span><br><span class="line">P(mutex)                    P(mutex)</span><br><span class="line">分配打印机                    释放打印机</span><br><span class="line">（读写分配表）                （读写分配表）</span><br><span class="line">V(mutex)                    V(mutex)</span><br><span class="line">…                           …</span><br></pre></td></tr></table></figure>
+<p>利用信号量实现互斥的一般模型是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">进程P1             进程P2        …      进程Pn</span><br><span class="line">…                 …                    …   </span><br><span class="line">P(mutex);         P(mutex);            P(mutex);</span><br><span class="line">临界区             临界区                临界区</span><br><span class="line">V(mutex);         V(mutex);            V(mutex);</span><br><span class="line">…                 …                    …</span><br></pre></td></tr></table></figure>
+<p><strong>注意点：</strong></p>
+<p>① 在每个程序中用于实现互斥的P(mutex)和V(mutex)必须成对出现，即先做P，进入临界区；后做V，退出临界区。</p>
+<p>② 互斥信号量mutex的初值一般为1。</p>
+<p><strong>2.用信号量实现进程简单同步</strong></p>
+<p>对缓冲区的同步使用问题</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_13.png" class="">
+<p>供者和用者间要交换两个消息：缓冲区空、缓冲区满</p>
+<p>设置两个信号量：</p>
+<p>S1表示缓冲区是否空(0表示不空，1表示空)。</p>
+<p>S2表示缓冲区是否满(0表示不满，1表示满)。</p>
+<p>规定S1和S2的初值分别为1和0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">供者进程                           用者进程</span><br><span class="line">L1: P(S1)                         L2: …</span><br><span class="line">    启动读卡机                          P(S2);</span><br><span class="line">    …                           	  从缓冲区取出信息 </span><br><span class="line">    收到输入结束中断               	     V(S1);</span><br><span class="line">    V(S2);                         	  加工并且存盘</span><br><span class="line">    goto L1;                          goto L2;</span><br></pre></td></tr></table></figure>
+<p>用P和V操作实现同步时应注意如下三点：</p>
+<p>① 分析进程间的制约关系，确定信号量种类。</p>
+<p>② 信号量的初值与相应资源的数量有关，也与P, V操作在程序代码中出现的位置有关。</p>
+<p>③ 同一信号量的P, V操作要“成对”出现，但是，它们分别出现在不同的进程代码中。</p>
 <h4 id="2-6-经典进程同步问题">2.6 经典进程同步问题</h4>
 <h5 id="1-生产者-消费者问题">1.生产者-消费者问题</h5>
+<p>生产者:能产生并释放资源的进程</p>
+<p>消费者:单纯使用(消耗)资源的进程</p>
+<p>问题表述：一组生产者进程和一组消费者进程(设每组有多个进程)通过缓冲区发生联系。生产者进程将生产的产品(数据、消息等统称为产品)送入缓冲区，消费者进程从中取出产品。</p>
+<p>假定缓冲区共有<em>N</em>个，不妨把它们设想成一个环形缓冲池。它们应满足如下同步条件：</p>
+<p>① 任一时刻所有生产者存放产品的单元数不能超过缓冲区的总容量（<em>N</em>）。</p>
+<p>② 所有消费者取出产品的总量不能超过所有生产者当前生产产品的总量。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_14.png" class="">
+<p>设缓冲区的编号为0～<em>N</em>-1，in和out分别是生产者进程和消费者进程使用的指针，指向下面可用的缓冲区，初值都是0。</p>
+<p>设置三个信号量：</p>
+<p>full：表示放有产品的缓冲区数，其初值为0。</p>
+<p>empty：表示可供使用的缓冲区数，其初值为<em>N</em>。</p>
+<p>mutex：互斥信号量，初值为1，表示各进程互斥进入临界区，保证任何时候只有一个进程使用缓冲区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">生产者进程Producer：             消费者进程Consumer：</span><br><span class="line">   while(TRUE) &#123;		          while(TRUE)&#123;</span><br><span class="line">        P(empty);			      	   P(full);</span><br><span class="line">        P(mutex);			    	   P(mutex);</span><br><span class="line">        产品送往buffer(in);		        从buffer(out)中取出产品；</span><br><span class="line">        in&#x3D;(in+1)mod N;                out&#x3D;(out+1)mod N;   </span><br><span class="line">        &#x2F;*以N为模*&#x2F;                     &#x2F;*以N为模*&#x2F;</span><br><span class="line">        V(mutex);			           V(mutex);</span><br><span class="line">        V(full);			           V(empty);</span><br><span class="line">   &#125;				              &#125;</span><br></pre></td></tr></table></figure>
+<p>应注意：</p>
+<p>①在每个程序中必须先做P(mutex)，后做V(mutex)，二者要成对出现。</p>
+<p>② 对同步信号量full和empty的P, V操作同样必须成对出现，但它们分别位于不同的程序中。</p>
+<p>③ 无论在生产者进程中还是在消费者进程中，两个P操作的次序不能颠倒 。</p>
 <h5 id="2-读者-写者问题">2.读者-写者问题</h5>
+<p>读者-写者问题也是一个著名的进程互斥访问有限资源的同步问题。例如，一个航班预订系统有一个大型数据库，很多竞争进程要对它进行读、写。允许多个进程同时读该数据库，但是在任何时候如果有一个进程写(即修改)数据库，那么就不允许其他进程访问它——既不允许写，也不允许读。</p>
+<p>信号量设置：</p>
+<p>读互斥信号量rmutex  初值为1</p>
+<p>写互斥信号量wmutex  初值为1</p>
+<p>rmutex：读者互斥地访问readcount</p>
+<p>wmutex：保证一个写者与其他读者/写者互斥地访问共享资源</p>
+<p>读计数器readcount，整型变量，初值为0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#读者优先级高于写者的算法</span><br><span class="line"></span><br><span class="line">读者Readers       </span><br><span class="line">    <span class="keyword">while</span>(TRUE)&#123;                                    </span><br><span class="line">		P(rmutex);                                       </span><br><span class="line">        readcount=readcount+<span class="number">1</span>;                           </span><br><span class="line">        <span class="keyword">if</span>(readcount==<span class="number">1</span>)                               </span><br><span class="line">        	P(wmutex);                              </span><br><span class="line">        V(rmutex);</span><br><span class="line">        执行读操作</span><br><span class="line">        P(rmutex);</span><br><span class="line">        readcount=readcount<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(readcount==<span class="number">0</span>)</span><br><span class="line">        	V(wmutex);</span><br><span class="line">        V(rmutex);</span><br><span class="line">        使用读取的数据</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">写者Writers</span><br><span class="line">	<span class="keyword">while</span>(TRUE) &#123;</span><br><span class="line">    	P(wmutex);</span><br><span class="line">        执行写操作</span><br><span class="line">        V(wmutex);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#读者与写者有相同优先级的算法</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> S=<span class="number">1</span>; <span class="comment">//读者与写者，写者与写者间的互斥，即可否修改文件</span></span><br><span class="line"><span class="keyword">int</span> Sr=<span class="number">1</span>;  <span class="comment">//可否修改读者个数</span></span><br><span class="line"><span class="keyword">int</span> rc=<span class="number">0</span>;  <span class="comment">//读者个数</span></span><br><span class="line">main() &#123;</span><br><span class="line">  reader();</span><br><span class="line">  writer();</span><br><span class="line">&#125;</span><br><span class="line">reader() &#123;</span><br><span class="line">  While(读过程未结束)</span><br><span class="line">	&#123;</span><br><span class="line">	  P(Sr);</span><br><span class="line">      <span class="keyword">if</span>( rc==<span class="number">0</span>) &#123;</span><br><span class="line">        P(S);</span><br><span class="line">        rc=rc+<span class="number">1</span>;</span><br><span class="line">        V(Sr);</span><br><span class="line">        read file F</span><br><span class="line">      &#125;       </span><br><span class="line">	  <span class="keyword">else</span> &#123;</span><br><span class="line">		rc=rc+<span class="number">1</span>; </span><br><span class="line">		V(Sr);</span><br><span class="line">		read file F</span><br><span class="line">	  &#125;</span><br><span class="line">	  P(Sr);</span><br><span class="line">	  rc=rc<span class="number">-1</span>;</span><br><span class="line">	  <span class="keyword">if</span>(rc==<span class="number">0</span>)</span><br><span class="line">        V(S);</span><br><span class="line">	  V(Sr);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">writer() &#123;</span><br><span class="line">  While(写过程未结束) &#123;</span><br><span class="line">	  P(S);</span><br><span class="line">      Write file F</span><br><span class="line">      V(S);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#写者优先级高于读者的算法(现行系统中常用)</span><br><span class="line"><span class="keyword">int</span> S=<span class="number">1</span>;   <span class="comment">//读者与写者，写者与写者间的互斥，即可否修改文件</span></span><br><span class="line"><span class="keyword">int</span> Sn=n;  <span class="comment">//最多有n个进程可以同时进行读操作</span></span><br><span class="line">main() &#123;</span><br><span class="line">  reader();</span><br><span class="line">  writer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reader(i) &#123;</span><br><span class="line">  P(Sn);</span><br><span class="line">  P(S);</span><br><span class="line">  Read file F</span><br><span class="line">  V(S);</span><br><span class="line">  V(Sn);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">writer(j) &#123;</span><br><span class="line">  P(S)</span><br><span class="line">  Write file F</span><br><span class="line">  V(S);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#同样是写者优先的算法</span><br><span class="line"><span class="keyword">int</span> readcount, writecount;  <span class="comment">//读者个数，写者个数</span></span><br><span class="line"><span class="keyword">int</span> z=<span class="number">1</span>;   <span class="comment">//准备读的读者进程信号</span></span><br><span class="line"><span class="keyword">int</span> x=<span class="number">1</span>;   <span class="comment">//修改读者个数</span></span><br><span class="line"><span class="keyword">int</span> y=<span class="number">1</span>;   <span class="comment">//修改写者个数</span></span><br><span class="line"><span class="keyword">int</span> rsem=<span class="number">1</span>; <span class="comment">//当至少有一个写者进程写时，禁止所有的读进程</span></span><br><span class="line"><span class="keyword">int</span> S=<span class="number">1</span>;   <span class="comment">//读者与写者，写者与写者间的互斥，即可否修改文件</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  readcount=writecount=<span class="number">0</span>;</span><br><span class="line">  reader();</span><br><span class="line">writer();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Void <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  P(z);        <span class="comment">//准备读的读者进程信号队列</span></span><br><span class="line">  P(rsem)；    <span class="comment">//开始读进程队列（只允许一个读者进程在rsem队列）</span></span><br><span class="line">  P(x);</span><br><span class="line">  readcount ++;</span><br><span class="line">  <span class="keyword">if</span>(readcount==<span class="number">1</span>)</span><br><span class="line">    P(S);  </span><br><span class="line">  V(x);</span><br><span class="line">  V(rsem);</span><br><span class="line">  V(z);</span><br><span class="line">  Read file</span><br><span class="line">  P(x);</span><br><span class="line">  readcount--;</span><br><span class="line">  <span class="keyword">if</span>(readcount==<span class="number">0</span>)</span><br><span class="line">    V(S);</span><br><span class="line">  V(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Void <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  P(y);</span><br><span class="line">  writecount ++;</span><br><span class="line">  <span class="keyword">if</span>(writecount==<span class="number">1</span>)</span><br><span class="line">    P(rsem);   <span class="comment">//当有一个写者进程时，禁止所有的读者进程</span></span><br><span class="line">  V(y);</span><br><span class="line">  P(S);</span><br><span class="line">  Write file</span><br><span class="line">  V(S);</span><br><span class="line">  P(y)</span><br><span class="line">  writecount--;</span><br><span class="line">  <span class="keyword">if</span>(writecount==<span class="number">0</span>)</span><br><span class="line">    V(rsem);  <span class="comment">//当没有写者进程时，才允许读者进程读</span></span><br><span class="line">  V(y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="3-哲学家进餐问题">3.哲学家进餐问题</h5>
+<p>五位哲学家围坐在一张圆桌旁进餐，每人面前有一只碗，各碗之间分别有一根筷子。每位哲学家在用两根筷子夹面条吃饭前独自进行思考，感到饥饿时便试图占用其左、右最靠近他的筷子，但他可能一根也拿不到。他不能强行从邻座手中拿过筷子，而且必须用两根筷子进餐；餐毕，要把筷子放回原处并继续思考问题。</p>
+<p>哲学家进餐问题的一种算法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  N    5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  LEFT  (i-1)%N</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  RIGHT  (i+1)%N</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  THINKING  0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  HUNGRY   1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  EATING   2</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>            <span class="comment">/* 定义结构型信号量 */</span></span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">PCB</span> *<span class="title">list</span>;</span></span><br><span class="line">&#125;semaphore;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> state[N];</span><br><span class="line">semaphore mutex=<span class="number">1</span>;     	    <span class="comment">/* 互斥进入临界区  */</span></span><br><span class="line">semaphore s[N];          	<span class="comment">/* 每位哲学家一个信号量 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(TRUE) &#123;</span><br><span class="line">        think();            <span class="comment">/* 哲学家在思考问题 */</span></span><br><span class="line">        take_chopstick(i);  <span class="comment">/* 拿到两根筷子或者等待 */</span> </span><br><span class="line">        eat();              <span class="comment">/* 进餐 */</span></span><br><span class="line">        put_chopstick(i);   <span class="comment">/* 把筷子放回原处 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">take_chopstick</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    P(mutex);</span><br><span class="line">    state[i]=HUNGRY;</span><br><span class="line">    test(i);                <span class="comment">/* 试图拿两根筷子 */</span>        </span><br><span class="line">    V(mutex);</span><br><span class="line">    P(s[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put_chopstick</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;    </span><br><span class="line">    P(mutex);</span><br><span class="line">    state[i]=THINKING;              </span><br><span class="line">    test(LEFT);            	<span class="comment">/* 查看左邻，现在能否进餐 */</span></span><br><span class="line">    test(RIGHT);         	<span class="comment">/* 查看右邻，现在能否进餐 */</span></span><br><span class="line">    V(mutex);    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(state[i]==HUNGRY &amp;&amp; state[LEFT]!=EATING &amp;&amp; state[RIGHT]!=EATING) &#123;</span><br><span class="line">        state[i]=EATING;</span><br><span class="line">        V (s[i] );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="4-打瞌睡的理发师问题">4.打瞌睡的理发师问题</h5>
+<p>理发店有一名理发师，一把理发椅和几把座椅，等待理发者可坐在上面。如果没有顾客到来，理发师就坐在理发椅上打盹。当顾客到来时，就唤醒理发师。如果顾客到来时理发师正在理发，该顾客就坐在椅子上排队；如果满座了，他就离开这个理发店，到别处去理发。</p>
+<p>理发师和每位顾客都分别是一个进程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHAIRS  5</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">PCB</span> *<span class="title">list</span>;</span></span><br><span class="line">&#125;semaphore;</span><br><span class="line">semaphore customers=<span class="number">0</span>;</span><br><span class="line">semaphore barbers=<span class="number">0</span>;</span><br><span class="line">semaphore mutex=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> waiting=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">barber</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(TRUE) &#123;</span><br><span class="line">        P(customers);  <span class="comment">/*如果没有顾客，则理发师打瞌睡*/</span></span><br><span class="line">        P(mutex);      <span class="comment">/*互斥进入临界区*/</span></span><br><span class="line">        waiting--;</span><br><span class="line">        V(barbers);    <span class="comment">/*一个理发师准备理发*/</span></span><br><span class="line">        V(mutex);      <span class="comment">/*退出临界区*/</span></span><br><span class="line">        cut_hair();    <span class="comment">/*理发（在临界区之外）*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">customer</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    P(mutex);             	<span class="comment">/*互斥进入临界区*/</span></span><br><span class="line">    <span class="keyword">if</span>(waiting﹤CHAIRS) &#123;</span><br><span class="line">        waiting++;</span><br><span class="line">        V(customers);    	<span class="comment">/*若有必要，唤醒理发师*/</span></span><br><span class="line">        V(mutex);           <span class="comment">/*退出临界区*/</span></span><br><span class="line">        P(barbers);        	<span class="comment">/*如果理发师正忙着，则顾客打瞌睡*/</span></span><br><span class="line">        get_haircut();</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">        V(mutex);         	<span class="comment">/*店里人满了，不等了*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="5-使用信号量的几点提示">5.使用信号量的几点提示</h5>
+<p>①根据问题给出的条件，确定进程有几个或几类</p>
+<p>②确定进程间的制约关系是互斥还是同步，确定信号量种类</p>
+<p>③各相关进程间通过什么信号量实现彼此的制约，标明信号量的含义和初值</p>
+<p>④编写相应进程的代码段</p>
+<p>⑤同一信号量的P、V操作要“成对”出现，P、V操作的位置一定要正确</p>
+<p>⑥验证代码的正确性</p>
 <h4 id="2-7-管程">2.7 管程</h4>
+<p>管程：是一个程序设计语言结构，它提供了与信号量同样的功能（实施互斥以及进程间同步），但比信号量更易于控制。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_18.png" class="">
+<p>一个管程是由一个或多个过程、一个初始化序列和局部数据组成的软件模块。即：一个数据结构和能为并发进程在其上执行的一组操作，这组操作能使进程同步和改变管程中的数据。</p>
+<p>一个管程由管程名称、局部于管程的共享数据的说明、对数据进行操作的一组过程和对该共享数据赋初值的语句四部分组成。</p>
+<p><strong>管程具有以下三个特性：</strong></p>
+<p>① 管程内部的局部数据变量只能被管程内定义的过程所访问，不能被管程外面声明的过程直接访问。</p>
+<p>② 进程要想进入管程，必须调用管程内的某个过程。</p>
+<p>③ 一次只能有一个进程在管程内执行，而其余调用该管程的进程都被挂起，等待该管程成为可用的。即管程能有效地实现互斥。</p>
+<p>从面向对象的观点，可以把管程作为一种具有特殊特征的对象来实现。</p>
+<p>管程中，实现互斥是由编译程序完成。管程通过使用<strong>条件变量</strong>提供对同步的支持，这些条件变量包含在管程中，并且只有进入管程才能被访问。</p>
+<p>为解决<strong>同步</strong>问题，引入两个操作条件变量c的函数：</p>
+<p>操作原语cwait©：挂起等待条件x的调用进程，释放相应的管程，以便供其他进程使用，即管程现在可被另一个进程使用。</p>
+<p>操作原语csignal©：恢复执行先前因在条件x上执行wait而挂起的那个进程。</p>
+<p>管程的操作与信号量不同：如果在管程中的一个进程发信号，但没有在这个条件变量上等待的任务，则丢弃这个信号。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_19.png" class="">
+<p>与信号量相比，管程担负的责任不同。对于管程，它构造了自己的互斥机制：生产者和消费者不可能同时访问缓冲区；但是，程序员必须把适当的cwait和csignal原语放在管程中，用于防止进程往一个满缓冲区中存放数据项，或者从一个空缓冲区中取数据项。而在使用信号量的情况下，执行互斥和同步都属于程序员的责任。</p>
+<p>管程优于信号量之处在于所有的同步机制都被限制在管程内部，因此，不但易于验证同步的正确性，而且易于检测出错误。此外，如果一个管程被正确地编写，则所有进程对受保护资源的访问都是正确的；而对于信号量，只有当所有访问资源的进程都被正确地编写时，资源访问才是正确的。</p>
 <h4 id="2-8-进程通信">2.8 进程通信</h4>
+<p>进程通信是指进程间的信息交换。互斥和同步因交换的信息量少，被归结为低级进程通信。高级进程通信方式有：</p>
+<p><strong>1.共享存储器方式</strong>：在内存中分配一片空间作为共享存储区</p>
+<p><strong>2.消息传递方式</strong>：以消息(Message)为单位在进程间进行数据交换，有直接通信方式和间接通信方式两种实现方式</p>
+<p><strong>3.管道文件方式</strong>：管道文件也称管道线，它是连接两个命令的一个打开文件。写者向管道文件中写入数据；读者从该文件中读出数据</p>
 <h5 id="2-8-1-消息传递系统">2.8.1 消息传递系统</h5>
+<p>消息传递系统有多种形式，通常都提供两个原语，即send和receive。它们与信号量相似，而与管程不同。它们是系统调用，而不是编程语言的构造。</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_15.png" class="">
+<p><strong>消息缓冲通信</strong></p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_16.png" class="">
+<p>name：发送消息的进程名或标志号</p>
+<p>size：消息长度</p>
+<p>text：消息正文</p>
+<p>next：下个缓冲区的地址</p>
+<p>mutex：消息队列操作互斥信号灯</p>
+<p>Sm：表示接收消息计数和同步的信号灯</p>
+<p>Pm：指向该进程的消息队列中第一个缓冲区的指针</p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_17.png" class="">
+<p><strong>信箱通信</strong></p>
+<p>信箱是一种数据结构，在逻辑上可分为两个部分：信箱头——包括信箱名字、信箱属性（公用、私用或者共享）、信箱格状态等；信箱体——用来存放消息的多个信箱格。信箱可以动态创建和撤消。</p>
+<p>发送和接收消息的原语形式：</p>
+<p>send(mailbox,message)</p>
+<p>receive(mailbox,message)</p>
+<p>mailbox为信箱，message是要发送的消息</p>
+<p>信箱可分为三类：</p>
+<p>公用信箱：由操作系统创建，所有系统核准的进程都可以使用它</p>
+<p>共享信箱：由某个进程创建，要指明共享属性以及共享进程的名字</p>
+<p>私有信箱：用户进程为自己创建的信箱。只有创建者能读取信箱中的信息，其他进程只能发送消息给信箱</p>
 <h5 id="2-8-2-客户-服务器系统中的通信">2.8.2 客户-服务器系统中的通信</h5>
+<p><strong>socket</strong></p>
+<img src="/2021/03/27/OperatingSystem-ChapterTwo/OS2_20.png" class="">
+<p><strong>远程过程调用</strong></p>
+<p>①客户过程以通常方式调用客户代理</p>
+<p>②客户代理构造一个消息，并且陷入内核</p>
+<p>③本地内核发送消息给远程内核</p>
+<p>④远程内核把消息送给服务器代理</p>
+<p>⑤服务器代理从信包中取出参数，并调用服务器</p>
+<p>⑥服务器完成相应的服务，并将结果送给服务器代理</p>
+<p>⑦服务器代理将结果打包形成消息，并且陷入内核</p>
+<p>⑧远程内核发送消息给客户机内核</p>
+<p>⑨客户机内核把消息传给客户代理</p>
+<p>⑩客户代理取出结果，并返回客户的调用程序</p>
 <h4 id="2-9-本章小结">2.9 本章小结</h4>
+<ul>
+<li>当程序顺序执行时，具有封闭性和可再现性。为提高计算机的运行速度和增强系统的处理能力广泛采用了多道程序设计技术。该技术能够实现程序的并发执行和资源的共享。但是，带来了新的特性，即程序与计算活动失去一一对应，而且程序并发执行时产生相互制约的关系。为了更好地描述程序的并发活动，引入了“进程”概念。</li>
+<li>进程可以表述为“程序在并发环境中的执行过程”。它最基本的特性是并发性和动态性。进程的活动是利用状态来反映的。一个进程至少应有三种基本状态，它们在一定条件下进行转化。实际上，只有占用CPU并且正在执行程序的进程才真正处于活动状态。</li>
+<li>每个进程都有唯一的一个进程控制块(PCB)，它是进程存在的唯一标识。由PCB和进程执行的程序和数据一起构成进程的映像。系统对进程的管理(如调度、通信等)就是利用PCB实现的。</li>
+<li>PCB表的物理组织方式有若干种，最常用的是线性表、链接表和索引表方式。线性表实现简单，链接表使用灵活，索引表处理速度快。</li>
+<li>核心利用原语对进程实施操作，包括创建进程、阻塞进程、终止进程和唤醒进程等主要操作。</li>
+<li>在现代操作系统中引入了线程概念。线程是进程中实施调度和分配的基本单位。这样，进程只作为资源的分配单位和拥有者，而线程才是CPU的调度单位和占有者。线程除共用进程的地址空间外，也有一些自己私有的信息。线程有不同的状态，在一定条件下实现状态转换。</li>
+<li>线程可以在用户空间实现，也可以在核心空间实现。前者，线程切换速度快；后者，支持多线程并发。利用组合方式取长补短。</li>
+<li>进程在活动过程中会彼此发生作用，主要是同步、互斥和通信关系。简单来说，同步是协作关系，而互斥是竞争关系，通信是信息交流。</li>
+<li>一次仅允许一个进程使用的资源称为临界资源，对临界资源实施操作的那段程序称为临界区(CS)。利用信号量和P、V操作可以很好地解决进程间的互斥与同步问题。从物理概念上讲，信号量表示系统中某类资源的数目，其值大于0时，表示系统中当前可用资源数目；其值小于0时，其绝对值表示系统中因请求该类资源而被封锁的进程数目。P操作意味着请求系统分配一个单位资源，而V操作意味着释放一个单位资源。</li>
+<li>很多经典进程同步问题，如生产者-消费者问题、读者-写者问题、哲学家进餐问题和理发师问题等都是进程同步和互斥的一般化形式，同样可用信号量来解决。使用信号量和P、V操作解决较复杂的进程同步问题尚无定式可言，但有些基本点还应注意。</li>
+<li>管程是功能更强的同步机制，它自动实现进程互斥进入管程。管程中可引入条件变量，利用两个操作原语实现进程同步。</li>
+<li>高级进程通信方式主要有共享内存区、消息传送和管道文件三种。利用相应原语可实现相关进程的同步，并可交换大量信息。</li>
+<li>在网络系统中，进程通信常用的方式是socket和远程过程调用。</li>
+</ul>
 
       
 
@@ -621,10 +1005,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计组</a>
               </li>
              
@@ -658,6 +1038,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
