@@ -6,25 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.luhawxem.com:4000">
-  <title>添加博客评论系统——yilia主题 | BBSD丿草丶帽的个人博客</title>
+  <title>Linux内核完全注释:基于v0.11内核 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="添加博客评论系统——yilia主题">
-<meta property="og:url" content="https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/index.html">
+  <meta name="description" content="1991年10月5日，Linus正式对外发布Linux的第一个公开版本，标志着Linux操作系统的诞生。 一. 概述 Linux名称的由来 Linux操作系统刚开始并没有被称作Linux，Linus给他的操作系统取名为FREAX，其英文含义是怪诞的、怪物、异想天开等意思。但他将自己的操作系统上载到ftp服务器时，管理员Ari Lemke将其改名为Linux，并流传至今。 Linux诞生的五大支柱">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linux内核完全注释:基于v0.11内核">
+<meta property="og:url" content="https://www.luhawxem.com:4000/Linux-v0.11/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。">
+<meta property="og:description" content="1991年10月5日，Linus正式对外发布Linux的第一个公开版本，标志着Linux操作系统的诞生。 一. 概述 Linux名称的由来 Linux操作系统刚开始并没有被称作Linux，Linus给他的操作系统取名为FREAX，其英文含义是怪诞的、怪物、异想天开等意思。但他将自己的操作系统上载到ftp服务器时，管理员Ari Lemke将其改名为Linux，并流传至今。 Linux诞生的五大支柱">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/OAuth_1.png">
-<meta property="og:image" content="https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/OAuth_2.png">
-<meta property="article:published_time" content="2021-02-16T03:53:34.000Z">
-<meta property="article:modified_time" content="2021-03-13T01:07:37.824Z">
+<meta property="og:image" content="https://www.luhawxem.com:4000/Linux-v0.11/PC-AT-Mem.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/Linux-v0.11/Flash-ROM-BIOS.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/Linux-v0.11/BIOS-INIT-8259A.png">
+<meta property="og:image" content="https://www.luhawxem.com:4000/Linux-v0.11/BIOS-IDTR.png">
+<meta property="article:published_time" content="1991-10-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-23T04:03:43.284Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="博客搭建">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="yilia">
+<meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/OAuth_1.png">
+<meta name="twitter:image" content="https://www.luhawxem.com:4000/Linux-v0.11/PC-AT-Mem.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -178,52 +178,167 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-BlogCommentSystem" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      添加博客评论系统——yilia主题
+      Linux内核完全注释:基于v0.11内核
     </h1>
   
 
         
-        <a href="/2021/02/16/BlogCommentSystem/" class="archive-article-date">
-  	<time datetime="2021-02-16T03:53:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-16</time>
+        <a href="/Linux-v0.11/index.html" class="archive-article-date">
+  	<time datetime="1991-10-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>1991-10-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。</p>
-<a id="more"></a>
-<h4 id="踩坑">踩坑</h4>
-<p>yilia主题中已经集成了几种博客评论系统：<b>多说、网易云跟帖、畅言、Disqus、Gitment</b>。其中<b>多说</b>于<b>2017年6月1日</b>已经正式关停服务；<b>网易云跟帖</b>于<b>2017年8月1日</b>关停服务(这俩是不是说好的，你关我也关)；<b>畅言</b>仍在继续提供服务，但使用<b>需要备案</b>；<b>Disqus</b>服务器位于国外。看起来，似乎只剩下<b>Gitment</b>可以直接使用了，使用方法也很简单，直接把yilia主题下的<code>_config.yml</code>中</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gitment_owner:</span> <span class="literal">false</span>	<span class="comment">#Github账号ID</span></span><br><span class="line"><span class="attr">gitment_repo:</span> <span class="string">&#x27;&#x27;</span>		<span class="comment">#储存评论的仓库名</span></span><br><span class="line"><span class="attr">gitment_oauth:</span></span><br><span class="line">  <span class="attr">client_id:</span> <span class="string">&#x27;&#x27;</span>			<span class="comment">#OAuth应用生成的ClientID</span></span><br><span class="line">  <span class="attr">client_secret:</span> <span class="string">&#x27;&#x27;</span>		<span class="comment">#OAuth应用创建的密钥</span></span><br></pre></td></tr></table></figure>
-<p>这些信息填上就行。其中<code>gitment_oauth</code>这里的OAuth应用需要在<code>Github-设置-开发者设置-OAuth Apps</code>(<a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">链接</a>)中注册。</p>
-<img src="/2021/02/16/BlogCommentSystem/OAuth_1.png" class="">
-<p>此处需要注意的只有<code>Authorization callback URL</code>这一项，这里填写你的博客地址，<code>Application name</code>和<code>Homepacg URL</code>可以随意填写。填写完成后点击注册即可。</p>
-<img src="/2021/02/16/BlogCommentSystem/OAuth_2.png" class="">
-<p>此处的<code>Client ID</code>即为<code>_config.yml</code>文件中需要填写的<code>client_id</code>，而<code>client_secret</code>则需要手动点击<code>Generate a new client secret</code>创建。还有一点就是，在网上看到的其他教程中此处users数为1而非0，不知道是否与此有关，最终完成之后个人发现Gitment模块虽然被渲染到页面上了，但是仅有一个空<code>&lt;div&gt;</code>标签。而依据搜到的一些办法将yilia主题下的<code>gitment.ejs</code>文件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;jjeejj.github.io&#x2F;css&#x2F;gitment.css&quot;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;www.wenjunjiang.win&#x2F;js&#x2F;gitment.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p>改成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https:&#x2F;&#x2F;www.jermey.cn&#x2F;gitment&#x2F;style&#x2F;default.css&quot;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;www.jermey.cn&#x2F;gitment&#x2F;dist&#x2F;gitment.browser.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p>同样无济于事，gitment仍是一个空div(<b>可能是我没配置好吧</b>😅)。</p>
-<p>看了一下gitment的官方仓库，发现这个项目已经停更4年了，issue中大大小小各种问题。</p>
-<h4 id="更换选择">更换选择</h4>
-<p>只好继续找别的评论系统，找了一圈，发现有这么两个基于Git仓库Issue的评论系统：<a target="_blank" rel="noopener" href="https://github.com/apps/utterances"><b>utterance</b></a>和<a target="_blank" rel="noopener" href="https://gitee.com/eillott/giteement"><b>giteement</b></a>。因为<code>utterance</code>可以同时在多个网站上使用，而<code>giteement</code>由于需要填写回调地址仅能在一个网站上使用；同时<code>giteement</code>需要外部服务器解决跨域问题；且<code>utterance</code>登录时所需的权限也比<code>gitment</code>少很多；对于使用<code>utterance</code>的多个网站仅需要进行一次授权；以及<code>utterance</code>的评论系统是自动初始化而非手动点击初始化等优点，最后个人选择了<code>utterance</code>。</p>
-<p>在yilia主题中使用<code>utterance</code>只需要在<code>_config.yml</code>中加入</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">utterance:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 仓库名字，格式：Github账户ID/储存评论的仓库名称</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="comment"># 主题</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">&#x27;github-light&#x27;</span></span><br><span class="line">  <span class="comment"># 映射配置</span></span><br><span class="line">  <span class="attr">issue_term:</span> <span class="string">&#x27;title&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>同时，在yilia主题中的<code>layout/_partial/article.ejs</code>中<code>&lt;% if (!index &amp;&amp; post.comments)&#123; %&gt;</code>这一句之后插入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.utterance &amp;&amp; theme.utterance.enable)&#123; %&gt;</span><br><span class="line">    &lt;section id&#x3D;&quot;comments&quot; class&#x3D;&quot;comments&quot;&gt;</span><br><span class="line">      &lt;style&gt;</span><br><span class="line">        .utterances&#123;max-width: 100%;&#125;</span><br><span class="line">      &lt;&#x2F;style&gt;</span><br><span class="line">      &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;utteranc.es&#x2F;client.js&quot;</span><br><span class="line">        repo&#x3D;&quot;&lt;%&#x3D; theme.utterance.repo %&gt;&quot;</span><br><span class="line">        issue-term&#x3D;&quot;&lt;%&#x3D; theme.utterance.issue_term %&gt;&quot;</span><br><span class="line">        theme&#x3D;&quot;&lt;%&#x3D; theme.utterance.theme %&gt;&quot;</span><br><span class="line">        crossorigin&#x3D;&quot;anonymous&quot;</span><br><span class="line">        async&gt;</span><br><span class="line">      &lt;&#x2F;script&gt;</span><br><span class="line">    &lt;&#x2F;section&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p>再重新生成静态文件即可。至此，评论系统添加完成。</p>
-<h4 id="参考资料">参考资料</h4>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43935907/article/details/89335062">Hexo博客yilia主题添加Gitment评论系统</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jermey.cn/posts/2017-08-29-1.html#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">理解OAuth</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.yansheng.xyz/article/c5f6d65b.html">hexo+yilia集成utteranc评论系统</a></p>
+        <p>1991年10月5日，Linus正式对外发布Linux的第一个公开版本，标志着Linux操作系统的诞生。</p>
+<h4 id="一-概述">一. 概述</h4>
+<h5 id="Linux名称的由来">Linux名称的由来</h5>
+<p>Linux操作系统刚开始并没有被称作Linux，Linus给他的操作系统取名为FREAX，其英文含义是怪诞的、怪物、异想天开等意思。但他将自己的操作系统上载到ftp服务器时，管理员Ari Lemke将其改名为Linux，并流传至今。</p>
+<h5 id="Linux诞生的五大支柱">Linux诞生的五大支柱</h5>
+<p>UNIX操作系统：Linux是UNIX的一种克隆系统。</p>
+<p>MINIX操作系统：MINIX也是UNIX的一种克隆系统，用于大学教学使用，内核简单。由于内核过于简单，不能完成Linus所需的功能，Linus在其基础上开始开发Linux。</p>
+<p>GNU计划：开发Linux操作系统及Linux上所用大多数软件基本都出自GNU计划。Linux只是操作系统的一个内核，没有GNU软件环境(比如bash shell)，Linux将寸步难行。</p>
+<p>POSIX标准：该标准在推动Linux操作系统朝着正规路上发展起着重要的作用。</p>
+<p>Internet：因特网及全世界无数计算机黑客的无私奉献，使得Linux能够发展成一个完善的操作系统。</p>
+<h4 id="二-微型计算机组成结构">二. 微型计算机组成结构</h4>
+<p>计算机系统的构成可以看成三部分(或者说四部分)：处理中心，能源，输入输出。</p>
+<p>计算机系统可分为硬件部分和软件部分。硬件部分是计算机系统的可见部分，是软件运行和存储的平台。软件是一种控制硬件操作和动作的指令流。操作系统与所运行的硬件环境密切相关。</p>
+<p>现代操作系统的可移植性是通过UEFI-BIOS支持的，主板厂商在设计主板BIOS时将不同的硬件的部分操作，向上暴露成统一的API供操作系统使用，系统开发只需使用API进行，不需考虑硬件差异带来的操作差异。</p>
+<h5 id="微机原理">微机原理</h5>
+<p>Linux操作系统的设计开发是在80386处理机上开始的。80386是第一个真正的32位处理器，其程序寻址为段地址:偏移地址，而此时由于地址线扩充，实际地址只需使用段地址+偏移地址即可获得。在8086处理器上，地址线为20位，而数据线为16位，计算实际地址需要先将段地址左移四位再加上偏移地址。</p>
+<p>中断控制器由两片8259A芯片组成，DMA控制器常采用8237A芯片构成，定时计数器的核心是8253/8254定时芯片，键盘控制器使用的是8042芯片来与键盘中的扫描电路通信。</p>
+<p>外设控制卡(或称适配器)，是通过扩展插槽与主板上系统总线连接。总线插槽是系统地址总线、数据总线和控制线的扩展设备控制器的标准连接接口。</p>
+<p>北桥芯片用于与CPU、内存和AGP视频接口通信，同时起着存储器控制作用，因此Intel把该芯片标号为MCH(Memory Controller Hub)芯片。</p>
+<p>南桥芯片用于管理外部设备，因此南桥芯片的名称为ICH(I/O Controller Hub)。</p>
+<h5 id="I-O端口寻址和访问控制方式">I/O端口寻址和访问控制方式</h5>
+<p>CPU为了访问I/O接口控制器或控制卡上的数据和状态信息，首先需要确定它们的地址。这种地址就称为I/O端口地址或者简称端口。通常一个I/O控制器包含访问数据的数据端口、输出命令的命令端口和访问控制器执行状态的状态端口。端口地址的设置方式分统一编址和独立编址。</p>
+<p>统一编址，即I/O端口地址归入存储器寻址地址空间范围内，使用访问内存的指令既可以访问内存，也可以访问I/O端口。</p>
+<p>独立编址，即采用独立的地址空间表示I/O端口地址。使用ISA总线结构的传统PC机及其I/O地址空间范围是0x000~~0x3FF共1024个I/O端口地址。各个控制器和控制卡所默认分配的端口地址范围见下表：</p>
+<table>
+<thead>
+<tr>
+<th>端口地址范围</th>
+<th>分配说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x000~~0x01F</td>
+<td>8237A DMA控制器 1</td>
+</tr>
+<tr>
+<td>0x020~~0x03F</td>
+<td>8259A 可编程中断控制器 1</td>
+</tr>
+<tr>
+<td>0x040~~0x05F</td>
+<td>8253/8254A 定时计数器</td>
+</tr>
+<tr>
+<td>0x060~~0x06F</td>
+<td>8042 键盘控制器</td>
+</tr>
+<tr>
+<td>0x070~~0x07F</td>
+<td>访问 CMOS RAM/实时时钟RTC (Real Time Clock)端口</td>
+</tr>
+<tr>
+<td>0x080~~0x09F</td>
+<td>DMA 页面寄存器访问端口</td>
+</tr>
+<tr>
+<td>0x0A0~~0x0BF</td>
+<td>8259A 可编程中断控制器2</td>
+</tr>
+<tr>
+<td>0x0C0~~0x0DF</td>
+<td>8237A DMA 控制器 2</td>
+</tr>
+<tr>
+<td>0x0F0~~0x0FF</td>
+<td>协处理器访问端口</td>
+</tr>
+<tr>
+<td>0x170~~0x177</td>
+<td>IDE 硬盘控制器 1</td>
+</tr>
+<tr>
+<td>0x1F0~~0x1F7</td>
+<td>IDE 硬盘控制器 0</td>
+</tr>
+<tr>
+<td>0x278~~0x27F</td>
+<td>并行打印机端口 2</td>
+</tr>
+<tr>
+<td>0x2F8~~0x2FF</td>
+<td>串行控制器 2</td>
+</tr>
+<tr>
+<td>0x378~~0x37F</td>
+<td>并行打印机端口 1</td>
+</tr>
+<tr>
+<td>0x3B0~~0x3BF</td>
+<td>单色MDA显示控制器</td>
+</tr>
+<tr>
+<td>0x3C0~~0x3CF</td>
+<td>彩色CGA显示控制器</td>
+</tr>
+<tr>
+<td>0x3D0~~0x3DF</td>
+<td>彩色EGA/VGA显示控制器</td>
+</tr>
+<tr>
+<td>0x3F0~~0x3F7</td>
+<td>软盘控制器</td>
+</tr>
+<tr>
+<td>0x3F8~~0x3FF</td>
+<td>串行控制器 1</td>
+</tr>
+</tbody>
+</table>
+<p>IBM PC机也部分地使用了统一编址方式。例如CGA显示卡上显存的地址就直接占用了存储器地址空间0xB800~0xBC00范围。汇编中可以直接使用mov指令向该地址写入字符以让其显示在屏幕上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">NUL equ 0x00</span><br><span class="line">SETCOLOR equ 0x07</span><br><span class="line">VIDEOMEM equ 0xb800;显存地址</span><br><span class="line">STRINGLEN equ 0xffff</span><br><span class="line"></span><br><span class="line">section code align&#x3D;16 vstart&#x3D;0x7c00</span><br><span class="line"></span><br><span class="line">    mov si,SayHello</span><br><span class="line">    xor di,di;di置零</span><br><span class="line">    call PrintString</span><br><span class="line">    mov si,SayGoodBye</span><br><span class="line">    call PrintString</span><br><span class="line">    jmp End</span><br><span class="line"></span><br><span class="line">PrintString:</span><br><span class="line">    .setup:</span><br><span class="line">    mov ax,VIDEOMEM</span><br><span class="line">    mov es,ax;配置es基准地址寄存器</span><br><span class="line"></span><br><span class="line">    mov bh,SETCOLOR;配置字符显示的颜色</span><br><span class="line">    mov cx,STRINGLEN;配置循环次数</span><br><span class="line"></span><br><span class="line">    .printchar:</span><br><span class="line">        mov bl,[ds:si]</span><br><span class="line">        inc si;取数,si偏移地址+1</span><br><span class="line">        mov [es:di],bl</span><br><span class="line">        inc di;将取出的数输出到显存地址,di偏移地址+1</span><br><span class="line">        mov [es:di],bh</span><br><span class="line">        inc di;写入字符颜色属性,di偏移地址+1</span><br><span class="line">        or bl,NUL;判断bl中的字符是否为0x00</span><br><span class="line">        jz .return;是则跳转到标号.return的地址</span><br><span class="line">        loop .printchar;循环,跳转到.printchar标号的地址</span><br><span class="line">        .return: </span><br><span class="line">            ret;函数体结束语句</span><br></pre></td></tr></table></figure>
+<p>对于现代PC机，在普通Linux系统下通过查看/proc/ioports文件可以得到相关控制器或设置使用的I/O地址范围。</p>
+<h5 id="接口访问控制">接口访问控制</h5>
+<p>程序循环查询方式(轮询)、中断处理方式、DMA传输方式。</p>
+<p>轮询使用和编程都比较简单，但是浪费CPU时间，除非等待时间极短或必须，否则不用。</p>
+<p>现代操作系统常用中断处理方式处理外部I/O中断。CPU通过使用中断向量表(或中断描述符表)来寻址相应的中断服务程序的入口地址，因此使用中断控制方式需要首先设置好中断向量表，并编制好相应的中断处理程序。</p>
+<p>直接存储器访问DMA(Direct Memory Access)方式用于I/O设备和系统内存之间进行批量数据传输，整个操作过程使用专门的DMA控制器来进行。传输过程中无需软件介入，且CPU可以正常运行无需等待。</p>
+<h5 id="主存储器、BIOS和CMOS存储器">主存储器、BIOS和CMOS存储器</h5>
+<p><strong>主存储器：</strong></p>
+<p>当计算机上电初始化时，物理内存被设置成从地址0开始的连续区域。除了地址0xA0000到0xFFFFF(640K到1M共384K)和0xFFFE0000到0xFFFFFFFF(4G处的最后一个64K)范围以外的所有内存都可用作系统内存，这两个特定范围被用于I/O设备和BIOS程序。</p>
+<p>假如计算机中有16MB的物理内存，那么在Linux 0.1x系统中，0<sub>640K将被用作存放内核代码和数据。Linux内核不使用BIOS功能，也不使用BIOS设置的中断向量表。640K</sub>1M之间的384K仍然保留用作图中指明的用途。其中地址0xA0000开始的128K用作显存缓冲区，随后部分用于其他控制卡的ROM BIOS或其映射区域，而0xF0000到1M范围用于高端系统ROM BIOS的<strong>映射区</strong>。1M~16M将被内核用作可分配的主内存区。</p>
+<p>另外高速缓冲区和内存虚拟盘也会占用内核代码和数据后面的一部分内存区域，该区域通常会跨越640K~1M的区域。</p>
+<p><img src="PC-AT-Mem.png" alt=""></p>
+<p><strong>基本输入/输出程序BIOS：</strong></p>
+<p>存放在ROM中的系统BIOS程序主要用于计算机开机时执行系统部分的自检，建立起操作系统需要使用的各种配置表，如中断向量表、硬盘参数表，并且把处理器和系统其余部分初始化到一个已知状态，而且还为DOS等操作系统提供硬件设备接口服务。但是由于BIOS提供的这些服务不具备可重入性(即其中程序不可并发运行)，因此除了在初始化时会利用BIOS提供一些系统参数以外，Linux操作系统在运行时并不使用BIOS中的功能。</p>
+<p>当计算机系统上电开机或者按了机箱上的复位按钮时，<strong>CPU会自动把代码段寄存器CS设置为0xF000，其段基地址则被设置为0xFFFF0000，段长度设置为64KB。而IP被设置为0xFFF0，因此此时CPU代码指针指向0xFFFFFFF0处，即4G空间最后一个64K的最后16字节处。该处存放着系统ROM BIOS，并且BIOS会在这个位置存放一条跳转指令JMP跳转到BIOS代码中64KB范围内的某一条指令开始执行。</strong></p>
+<p>由于目前PC/AT微机中BIOS容量大多有1MB到2MB，并且存储在闪存(Flash Memory) ROM中，因此<strong>为了能够执行或访问BIOS中超过64KB范围并且又远远不在0~1M地址空间中的其他BIOS代码或数据，BIOS程序会首先使用一种称为32位大模式(Big Mode) 技术把数据段寄存器的访问范围设置成4G(而非原来的64K)</strong>，这样就可以在0到4G范围内执行和操作数据。</p>
+<p>此后，BIOS在执行了一些硬件检测和初始化操作之后，就会把与原来PC机兼容的64KB BIOS代码和数据复制到内存低端1M末端的64K处，然后跳转到这个地方并且让CPU进入真正的实地址模式工作。<strong>最后BIOS就会从硬盘或其他块设备把操作系统引导程序加载到内存0x7C00处，并跳转到这个地方继续执行引导程序。</strong></p>
+<p><img src="Flash-ROM-BIOS.png" alt=""></p>
+<p><strong>CMOS存储器：</strong></p>
+<p>CMOS存储器(64或128字节)用于存放计算机的实时时钟信息和系统硬件配置信息。这部分内存通常和实时时钟芯片(Real Time Chip)做在一块集成块中。CMOS内存的地址空间在基本内存地址空间之外，需要使用I/O指令来访问。</p>
+<h5 id="控制器和控制卡">控制器和控制卡</h5>
+<p><strong>中断控制器：</strong></p>
+<p>IBM PC/AT 80x86 兼容微机使用两片级联的8259A可编程中断控制芯片，用于实现I/O设备的中断控制数据存取方式，并且能为15个设备提供独立的中断控制功能。在计算机刚开机初始化期间，ROM BIOS会分别对两片8259A芯片进行初始化，并分别把15级中断优先级分配给时钟定时器、键盘、串行口、打印口、软盘控制、协处理器和硬盘等设备或控制器使用。同时在内存开始处0x000~0xFFF区域内建立一个中断向量表。但Linux操作系统在内核初始化期间又重新对8259A进行了设置，详见后文。</p>
+<p><img src="BIOS-INIT-8259A.png" alt=""></p>
+<p>当一台PC计算机刚上电开机时，上图中的硬件中断请求号会被ROM BIOS初始化成下表中列出的对应中断向量号。但Linux操作系统并不直接使用这些PC机默认设置好的中断向量号，当Linux执行系统初始化操作时，它会重新设置中断请求号与中断向量号的对应关系。</p>
+<p><img src="BIOS-IDTR.png" alt=""></p>
+<p><strong>DMA控制器：</strong></p>
+<p>DMA控制器的主要功能是通过让外部设备直接与内存传输数据来增强系统的性能。在PC/AT机中，使用了两片8237芯片，因此DMA控制器有8个独立通道可使用。其中后4个是16位通道。在使用一个通道之前必须首先对其进行设置，分别需要对页面寄存器端口、(偏移)地址寄存器端口和数据计数寄存器端口进行设置(从硬盘上的哪一页送到内存中的哪一块，送多少数据)。由于DMA寄存器是8位的，而地址和计数值是16位值，因此各自需要发送两次。</p>
+<p><strong>定时/计数器：</strong></p>
 
       
 
@@ -235,30 +350,7 @@
 
 <!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
 
-  <div class="declare">
-    <strong class="author">本文作者：</strong>
-    
-      BBSD丿草丶帽
-    
-    <br>
-    <strong class="create-time">发布时间：</strong>
-    2021-02-16
-    <br>
-    <strong class="update-time">最后更新：</strong>
-    2021-03-13
-    <br>
-    <strong class="article-titles">本文标题：</strong>
-    <a href="https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/" title="添加博客评论系统——yilia主题" target="_blank">添加博客评论系统——yilia主题</a>
-    <br>
-    <strong class="article-url">本文链接：</strong>
-    <a href="https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/" title="添加博客评论系统——yilia主题" target="_blank">https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/</a>
-    <br>
-    <strong class="copyright">版权声明：</strong>
-    本作品采用
-    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
-    许可协议进行许可。转载请注明出处！
-    
-  </div>
+  <div class="declare" hidden="hidden"></div>
 
 <!-- 添加版权声明》 -->
       
@@ -269,25 +361,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -338,7 +411,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.luhawxem.com:4000/2021/02/16/BlogCommentSystem/" alt="微信分享二维码">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.luhawxem.com:4000/Linux-v0.11/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -350,25 +423,6 @@
 </article>
 
   
-<nav id="article-nav">
-  
-    <a href="/2021/02/18/BusuanziCounter/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          添加不蒜子访问量统计功能
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/02/05/AppendOfBlogBuilding/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">博客搭建的补充</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -382,6 +436,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">一. 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Linux%E5%90%8D%E7%A7%B0%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="toc-number">1.1.</span> <span class="toc-text">Linux名称的由来</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Linux%E8%AF%9E%E7%94%9F%E7%9A%84%E4%BA%94%E5%A4%A7%E6%94%AF%E6%9F%B1"><span class="toc-number">1.2.</span> <span class="toc-text">Linux诞生的五大支柱</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E5%BE%AE%E5%9E%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">二. 微型计算机组成结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">微机原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#I-O%E7%AB%AF%E5%8F%A3%E5%AF%BB%E5%9D%80%E5%92%8C%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">I&#x2F;O端口寻址和访问控制方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.</span> <span class="toc-text">接口访问控制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E3%80%81BIOS%E5%92%8CCMOS%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">2.4.</span> <span class="toc-text">主存储器、BIOS和CMOS存储器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E5%92%8C%E6%8E%A7%E5%88%B6%E5%8D%A1"><span class="toc-number">2.5.</span> <span class="toc-text">控制器和控制卡</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -470,7 +537,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
