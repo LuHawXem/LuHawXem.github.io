@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.luhawxem.com:4000">
-  <title>Archives: 2021/3 | BBSD丿草丶帽的个人博客</title>
+  <title>手机刷机 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://www.luhawxem.com:4000/archives/2021/03/index.html">
+  <meta name="description" content="手机刷系统&#x2F;刷root权限简易教程，以小米手机为例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手机刷机">
+<meta property="og:url" content="https://www.luhawxem.com:4000/2021/04/24/MobilePhoneFlashing/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="手机刷系统&#x2F;刷root权限简易教程，以小米手机为例。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-24T13:47:30.000Z">
+<meta property="article:modified_time" content="2021-04-24T14:15:26.494Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="刷机">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
@@ -171,458 +173,196 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MobilePhoneFlashing" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      手机刷机
+    </h1>
+  
+
+        
+        <a href="/2021/04/24/MobilePhoneFlashing/" class="archive-article-date">
+  	<time datetime="2021-04-24T13:47:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-24</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>手机刷系统/刷root权限简易教程，以小米手机为例。</p>
+<a id="more"></a>
+<h5 id="第一步：">第一步：</h5>
+<p>进入开发者模式。MIUI系统打开 设置-我的设备-全部参数，然后点击MIUI版本7次进入开发者模式。原生Android为点击Android版本7次。</p>
+<h5 id="第二步：">第二步：</h5>
+<p>打开 设置-更多设置-开发者选项，打开OEM解锁，点击设备解锁状态，点击绑定账号和设备。</p>
+<h5 id="第三步：">第三步：</h5>
+<p>下载小米手机解锁工具：<a target="_blank" rel="noopener" href="http://www.miui.com/unlock/index.html">http://www.miui.com/unlock/index.html</a></p>
+<p>解压后打开miflash_unlock.exe，登录小米账号(可能需要验证安全手机)，然后关闭手机，关机状态下按住音量减和开机键进入FastBoot模式，用USB数据线连接手机与电脑，点击解锁(绑定账号和设备之后可能需要等待7天才能解锁)，同意安全警告。</p>
+<p>解锁成功后会自动重启手机。解锁会清空手机数据，记得提前备份。</p>
+<h5 id="第四步：">第四步：</h5>
+<p>下载platform-tools：<a target="_blank" rel="noopener" href="https://developer.android.com/studio/releases/platform-tools">https://developer.android.com/studio/releases/platform-tools</a></p>
+<p>下载对应机型的twrp镜像文件：<a target="_blank" rel="noopener" href="https://twrp.me/Devices/">https://twrp.me/Devices/</a></p>
+<p>将该镜像文件重命名为twrp.img，并放在platform-tools解压后的目录下(fastboot.exe同级目录下)。</p>
+<p>手机解锁后进入FastBoot模式，用USB数据线连接电脑，使用cmd命令提示符或powershell打开platform-tools文件夹路径，输入<code>fastboot devices</code>查看是否找到设备，有输出表示已找到设备。然后输入<code>fastboot flash recovery twrp.img</code>将twrp刷入。powershell默认不支持使用当前目录下的文件命令，可以使用<code>.\fastboot</code>代替<code>fastboot</code>。</p>
+<h5 id="第五步：">第五步：</h5>
+<p>下载所需的ROM固件(刷系统)，此处提供欧版下载地址：<a target="_blank" rel="noopener" href="https://xiaomi.eu/">https://xiaomi.eu/</a></p>
+<p>下载Magisk面具框架(获取root权限)，github搜索即可。</p>
+<p>手机关机后按住音量加和开机键进入Recovery模式，清除Data分区，然后通过OTG USB设备或者Micro SD等方式将下载好的ROM固件包或Magisk软件包连接到手机，使用twrp的安装功能直接安装即可。安装完Magisk面具框架之后的重启可能会比较久，需耐心等待。</p>
+<p>若重启之后仍自动进入Recovery模式，点击挂载，将 Cache、System、data、Firmware、cust分区挂载后重启即可进入系统。</p>
+<h5 id="注意事项">注意事项</h5>
+<p>刷入欧版/国际版MIUI或原生/类原生等自带谷歌商店的系统，在开机时检查更新需要设备网络能连上谷歌商店。</p>
+<h5 id="参考资料">参考资料</h5>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?app=desktop&amp;v=uZF4kys1tzE">[Redmi Note 8T] 對不起小米 紅米Note 8T去廣告、解鎖、刷歐版、Root教學</a></p>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare" hidden="hidden"></div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/27/OperatingSystem-ChapterTwo/" class="archive-article-date">
-  	<time datetime="2021-03-27T06:24:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/27/OperatingSystem-ChapterTwo/">操作系统——第二章(进程和线程)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">刷机</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.luhawxem.com:4000/2021/04/24/MobilePhoneFlashing/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/22/KindOfChipPackage/" class="archive-article-date">
-  	<time datetime="2021-03-22T07:55:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/04/21/ArduinoLearning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Arduino学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/22/KindOfChipPackage/">芯片封装的种类</a>
-    </h1>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">硬件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/20/ComputerNetworking-ChapterOne/" class="archive-article-date">
-  	<time datetime="2021-03-20T06:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/20/ComputerNetworking-ChapterOne/">计算机网络——第一章(概述)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/19/TheMinimumSystemMethod/" class="archive-article-date">
-  	<time datetime="2021-03-19T04:02:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/19/TheMinimumSystemMethod/">最小系统法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">故障判断</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">电脑维修</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/19/SQLKnowledgeInRuoYiProject/" class="archive-article-date">
-  	<time datetime="2021-03-19T03:21:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/19/SQLKnowledgeInRuoYiProject/">从若依中学到的数据库知识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/17/WhyWeChooseSSD/" class="archive-article-date">
-  	<time datetime="2021-03-17T03:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/17/WhyWeChooseSSD/">为什么使用固态硬盘</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">硬盘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/14/TheOriginalOrPiracy/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/14/TheOriginalOrPiracy/">正版？盗版？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">windows</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/13/OperatingSystem-ChapterOne/" class="archive-article-date">
-  	<time datetime="2021-03-13T02:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/13/OperatingSystem-ChapterOne/">操作系统——第一章(操作系统引论)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" class="archive-article-date">
-  	<time datetime="2021-03-09T11:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/">计算机组成原理与体系结构课程设计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计组</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">汇编语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/06/ProgrammingCourseDesign/" class="archive-article-date">
-  	<time datetime="2021-03-06T14:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/06/ProgrammingCourseDesign/">程序设计课程设计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">程序设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -683,8 +423,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
