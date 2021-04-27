@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.luhawxem.com:4000">
-  <title>Tag: git | BBSD丿草丶帽的个人博客</title>
+  <title>Linux系统调用:fork() | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://www.luhawxem.com:4000/tags/git/index.html">
+  <meta name="description" content="以Linux-v0.11为例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统调用:fork()">
+<meta property="og:url" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="以Linux-v0.11为例。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/Linux-List.png">
+<meta property="article:published_time" content="2021-04-27T10:38:06.000Z">
+<meta property="article:modified_time" content="2021-04-27T11:10:02.358Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/Linux-List.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -171,76 +175,191 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Linux-syscall-fork" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/22/MyFirstBlogArticle/" class="archive-article-date">
-  	<time datetime="2021-01-22T08:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/22/MyFirstBlogArticle/">我的第一篇博客文章</a>
+    <h1 class="article-title" itemprop="name">
+      Linux系统调用:fork()
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/04/27/Linux-syscall-fork/" class="archive-article-date">
+  	<time datetime="2021-04-27T10:38:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以Linux-v0.11为例。</p>
+<a id="more"></a>
+<h5 id="目录结构">目录结构</h5>
+<img src="/2021/04/27/Linux-syscall-fork/Linux-List.png" class="">
+<h5 id="函数声明">函数声明</h5>
+<p>在<code>include/unistd.h</code>文件中，声明fork()函数为：<code>int fork(void)</code>。说明fork()为无参函数，返回值为int型。在新版linux中声明方式为<code>pid_t fork(void)</code>。但在<code>include/sys/types.h</code>中，使用了typedef定义了pid_t：<code>typedef int pid_t</code>，所以本质上是一样的。</p>
+<h5 id="函数实现">函数实现</h5>
+<p>实际上，在Linux-v0.11中并没有关于fork()的函数实现，Linus采用的是一种非常巧妙的函数实现方法。在<code>include/unistd.h</code>中，Linus使用了宏定义定义了如下一段代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _syscall0(type,name) \</span></span><br><span class="line">type name(void) \</span><br><span class="line">&#123; \</span><br><span class="line"><span class="keyword">long</span> __res; \</span><br><span class="line"><span class="function">__asm__ <span class="title">volatile</span> <span class="params">(<span class="string">&quot;int $0x80&quot;</span> \</span></span></span><br><span class="line"><span class="function"><span class="params">	: <span class="string">&quot;=a&quot;</span> (__res) \</span></span></span><br><span class="line"><span class="function"><span class="params">	: <span class="string">&quot;0&quot;</span> (__NR_##name))</span></span>; \</span><br><span class="line"><span class="keyword">if</span> (__res &gt;= <span class="number">0</span>) \</span><br><span class="line">	<span class="keyword">return</span> (type) __res; \</span><br><span class="line">errno = -__res; \</span><br><span class="line"><span class="keyword">return</span> <span class="number">-1</span>; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用了两个标识符：type和name，并用标识符编写了一段通用的函数定义模板。</p>
+<p>然后在<code>/init/main.c</code>中，即需要调用fork()函数作初始化的地方，Linus使用了<code>static inline _syscall0(int,fork)</code>将type和name传入，完成了fork()函数的函数实现​，🐮啊。</p>
+<p>所以fork()的函数实现应如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> __res;</span><br><span class="line">    <span class="function">__asm__ <span class="title">volatile</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="string">&quot;int $0x80&quot;</span> \</span></span></span><br><span class="line"><span class="function"><span class="params">      : <span class="string">&quot;=a&quot;</span> (__res) \</span></span></span><br><span class="line"><span class="function"><span class="params">      : <span class="string">&quot;0&quot;</span> (__NR_fork))</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(__res &gt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">int</span> __res;</span><br><span class="line">    errno = -__res;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="函数调用过程-个人理解">函数调用过程(个人理解)</h4>
+<p>可以看到，fork()函数其实只有一个返回值，要么成功返回int型的__res，要么失败返回-1。但是在操作系统实验中我们都知道，fork()返回了两个值，这是为什么呢。</p>
+<p>实际上，fork()函数是以父进程的程序集为模板，复制创建了一个子进程，所以可以理解为父进程和子进程运行的是同样的程序。以如下程序举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">    <span class="keyword">int</span> pid = fork();</span><br><span class="line">    printf(&#x27;%d&#x27;,pid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原先系统中只有main进程在运行，当main进程执行到fork()这一步时，fork()函数创建了一个子进程并返回子进程的PID号给父进程。同时，子进程是父进程的镜像，子进程与父进程完全相同，但有一点不同的是，父进程是从程序集起始位置开始执行，而子进程则是从fork()函数位置开始执行，所以，子进程先是从fork()处返回一个返回值0赋值给pid，再执行打印。所以输出时会有一个大于零一个等于零两个返回值。</p>
+<p>按一位师兄所说的简单理解就是：可以将子进程创建的复制过程，理解为完全复制，包括PC指令寄存器，所以就可以解释清楚为何子进程从fork()处开始执行了。此处运用了写时复制技术，两个进程共享同一段内存地址空间(因为PCB是完全一样的)，只有当子进程调用exec家族树函数时操作系统才会为子进程分配新的内存地址空间，此时子进程就完全独立于父进程了。</p>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare" hidden="hidden"></div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NodeJs</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/04/24/MobilePhoneFlashing/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">手机刷机</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
+  
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
   
 
-    
+  
+
+  
 
 
           </div>
@@ -301,9 +420,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
