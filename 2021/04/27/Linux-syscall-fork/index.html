@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/Linux-List.png">
 <meta property="article:published_time" content="2021-04-27T10:38:06.000Z">
-<meta property="article:modified_time" content="2021-04-30T17:40:55.814Z">
+<meta property="article:modified_time" content="2021-05-02T13:27:15.794Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -209,6 +209,11 @@
 <p>所以fork()的函数实现应如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> __res;</span><br><span class="line">    <span class="function">__asm__ <span class="title">volatile</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="string">&quot;int $0x80&quot;</span> \</span></span></span><br><span class="line"><span class="function"><span class="params">      : <span class="string">&quot;=a&quot;</span> (__res) \</span></span></span><br><span class="line"><span class="function"><span class="params">      : <span class="string">&quot;0&quot;</span> (__NR_fork))</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(__res &gt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">int</span> __res;</span><br><span class="line">    errno = -__res;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="函数调用过程-个人理解">函数调用过程(个人理解)</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__asm__ <span class="title">volatile</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="string">&quot;int $0x80&quot;</span> \</span></span></span><br><span class="line"><span class="function"><span class="params">   : <span class="string">&quot;=a&quot;</span> (__res) \</span></span></span><br><span class="line"><span class="function"><span class="params">   : <span class="string">&quot;0&quot;</span> (__NR_fork))</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这一段为GCC的内联汇编语句，语法格式为<code>__asm__　__volatile__(&quot;Instruction List&quot; : Output : Input : Clobber/Modify)</code>。</p>
+<p>其中，<code>__asm__</code>为GCC关键字asm的宏定义，用来声明一个内联汇编表达式。<code>__volatile__</code>为GCC关键字volatile的宏定义，向GCC声明不允许对该内联汇编优化。<code>Instruction List</code>为汇编指令序列，可以为空<br>
+。<code>Output</code>指定当前内联汇编语句的输出。<code>Input</code>指定当前内联汇编语句的输入。<code>Clobber/Modify</code>向GCC声明当前内联汇编语句可能会对某些寄存器或者内存进行修改，希望GCC在编译时能将这一点考虑进去。一般发生在一个寄存器出现在Instruction List但却不在Output/Input表达式中出现的，仅做当前内联汇编临时使用寄存器的情况。</p>
+<p>此处<code>int $0x80</code>为系统调用内部中断，传入<code>&quot;=a&quot; (__res)</code>用于存放返回值，<code>&quot;0&quot; (__NR_fork)</code>为对应的中断功能号。</p>
 <p>可以看到，fork()函数其实只有一个返回值，要么成功返回int型的__res，要么失败返回-1。但是在操作系统实验中我们都知道，fork()返回了两个值，这是为什么呢。</p>
 <p>实际上，fork()函数是以父进程的程序集为模板，复制创建了一个子进程，所以可以理解为父进程和子进程运行的是同样的程序。以如下程序举例：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">    <span class="keyword">int</span> pid = fork();</span><br><span class="line">    printf(&#x27;%d&#x27;,pid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -235,7 +240,7 @@
     2021-04-27
     <br>
     <strong class="update-time">最后更新：</strong>
-    2021-05-01
+    2021-05-02
     <br>
     <strong class="article-titles">本文标题：</strong>
     <a href="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/" title="Linux系统调用:fork()" target="_blank">Linux系统调用:fork()</a>
@@ -333,6 +338,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/05/02/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
   
   
     <a href="/2021/04/24/MobilePhoneFlashing/" id="article-nav-older" class="article-nav-link-wrap">
@@ -533,11 +547,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,15 +599,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">故障判断</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电脑维修</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">windows</a>
               </li>
              
               <li class="article-tag-list-item">
