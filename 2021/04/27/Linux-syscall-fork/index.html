@@ -5,23 +5,23 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.luhawxem.com:4000">
+  <link rel="dns-prefetch" href="https://luhawxem.gitee.io">
   <title>Linux系统调用:fork() | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="以Linux-v0.11为例。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux系统调用:fork()">
-<meta property="og:url" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/index.html">
+<meta property="og:url" content="https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
 <meta property="og:description" content="以Linux-v0.11为例。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/Linux-List.png">
+<meta property="og:image" content="https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/Linux-List.png">
 <meta property="article:published_time" content="2021-04-27T10:38:06.000Z">
-<meta property="article:modified_time" content="2021-05-02T13:27:15.794Z">
+<meta property="article:modified_time" content="2021-05-09T10:46:28.629Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/Linux-List.png">
+<meta name="twitter:image" content="https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/Linux-List.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -213,12 +213,18 @@
 <p>这一段为GCC的内联汇编语句，语法格式为<code>__asm__　__volatile__(&quot;Instruction List&quot; : Output : Input : Clobber/Modify)</code>。</p>
 <p>其中，<code>__asm__</code>为GCC关键字asm的宏定义，用来声明一个内联汇编表达式。<code>__volatile__</code>为GCC关键字volatile的宏定义，向GCC声明不允许对该内联汇编优化。<code>Instruction List</code>为汇编指令序列，可以为空<br>
 。<code>Output</code>指定当前内联汇编语句的输出。<code>Input</code>指定当前内联汇编语句的输入。<code>Clobber/Modify</code>向GCC声明当前内联汇编语句可能会对某些寄存器或者内存进行修改，希望GCC在编译时能将这一点考虑进去。一般发生在一个寄存器出现在Instruction List但却不在Output/Input表达式中出现的，仅做当前内联汇编临时使用寄存器的情况。</p>
-<p>此处<code>int $0x80</code>为系统调用内部中断，传入<code>&quot;=a&quot; (__res)</code>用于存放返回值，<code>&quot;0&quot; (__NR_fork)</code>为对应的中断功能号。</p>
-<p>可以看到，fork()函数其实只有一个返回值，要么成功返回int型的__res，要么失败返回-1。但是在操作系统实验中我们都知道，fork()返回了两个值，这是为什么呢。</p>
-<p>实际上，fork()函数是以父进程的程序集为模板，复制创建了一个子进程，所以可以理解为父进程和子进程运行的是同样的程序。以如下程序举例：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">    <span class="keyword">int</span> pid = fork();</span><br><span class="line">    printf(&#x27;%d&#x27;,pid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原先系统中只有main进程在运行，当main进程执行到fork()这一步时，fork()函数创建了一个子进程并返回子进程的PID号给父进程。同时，子进程是父进程的镜像，子进程与父进程完全相同，但有一点不同的是，父进程是从程序集起始位置开始执行，而子进程则是从fork()函数位置开始执行，所以，子进程先是从fork()处返回一个返回值0赋值给pid，再执行打印。所以输出时会有一个大于零一个等于零两个返回值。</p>
-<p>按一位师兄所说的简单理解就是：可以将子进程创建的复制过程，理解为完全复制，包括PC指令寄存器，所以就可以解释清楚为何子进程从fork()处开始执行了。此处运用了写时复制技术，两个进程共享同一段内存地址空间(因为PCB是完全一样的)，只有当子进程调用exec家族树函数时操作系统才会为子进程分配新的内存地址空间，此时子进程就完全独立于父进程了。</p>
+<p>此处<code>int $0x80</code>为内部中断，传入<code>&quot;=a&quot; (__res)</code>用于存放返回值，<code>&quot;0&quot; (__NR_fork)</code>为对应的中断功能号。</p>
+<p>而在<code>/kernel/sched.c</code>中，最后一段内联汇编：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	__asm__(<span class="string">&quot;pushfl ; andl $0xffffbfff,(%esp) ; popfl&quot;</span>);</span><br><span class="line">	ltr(<span class="number">0</span>);</span><br><span class="line">	lldt(<span class="number">0</span>);</span><br><span class="line">	outb_p(<span class="number">0x36</span>,<span class="number">0x43</span>);		<span class="comment">/* binary, mode 3, LSB/MSB, ch 0 */</span></span><br><span class="line">	outb_p(LATCH &amp; <span class="number">0xff</span> , <span class="number">0x40</span>);	<span class="comment">/* LSB */</span></span><br><span class="line">	outb(LATCH &gt;&gt; <span class="number">8</span> , <span class="number">0x40</span>);	<span class="comment">/* MSB */</span></span><br><span class="line">	set_intr_gate(<span class="number">0x20</span>,&amp;timer_interrupt);</span><br><span class="line">	outb(inb_p(<span class="number">0x21</span>)&amp;~<span class="number">0x01</span>,<span class="number">0x21</span>);</span><br><span class="line">	set_system_gate(<span class="number">0x80</span>,&amp;system_call);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的最后一句<code>set_system_gate(0x80,&amp;system_call)</code>将0x80号中断与系统调用关联在一起，所以fork()函数此处调用的0x80号中断其实是系统调用。</p>
+<p>在<code>/kernel/system_call.s</code>中，对系统调用进行了处理。其中最重要的调用部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.align 2</span><br><span class="line">_system_call:</span><br><span class="line">	cmpl $nr_system_calls-1,%eax</span><br><span class="line">	ja bad_sys_call</span><br><span class="line">	push %ds</span><br><span class="line">	push %es</span><br><span class="line">	push %fs</span><br><span class="line">	pushl %edx</span><br><span class="line">	pushl %ecx		# push %ebx,%ecx,%edx as parameters</span><br><span class="line">	pushl %ebx		# to the system call</span><br><span class="line">	movl $0x10,%edx		# set up ds,es to kernel space</span><br><span class="line">	mov %dx,%ds</span><br><span class="line">	mov %dx,%es</span><br><span class="line">	movl $0x17,%edx		# fs points to local data space</span><br><span class="line">	mov %dx,%fs</span><br><span class="line">	call _sys_call_table(,%eax,4)</span><br><span class="line">	pushl %eax</span><br><span class="line">	movl _current,%eax</span><br><span class="line">	cmpl $0,state(%eax)		# state</span><br><span class="line">	jne reschedule</span><br><span class="line">	cmpl $0,counter(%eax)		# counter</span><br><span class="line">	je reschedule</span><br></pre></td></tr></table></figure>
+<p><code>call _sys_call_table(,%eax,4)</code>这一句调用了在<code>/include/linux/sys.h</code>中定义的函数数组，并通过传入的中断功能号调用对应的中断处理函数。此处调用了sys_fork()函数，其函数实现仍在<code>/kernel/system_call.s</code>中，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.align 2</span><br><span class="line">_sys_fork:</span><br><span class="line">	call _find_empty_process</span><br><span class="line">	testl %eax,%eax</span><br><span class="line">	js 1f</span><br><span class="line">	push %gs</span><br><span class="line">	pushl %esi</span><br><span class="line">	pushl %edi</span><br><span class="line">	pushl %ebp</span><br><span class="line">	pushl %eax</span><br><span class="line">	call _copy_process</span><br><span class="line">	addl $20,%esp</span><br><span class="line">1:	ret</span><br></pre></td></tr></table></figure>
+<p>这里调用的find_empty_process和copy_process均为C函数，在<code>/kernel/fork.c</code>中定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find_empty_process</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	repeat:</span><br><span class="line">		<span class="keyword">if</span> ((++last_pid)&lt;<span class="number">0</span>) last_pid=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span> ; i&lt;NR_TASKS ; i++)</span><br><span class="line">			<span class="keyword">if</span> (task[i] &amp;&amp; task[i]-&gt;pid == last_pid) <span class="keyword">goto</span> repeat;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span> ; i&lt;NR_TASKS ; i++)</span><br><span class="line">		<span class="keyword">if</span> (!task[i])</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">	<span class="keyword">return</span> -EAGAIN;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">copy_process</span><span class="params">(<span class="keyword">int</span> nr,<span class="keyword">long</span> ebp,<span class="keyword">long</span> edi,<span class="keyword">long</span> esi,<span class="keyword">long</span> gs,<span class="keyword">long</span> none,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">long</span> ebx,<span class="keyword">long</span> ecx,<span class="keyword">long</span> edx,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">long</span> fs,<span class="keyword">long</span> es,<span class="keyword">long</span> ds,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">long</span> eip,<span class="keyword">long</span> cs,<span class="keyword">long</span> eflags,<span class="keyword">long</span> esp,<span class="keyword">long</span> ss)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">p</span>;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">file</span> *<span class="title">f</span>;</span></span><br><span class="line"></span><br><span class="line">	p = (struct task_struct *) get_free_page();</span><br><span class="line">	<span class="keyword">if</span> (!p)</span><br><span class="line">		<span class="keyword">return</span> -EAGAIN;</span><br><span class="line">	task[nr] = p;</span><br><span class="line">	*p = *current;	<span class="comment">/* NOTE! this doesn&#x27;t copy the supervisor stack */</span></span><br><span class="line">	p-&gt;state = TASK_UNINTERRUPTIBLE;</span><br><span class="line">	p-&gt;pid = last_pid;</span><br><span class="line">	p-&gt;father = current-&gt;pid;</span><br><span class="line">	p-&gt;counter = p-&gt;priority;</span><br><span class="line">	p-&gt;signal = <span class="number">0</span>;</span><br><span class="line">	p-&gt;alarm = <span class="number">0</span>;</span><br><span class="line">	p-&gt;leader = <span class="number">0</span>;		<span class="comment">/* process leadership doesn&#x27;t inherit */</span></span><br><span class="line">	p-&gt;utime = p-&gt;stime = <span class="number">0</span>;</span><br><span class="line">	p-&gt;cutime = p-&gt;cstime = <span class="number">0</span>;</span><br><span class="line">	p-&gt;start_time = jiffies;</span><br><span class="line">	p-&gt;tss.back_link = <span class="number">0</span>;</span><br><span class="line">	p-&gt;tss.esp0 = PAGE_SIZE + (<span class="keyword">long</span>) p;</span><br><span class="line">	p-&gt;tss.ss0 = <span class="number">0x10</span>;</span><br><span class="line">	p-&gt;tss.eip = eip;</span><br><span class="line">	p-&gt;tss.eflags = eflags;</span><br><span class="line">	p-&gt;tss.eax = <span class="number">0</span>;</span><br><span class="line">	p-&gt;tss.ecx = ecx;</span><br><span class="line">	p-&gt;tss.edx = edx;</span><br><span class="line">	p-&gt;tss.ebx = ebx;</span><br><span class="line">	p-&gt;tss.esp = esp;</span><br><span class="line">	p-&gt;tss.ebp = ebp;</span><br><span class="line">	p-&gt;tss.esi = esi;</span><br><span class="line">	p-&gt;tss.edi = edi;</span><br><span class="line">	p-&gt;tss.es = es &amp; <span class="number">0xffff</span>;</span><br><span class="line">	p-&gt;tss.cs = cs &amp; <span class="number">0xffff</span>;</span><br><span class="line">	p-&gt;tss.ss = ss &amp; <span class="number">0xffff</span>;</span><br><span class="line">	p-&gt;tss.ds = ds &amp; <span class="number">0xffff</span>;</span><br><span class="line">	p-&gt;tss.fs = fs &amp; <span class="number">0xffff</span>;</span><br><span class="line">	p-&gt;tss.gs = gs &amp; <span class="number">0xffff</span>;</span><br><span class="line">	p-&gt;tss.ldt = _LDT(nr);</span><br><span class="line">	p-&gt;tss.trace_bitmap = <span class="number">0x80000000</span>;</span><br><span class="line">	<span class="keyword">if</span> (last_task_used_math == current)</span><br><span class="line">		__asm__(<span class="string">&quot;clts ; fnsave %0&quot;</span>::<span class="string">&quot;m&quot;</span> (p-&gt;tss.i387));</span><br><span class="line">	<span class="keyword">if</span> (copy_mem(nr,p)) &#123;</span><br><span class="line">		task[nr] = <span class="literal">NULL</span>;</span><br><span class="line">		free_page((<span class="keyword">long</span>) p);</span><br><span class="line">		<span class="keyword">return</span> -EAGAIN;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;NR_OPEN;i++)</span><br><span class="line">		<span class="keyword">if</span> (f=p-&gt;filp[i])</span><br><span class="line">			f-&gt;f_count++;</span><br><span class="line">	<span class="keyword">if</span> (current-&gt;pwd)</span><br><span class="line">		current-&gt;pwd-&gt;i_count++;</span><br><span class="line">	<span class="keyword">if</span> (current-&gt;root)</span><br><span class="line">		current-&gt;root-&gt;i_count++;</span><br><span class="line">	<span class="keyword">if</span> (current-&gt;executable)</span><br><span class="line">		current-&gt;executable-&gt;i_count++;</span><br><span class="line">	set_tss_desc(gdt+(nr&lt;&lt;<span class="number">1</span>)+FIRST_TSS_ENTRY,&amp;(p-&gt;tss));</span><br><span class="line">	set_ldt_desc(gdt+(nr&lt;&lt;<span class="number">1</span>)+FIRST_LDT_ENTRY,&amp;(p-&gt;ldt));</span><br><span class="line">	p-&gt;state = TASK_RUNNING;	<span class="comment">/* do this last, just in case */</span></span><br><span class="line">	<span class="keyword">return</span> last_pid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处可以看到copy_process的函数操作使用了大量的指针，对原有进程进行了复制。同时需要注意的是由于此函数需要传递的参数过多，有部分参数是通过栈传递进来的，这就是为什么在call之前有四句pushl。</p>
+<p>至于为何fork()函数能给子进程和父进程分别返回一个返回值目前还没有看懂，后续看懂了再进行补充。</p>
 
       
 
@@ -240,13 +246,13 @@
     2021-04-27
     <br>
     <strong class="update-time">最后更新：</strong>
-    2021-05-02
+    2021-05-09
     <br>
     <strong class="article-titles">本文标题：</strong>
-    <a href="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/" title="Linux系统调用:fork()" target="_blank">Linux系统调用:fork()</a>
+    <a href="https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/" title="Linux系统调用:fork()" target="_blank">Linux系统调用:fork()</a>
     <br>
     <strong class="article-url">本文链接：</strong>
-    <a href="https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/" title="Linux系统调用:fork()" target="_blank">https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/</a>
+    <a href="https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/" title="Linux系统调用:fork()" target="_blank">https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/</a>
     <br>
     <strong class="copyright">版权声明：</strong>
     本作品采用
@@ -325,7 +331,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.luhawxem.com:4000/2021/04/27/Linux-syscall-fork/" alt="微信分享二维码">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://luhawxem.gitee.io/2021/04/27/Linux-syscall-fork/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -547,23 +553,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">刷机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">NodeJs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,6 +570,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">手工焊接</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">NodeJs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
