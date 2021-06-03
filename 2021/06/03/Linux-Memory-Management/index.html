@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>关于我 | BBSD丿草丶帽的个人博客</title>
+  <title>Linux内存管理 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="掌握C&#x2F;C++语言开发，熟悉Java编程；掌握前端开发框架Vue.js，熟悉Node.js包管理器的使用；熟悉Nginx的使用，熟悉sql语句；掌握版本管理工具git的使用；熟悉计算机系统故障维护及网络故障处理；了解汇编语言，熟悉Linux操作系统的使用，阅读分析过部分Linux源代码(仍在继续)；了解电路设计原理。(兴趣广泛) 游戏涉猎广泛,玩过LOL&#x2F;DNF&#x2F;CF&#x2F;CSGO&#x2F;QQ飞车&#x2F;Mon">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于我">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/about/index.html">
+  <meta name="description" content="以Linux-v0.11为例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux内存管理">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="掌握C&#x2F;C++语言开发，熟悉Java编程；掌握前端开发框架Vue.js，熟悉Node.js包管理器的使用；熟悉Nginx的使用，熟悉sql语句；掌握版本管理工具git的使用；熟悉计算机系统故障维护及网络故障处理；了解汇编语言，熟悉Linux操作系统的使用，阅读分析过部分Linux源代码(仍在继续)；了解电路设计原理。(兴趣广泛) 游戏涉猎广泛,玩过LOL&#x2F;DNF&#x2F;CF&#x2F;CSGO&#x2F;QQ飞车&#x2F;Mon">
+<meta property="og:description" content="以Linux-v0.11为例。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-07T05:21:46.000Z">
-<meta property="article:modified_time" content="2021-05-30T02:11:31.730Z">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/Linux-List-mm.png">
+<meta property="article:published_time" content="2021-06-03T07:11:58.000Z">
+<meta property="article:modified_time" content="2021-06-03T07:21:15.561Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/Linux-List-mm.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -183,35 +185,73 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-Linux-Memory-Management" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于我
+      Linux内存管理
     </h1>
   
 
         
-        <a href="/about/index.html" class="archive-article-date">
-  	<time datetime="2021-04-07T05:21:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-07</time>
+        <a href="/2021/06/03/Linux-Memory-Management/" class="archive-article-date">
+  	<time datetime="2021-06-03T07:11:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>掌握C/C++语言开发，熟悉Java编程；掌握前端开发框架Vue.js，熟悉Node.js包管理器的使用；熟悉Nginx的使用，熟悉sql语句；掌握版本管理工具git的使用；熟悉计算机系统故障维护及网络故障处理；了解汇编语言，熟悉Linux操作系统的使用，阅读分析过部分Linux源代码(仍在继续)；了解电路设计原理。(兴趣广泛)</li>
-<li>游戏涉猎广泛,玩过LOL/DNF/CF/CSGO/QQ飞车/Monster Hunter系列/Nioh2/Minecraft等(我菜但是我爱玩.jpg)</li>
-</ul>
-
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=1399112638&auto=0&height=66"></iframe>
-
-
+        <p>以Linux-v0.11为例。</p>
+<a id="more"></a>
+<h5 id="目录结构">目录结构</h5>
+<img src="/2021/06/03/Linux-Memory-Management/Linux-List-mm.png" class="">
+<h5 id="memory-c">memory.c</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">volatile</span> <span class="keyword">void</span> <span class="title">do_exit</span><span class="params">(<span class="keyword">long</span> code)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">volatile</span> <span class="keyword">void</span> <span class="title">oom</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	printk(<span class="string">&quot;out of memory\n\r&quot;</span>);</span><br><span class="line">	do_exit(SIGSEGV);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>/mm/memory.c</code>中首先声明了这两个函数，一个为do_exit(long code)用于进程的退出，函数定义在<code>/kernel/exit.c</code>中，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">do_exit</span><span class="params">(<span class="keyword">long</span> code)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	free_page_tables(get_base(current-&gt;ldt[<span class="number">1</span>]),get_limit(<span class="number">0x0f</span>));</span><br><span class="line">	free_page_tables(get_base(current-&gt;ldt[<span class="number">2</span>]),get_limit(<span class="number">0x17</span>));</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span> ; i&lt;NR_TASKS ; i++)</span><br><span class="line">		<span class="keyword">if</span> (task[i] &amp;&amp; task[i]-&gt;father == current-&gt;pid) &#123;</span><br><span class="line">			task[i]-&gt;father = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (task[i]-&gt;state == TASK_ZOMBIE)</span><br><span class="line">				<span class="comment">/* assumption task[1] is always init */</span></span><br><span class="line">				(<span class="keyword">void</span>) send_sig(SIGCHLD, task[<span class="number">1</span>], <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span> ; i&lt;NR_OPEN ; i++)</span><br><span class="line">		<span class="keyword">if</span> (current-&gt;filp[i])</span><br><span class="line">			sys_close(i);</span><br><span class="line">	iput(current-&gt;pwd);</span><br><span class="line">	current-&gt;pwd=<span class="literal">NULL</span>;</span><br><span class="line">	iput(current-&gt;root);</span><br><span class="line">	current-&gt;root=<span class="literal">NULL</span>;</span><br><span class="line">	iput(current-&gt;executable);</span><br><span class="line">	current-&gt;executable=<span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (current-&gt;leader &amp;&amp; current-&gt;tty &gt;= <span class="number">0</span>)</span><br><span class="line">		tty_table[current-&gt;tty].pgrp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (last_task_used_math == current)</span><br><span class="line">		last_task_used_math = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (current-&gt;leader)</span><br><span class="line">		kill_session();</span><br><span class="line">	current-&gt;state = TASK_ZOMBIE;</span><br><span class="line">	current-&gt;exit_code = code;</span><br><span class="line">	tell_father(current-&gt;father);</span><br><span class="line">	schedule();</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">-1</span>);	<span class="comment">/* just to suppress warnings */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处的volatile是告诉GNU编译器该函数无返回值，用以在编译时优化代码。另一个为oom(void)，用以处理无可用内存的情况。首先打印out of memory，然后调用do_exit()并传入参数为SIGSEGV。此处SIGSEGV在<code>/include/sys/signal.h</code>中定义：<code>#define SIGSEGV 11/* segmentation violation */</code>，值为11的出错代码含义为“资源暂时不可用”。</p>
+<p>接下来，通过#define定义了如下一些函数及常量标识符：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> invalidate() \</span></span><br><span class="line">__asm__(<span class="string">&quot;movl %%eax,%%cr3&quot;</span>::<span class="string">&quot;a&quot;</span> (<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">/* these are not to be changed without changing head.s etc */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOW_MEM 0x100000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PAGING_MEMORY (15*1024*1024)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PAGING_PAGES (PAGING_MEMORY&gt;&gt;12)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAP_NR(addr) (((addr)-LOW_MEM)&gt;&gt;12)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> USED 100</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CODE_SPACE(addr) ((((addr)+4095)&amp;~4095) &lt; \</span></span><br><span class="line">current-&gt;start_code + current-&gt;end_code)</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">long</span> HIGH_MEMORY = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy_page(from,to) \</span></span><br><span class="line">__asm__(<span class="string">&quot;cld ; rep ; movsl&quot;</span>::<span class="string">&quot;S&quot;</span> (from),<span class="string">&quot;D&quot;</span> (to),<span class="string">&quot;c&quot;</span> (<span class="number">1024</span>):<span class="string">&quot;cx&quot;</span>,<span class="string">&quot;di&quot;</span>,<span class="string">&quot;si&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> mem_map [ PAGING_PAGES ] = &#123;<span class="number">0</span>,&#125;;</span><br></pre></td></tr></table></figure>
+<p>第一行，通过#define定义了一个函数invalidate()，并用内联汇编作为函数的实现。内联汇编语句在之前fork()函数的文章中讲过了，这里不再赘述。此处汇编操作语句为<code>movl %eax,%cr3</code>，无输出，输入则是通过eax寄存器传入值0，<code>&quot;a&quot;(0)</code>语法为：操作约束(输入表达式)。此处的值0表示页目录的基地址。此操作通过eax寄存器刷新cr3寄存器。</p>
+<p>然后就是定义了低端内存(应为OS内存区的位置)，以及用于分页的内存大小和页数。MAP_NR(addr)函数用于将内存地址映射为页号。USED为页面被占用标志，此标志仅用于OS内存页面。</p>
+<p>CODE_SPACE(addr)函数用于判断给定的线性地址是否位于当前进程的代码段中，即是否出现访问越界的情况。HIGH_MEMORY表示实际物理内存最高端地址。</p>
+<p>copy_page(from,to)这个函数执行的操作为：从from处复制一页内存到to处。此处用了多条汇编语句：cld将标志寄存器flag的方向标志位df清零，使变址寄存器si或di的地址指针随字串处理自增。rep为字串操作指令movsl的前置，在cx不等于0的情况下对字符串执行重复movsl操作。此处Input的S和D指代movsl的两个操作数，汇编语句为<code>movsl S, D</code>，即将from中的字串赋值给to，并重复操作1024次即复制一字节(一页)内存。后面的cx,si,di则是向编译器声明当前汇编语句可能会修改这三个寄存器的值，使编译器在编译时能考虑相关优化。</p>
+<p>mem_map为物理内存映射字节图，用以表示页面是否被使用，OS内存区会被置为100，而用户内存区的页面则是以增一和减一表示使用中和空闲。</p>
+<p>然后定义了函数get_free_page(void)：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Get physical address of first (actually last :-) free page, and mark it</span></span><br><span class="line"><span class="comment"> * used. If no free pages left, return 0.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">get_free_page</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">register</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> __res <span class="title">asm</span><span class="params">(<span class="string">&quot;ax&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">__asm__(<span class="string">&quot;std ; repne ; scasb\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;jne 1f\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movb $1,1(%%edi)\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;sall $12,%%ecx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;addl %2,%%ecx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movl %%ecx,%%edx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movl $1024,%%ecx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;leal 4092(%%edx),%%edi\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;rep ; stosl\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movl %%edx,%%eax\n&quot;</span></span><br><span class="line">	<span class="string">&quot;1:&quot;</span></span><br><span class="line">	:<span class="string">&quot;=a&quot;</span> (__res)</span><br><span class="line">	:<span class="string">&quot;0&quot;</span> (<span class="number">0</span>),<span class="string">&quot;i&quot;</span> (LOW_MEM),<span class="string">&quot;c&quot;</span> (PAGING_PAGES),</span><br><span class="line">	<span class="string">&quot;D&quot;</span> (mem_map+PAGING_PAGES<span class="number">-1</span>)</span><br><span class="line">	:<span class="string">&quot;di&quot;</span>,<span class="string">&quot;cx&quot;</span>,<span class="string">&quot;dx&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> __res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数注释表明，该函数用于获取最后一个空闲页面，并标记为已使用，若没有空闲页面则返回0。</p>
+<p>函数体第一句<code>register unsigned long __res asm(&quot;ax&quot;);</code>为gcc内联汇编特有的定义变量的方式，此处定义了一个局部寄存器变量__res，并该变量保存在eax寄存器中，以便高效访问和操作。然后就是用内联汇编写了一段汇编代码，大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">std</span><br><span class="line">repne</span><br><span class="line">scasb</span><br><span class="line">jne 1f</span><br><span class="line">movb $1, 1(%edi)</span><br><span class="line">sall $12, %ecx</span><br><span class="line">addl %2, %ecx</span><br><span class="line">movl %ecx, %edx</span><br><span class="line">movl $1024, %ecx</span><br><span class="line">leal 4092(%edx), %edi</span><br><span class="line">rep</span><br><span class="line">stosl</span><br><span class="line">movl %edx, %eax</span><br><span class="line">1:</span><br></pre></td></tr></table></figure>
+<p><code>std</code>表示置方向位DF为1，即di、si的值随字串处理递减(与cld相反)。</p>
+<p><code>repne</code>表示repeat not equal，即不相等时重复</p>
+<p><code>scasb</code>的作用为，比较AL和ES:DI处的字段值是否相同，根据比较结果改变标志位(OF、SF、ZF、AF、PF、CF)，并根据DF方向位的值使DI自增(DF=0)或自减(DF=1)。</p>
+<p><code>jne 1f</code>，jne表示jump if not equal，不相等时跳转，1为标识符，对应此段代码最后的<code>1:</code>，f表示forward向前跳转，与之对应的为backword向后跳转，向前跳转表示按代码执行顺序向前，即跳转到仍未执行的代码段，向后跳转表示按执行顺序往回跳转，即跳转到已经执行过的代码段。</p>
+<p>所以此处<code>std; repne; scasb; jne 1f</code>四句执行的操作为寻找空页面(DI值为0)，若无空页面则结束此段汇编代码的执行。剩下的5~13行这一段代码则是执行找到空页面之后的处理操作。</p>
+<p><code>movb $1, 1(%edi)</code>，把立即数1放到物理映射内存字节图的edi+1位置处，即置位字节图表示该内存页面现在被使用。</p>
+<p><code>sall $12, %ecx</code>，在内联汇编定义中的<code>&quot;c&quot;(PAGING_PAGES)</code>声明了将页面数存放在ecx寄存器中，sal表示shift left左移，最后的l表示操作数类型long，<code>sall $12, %ecx</code>表示将ecx中的值左移12位即乘以2的12次方为4096，用以获得相对页面起始地址。</p>
+<p><code>addl %2, %ecx</code>，此处的2前面为%，并非立即数，此处%2表示内联汇编的第二个操作数，即定义中的<code>&quot;i&quot;(LOW_MEM)</code>，此处将低端内存地址与相对页面起始地址相加，获得实际的页面物理起始地址。</p>
+<p><code>movl %ecx, %edx</code>，将实际的页面物理起始地址放入edx寄存器中保存。</p>
+<p><code>movl $1024, %ecx</code>，将ecx寄存器的值置为1024。</p>
+<p><code>leal 4092(%edx), %edi</code>，将页面物理起始地址+4096(一个页面4096字节)，即将该页面的物理结束地址放入edi寄存器中(edi为变址寄存器，存放段内偏移量，此处是将段内地址指向该空页面末端)。</p>
+<p><code>rep</code>作用为按ecx中的值执行n次的重复，当前ecx中的值为1024，即重复1024次。</p>
+<p><code>stosl</code>作用为将eax中的值保存到ES:DI指向的位置中，并根据DF位使DI自增4(DF=0)或自减4(DF=1)，由于前面已经将DF置位为1，所以此处就是使DI自减4，重复1024次则正好一个页面全部填0(eax中的值为0)。</p>
+<p>所以此处<code>leal ; rep ; stosl</code>三句的作用为将逻辑上为空(字节图值为0)的页面变为物理上为空(整个页面所有值为0)。从此处也可以看出来，页面闲置(由使用中转为空)时，仅置位字节图，不对其中数据执行擦除操作。仅当重新使用该页面时才执行数据擦除操作。</p>
+<p>最后一句<code>movl %edx, %eax</code>将保存在edx寄存器中的实际的页面物理起始地址放入到eax寄存器中用作整个函数的返回值(<code>&quot;=a&quot;(__res)</code>)。</p>
+<p>再回到整一段函数中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Get physical address of first (actually last :-) free page, and mark it</span></span><br><span class="line"><span class="comment"> * used. If no free pages left, return 0.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">get_free_page</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">register</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> __res <span class="title">asm</span><span class="params">(<span class="string">&quot;ax&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">__asm__(<span class="string">&quot;std ; repne ; scasb\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;jne 1f\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movb $1,1(%%edi)\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;sall $12,%%ecx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;addl %2,%%ecx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movl %%ecx,%%edx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movl $1024,%%ecx\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;leal 4092(%%edx),%%edi\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;rep ; stosl\n\t&quot;</span></span><br><span class="line">	<span class="string">&quot;movl %%edx,%%eax\n&quot;</span></span><br><span class="line">	<span class="string">&quot;1:&quot;</span></span><br><span class="line">	:<span class="string">&quot;=a&quot;</span> (__res)</span><br><span class="line">	:<span class="string">&quot;0&quot;</span> (<span class="number">0</span>),<span class="string">&quot;i&quot;</span> (LOW_MEM),<span class="string">&quot;c&quot;</span> (PAGING_PAGES),</span><br><span class="line">	<span class="string">&quot;D&quot;</span> (mem_map+PAGING_PAGES<span class="number">-1</span>)</span><br><span class="line">	:<span class="string">&quot;di&quot;</span>,<span class="string">&quot;cx&quot;</span>,<span class="string">&quot;dx&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> __res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>汇编语句部分解释完了，后面<code>:&quot;=a&quot; (__res)</code>表示使用eax寄存器存放返回值并赋值给__res寄存器变量。<code>:&quot;0&quot;  (0),&quot;i&quot; (LOW_MEM),&quot;c&quot; (PAGING_PAGES),&quot;D&quot; (mem_map+PAGING_PAGES-1)</code>，“0&quot;表示内联汇编的第一个操作数，即eax，此处&quot;0” (0)表示向eax寄存器中赋初值0。“i” 表示立即整型操作数，仅为类型约束，传入值LOW_MEM，&quot;c&quot;表示ecx寄存器，传入值PAGING_PAGES，&quot;D&quot;表示edi寄存器，传入值mem_map+PAGING_PAGES-1。后面的<code>:&quot;di&quot;,&quot;cx&quot;,dx&quot;</code>则是向编译器声明此段内联汇编语句可能会修改di、cx、dx寄存器的值用以优化代码。</p>
+<p>整段代码执行完成后，若无空页面，eax寄存器值仍为0，则__res值为0，<code>return __res</code>返回0表示无空页面。若存在空页面，则eax寄存器值为空页面实际物理起始地址，函数返回值即为该空页面的实际物理起始地址。</p>
+<p>接下来一个函数为free_page(unsigned long addr)：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Free a page of memory at physical address &#x27;addr&#x27;. Used by</span></span><br><span class="line"><span class="comment"> * &#x27;free_page_tables()&#x27;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (addr &lt; LOW_MEM) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (addr &gt;= HIGH_MEMORY)</span><br><span class="line">		panic(<span class="string">&quot;trying to free nonexistent page&quot;</span>);</span><br><span class="line">	addr -= LOW_MEM;</span><br><span class="line">	addr &gt;&gt;= <span class="number">12</span>;</span><br><span class="line">	<span class="keyword">if</span> (mem_map[addr]--) <span class="keyword">return</span>;</span><br><span class="line">	mem_map[addr]=<span class="number">0</span>;</span><br><span class="line">	panic(<span class="string">&quot;trying to free free page&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先判断传入的物理页面地址addr是否小于LOW_MEM，如果小于则表示该地址位于OS操作系统内存区中，不执行操作直接返回。再判断addr是否大于等于HIGH_MEMORY，若是则通过panic函数输出错误提示信息并陷入死循环(panic函数体最后一句为<code>for(;;);</code>)。</p>
+<p>正常通过两次判断后(页面存在且非系统页面)，先将给定的地址减去低端页面地址获得相对于用户页面起始地址的页面地址。然后将该地址左移12位即除以4096获得页面号。<code>if(mem_map[addr]--)</code>先判断mem_map[addr]是否为1(除了系统页面以外的其他页面表示被占用时，物理映射内存字节图均为1，无其他值)，然后再执行自减操作。若为1则自减后正常返回，页面逻辑上置为空闲中。若原值为0(空闲)，则重新赋值为0(自减后为-1)，并通过panic函数输出错误提示信息并陷入死循环。</p>
+<p>…未完待续…</p>
+<h5 id="page-s">page.s</h5>
+<p>…未完待续…</p>
 
       
 
@@ -223,7 +263,30 @@
 
 <!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
 
-  <div class="declare" hidden="hidden"></div>
+  <div class="declare">
+    <strong class="author">本文作者：</strong>
+    
+      BBSD丿草丶帽
+    
+    <br>
+    <strong class="create-time">发布时间：</strong>
+    2021-06-03
+    <br>
+    <strong class="update-time">最后更新：</strong>
+    2021-06-03
+    <br>
+    <strong class="article-titles">本文标题：</strong>
+    <a href="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/" title="Linux内存管理" target="_blank">Linux内存管理</a>
+    <br>
+    <strong class="article-url">本文链接：</strong>
+    <a href="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/" title="Linux内存管理" target="_blank">https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/</a>
+    <br>
+    <strong class="copyright">版权声明：</strong>
+    本作品采用
+    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+    许可协议进行许可。转载请注明出处！
+    
+  </div>
 
 <!-- 添加版权声明》 -->
       
@@ -234,6 +297,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -284,7 +358,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/about/" alt="微信分享二维码">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,6 +370,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/8192/12/24/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/30/TheMethodUsedInMM/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux内存管理中使用的两种机制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -314,6 +407,29 @@
 </aside>
 
 
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
+  
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
+  
+
+  
+
+  
 
 
           </div>
@@ -374,7 +490,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
