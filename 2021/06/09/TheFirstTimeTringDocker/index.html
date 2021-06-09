@@ -16,7 +16,7 @@
 <meta property="og:description" content="简单的尝试一下使用docker部署nginx服务(水文章😄)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-08T16:15:26.000Z">
-<meta property="article:modified_time" content="2021-06-08T16:38:27.993Z">
+<meta property="article:modified_time" content="2021-06-09T05:46:05.660Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -215,7 +215,7 @@
 <p>第一次部署可能会比较久，因为需要去docker.io上下载镜像，之后部署会发生缓存命中，几乎是瞬间完成。</p>
 <p>此处部署有可能会遇到一个奇怪的问题：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kernel:unregister_netdevice: waiting for lo to become free. Usage count = 1</span><br></pre></td></tr></table></figure>
-<p>更新一下软件包(Centos下为yum -y update)即可解决。</p>
+<p>更新一下软件包(Centos下为yum -y update，ubuntu下为apt update)即可解决。</p>
 <h5 id="三、配置文件及网页文件映射">三、配置文件及网页文件映射</h5>
 <p>实际上，我在宿主机上已经运行有nginx服务，并且驱动了<code>/usr/local/workspace/myblog/public</code>下的index.html，所以网页文件只需要映射该目录即可：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container run --rm --name mynginx --volume &quot;/usr/local/workspace/myblog/public/&quot;:/usr/share/nginx/html -p 4000:80 -d nginx</span><br></pre></td></tr></table></figure>
