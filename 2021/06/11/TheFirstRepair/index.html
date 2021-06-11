@@ -6,18 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>Tag: 硬件设计 | BBSD丿草丶帽的个人博客</title>
+  <title>第一次修理东西 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/tags/%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1/index.html">
+  <meta name="description" content="修了个LED灯管😄">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一次修理东西">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="修了个LED灯管😄">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/LED_1.jpg">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/Chip_1.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/Chip_2.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/Chip_3.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/LED_2.jpg">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/LED_3.jpg">
+<meta property="article:published_time" content="2021-06-11T15:20:28.000Z">
+<meta property="article:modified_time" content="2021-06-11T16:15:02.996Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="电工修理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/LED_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -181,106 +190,225 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-TheFirstRepair" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/10/MyFirstPCB-Version3.0/" class="archive-article-date">
-  	<time datetime="2021-05-09T16:15:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/10/MyFirstPCB-Version3.0/">自己的第一块PCB——第三版</a>
+    <h1 class="article-title" itemprop="name">
+      第一次修理东西
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/06/11/TheFirstRepair/" class="archive-article-date">
+  	<time datetime="2021-06-11T15:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>修了个LED灯管😄</p>
+<a id="more"></a>
+<img src="/2021/06/11/TheFirstRepair/LED_1.jpg" class="">
+<p>原始故障是，插电能亮，但是只有LED灯珠正中间有一小点亮点，个人猜测是供电线路中某处元件烧毁导致整条线电阻增大接近断路。</p>
+<p>顺着这个思路，接上电，然后用万用表的电压档量了一圈，发现有个电容左右两个焊盘均为0V，电源能正常产生5V，直接上风枪把那个电容干下来，发现故障还是一样(电容一般用作滤波、储能，这种低压低速电路中应该只是用作储能，所以直接干下来不影响)。</p>
+<p>然后继续量，量了一圈，发现一个有六个焊盘的芯片好像有点问题，因为该芯片太小看不清上面的型号，不知道是什么芯片。大致焊盘及芯片构造手绘如下：</p>
+<p>上面：</p>
+<img src="/2021/06/11/TheFirstRepair/Chip_1.png" class="">
+<p>底面(焊盘面)：</p>
+<img src="/2021/06/11/TheFirstRepair/Chip_2.png" class="">
+<p>测量的时候，发现芯片上几个脚位与电源线5V之间的电压如图示：</p>
+<img src="/2021/06/11/TheFirstRepair/Chip_3.png" class="">
+<p>很容易发现那个0V有问题，按合理推测，0V位置应该正常为3.8V，猜测芯片短路。然后在测量的时候发现，将5V电源用电流表电压档(本质上是一个大电阻的通路)接到没有标记电压的那个脚位上LED灯能正常亮起(差点给我闪瞎，离我眼睛就10CM的地方突然亮起来)，类似这样：</p>
+<img src="/2021/06/11/TheFirstRepair/LED_2.jpg" class="">
+<p>灵机一动，从电源处飞一根线到该脚位上不就行了？然后拿了根杜邦线试着接了下(还没焊)，发现电流过高，与LED灯并联的另一个灯忽明忽暗，这时才想起来电压档本质上有个大电阻，然后尝试用了一个10K的排阻接上，诶正常点亮了。</p>
+<p>然后试着把排阻焊到焊盘上，发现焊盘太小而且排阻不容易沾锡，方案失败(芯片还不小心干下来了)。</p>
+<p>再把芯片焊回去，测试有没有焊好的时候突然发现，只要将中间的脚位与右边的5V接通就可以点亮。直接一坨锡干上去，诶成功了，很开心😋。</p>
+<p><strong>成功后：</strong></p>
+<img src="/2021/06/11/TheFirstRepair/LED_3.jpg" class="">
+<p><strong>后继：</strong></p>
+<p>拿来修的那个同学说原来是可以调节亮度的，这样修好之后不能调节亮度了，个人猜测坏掉的芯片就是用来调节亮度的，如果是正常的话应该是可以控制是5V接入中间焊盘还是3.8V接入中间焊盘，通过控制电压来控制LED灯的亮度，不过没有那个芯片，这样也算是修好了吧😊，第一次尝试修理小电器，还算不错。</p>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare">
+    <strong class="author">本文作者：</strong>
+    
+      BBSD丿草丶帽
+    
+    <br>
+    <strong class="create-time">发布时间：</strong>
+    2021-06-11
+    <br>
+    <strong class="update-time">最后更新：</strong>
+    2021-06-12
+    <br>
+    <strong class="article-titles">本文标题：</strong>
+    <a href="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/" title="第一次修理东西" target="_blank">第一次修理东西</a>
+    <br>
+    <strong class="article-url">本文链接：</strong>
+    <a href="https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/" title="第一次修理东西" target="_blank">https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/</a>
+    <br>
+    <strong class="copyright">版权声明：</strong>
+    本作品采用
+    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+    许可协议进行许可。转载请注明出处！
+    
+  </div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">手工焊接</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">电工修理</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/06/11/TheFirstRepair/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/12/MyFirstPCB-Version2.0/" class="archive-article-date">
-  	<time datetime="2021-04-12T09:03:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-12</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/8192/12/24/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/09/TheFirstTimeTringDocker/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一次尝试使用Docker</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/12/MyFirstPCB-Version2.0/">自己的第一块PCB——第二版</a>
-    </h1>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">手工焊接</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -341,9 +469,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
