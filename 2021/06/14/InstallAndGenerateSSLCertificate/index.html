@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>Tag: windows | BBSD丿草丶帽的个人博客</title>
+  <title>在服务器上申请SSL证书——使用API完成 | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/tags/windows/index.html">
+  <meta name="description" content="使用LetsEncrypt的免费SSL证书(付费的好贵😢)，使用acme.sh脚本提供的API完成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在服务器上申请SSL证书——使用API完成">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/06/14/InstallAndGenerateSSLCertificate/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="使用LetsEncrypt的免费SSL证书(付费的好贵😢)，使用acme.sh脚本提供的API完成。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-13T16:22:32.000Z">
+<meta property="article:modified_time" content="2021-06-13T16:59:02.706Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="安全证书">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
@@ -181,60 +183,224 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-InstallAndGenerateSSLCertificate" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/14/TheOriginalOrPiracy/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/14/TheOriginalOrPiracy/">正版？盗版？</a>
+    <h1 class="article-title" itemprop="name">
+      在服务器上申请SSL证书——使用API完成
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/06/14/InstallAndGenerateSSLCertificate/" class="archive-article-date">
+  	<time datetime="2021-06-13T16:22:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用LetsEncrypt的免费SSL证书(付费的好贵😢)，使用<code>acme.sh</code>脚本提供的API完成。</p>
+<a id="more"></a>
+<h5 id="一、安装acme-sh">一、<a target="_blank" rel="noopener" href="http://xn--acme-ke9g492u.sh">安装acme.sh</a></h5>
+<p><code>acme.sh</code>的github仓库中的<a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki/How-to-install">wiki</a>提供了四种安装方法，可以自行查看，这里个人使用第一种方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://get.acme.sh | sh -s email=my@example.com</span><br></pre></td></tr></table></figure>
+<p>通过curl命令直接下载安装。</p>
+<h5 id="二、使用dnsapi生成证书">二、使用dnsapi生成证书</h5>
+<p>dnsapi生成证书的方法会因为dns服务提供商的不同而不同，具体请查阅<a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki/dnsapi">wiki</a>。</p>
+<p>本人所使用的dns服务提供商为Hurricane Electric，此服务提供商使用dnsapi生成证书的方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HE_Username=&quot;yourusername&quot;</span><br><span class="line">export HE_Password=&quot;password&quot;</span><br></pre></td></tr></table></figure>
+<p>先定义两个变量分别为Hurricane Electric的账号和密码，然后直接输入以下命令生成证书：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue --dns dns_he -d example.com -d www.example.com</span><br></pre></td></tr></table></figure>
+<p>此处仅生成一级域名<code>example.com</code>的证书和二级域名<code>www.example.com</code>的证书，若想申请所有二级域名的证书，可以使用通配符<code>*.example.com</code>。</p>
+<h5 id="三、安装证书">三、安装证书</h5>
+<p>默认生成的证书位于<code>~/.acme.sh/</code>下，此处的文件为内部使用，结构可能发生变化，一般不直接使用此处的证书文件，而是将其copy安装到其他路径。此处分apache和nginx两种copy方法，由于个人使用的是静态博客，仅为nginx驱动，所以使用nginx方法，apache方法可以自行去acme.sh的github仓库查看。nginx方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --install-cert -d example.com \</span><br><span class="line">--key-file       /path/to/keyfile/in/nginx/key.pem  \</span><br><span class="line">--fullchain-file /path/to/fullchain/nginx/cert.pem \</span><br><span class="line">--reloadcmd     &quot;nginx -s reload&quot;</span><br></pre></td></tr></table></figure>
+<p>此处原本的<code>--reloadcmd</code>为<code>service nginx force-reload</code>，但个人使用时提示nginx.service未处于活跃状态，故更换为<code>nginx -s reload</code>。</p>
+<p>安装完成后就可以将<code>key.pem</code>和<code>cert.pem</code>的文件路径填入nginx的配置文件中了。由于使用的是dnsapi方法生成证书，此方法会自动更新证书，不需要担心证书过期。</p>
+<h5 id="四、过程中遇到的问题">四、过程中遇到的问题</h5>
+<p>LetEncrypt在申请证书连续失败次数过多时会拒绝证书颁发服务，所以如果连续五次生成证书失败，之后再生成会提示<code>errorcode:429</code>，此时只需要等待1个小时之后再重新进行操作即可。</p>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare">
+    <strong class="author">本文作者：</strong>
+    
+      BBSD丿草丶帽
+    
+    <br>
+    <strong class="create-time">发布时间：</strong>
+    2021-06-14
+    <br>
+    <strong class="update-time">最后更新：</strong>
+    2021-06-14
+    <br>
+    <strong class="article-titles">本文标题：</strong>
+    <a href="https://cloudflare.luhawxem.com/2021/06/14/InstallAndGenerateSSLCertificate/" title="在服务器上申请SSL证书——使用API完成" target="_blank">在服务器上申请SSL证书——使用API完成</a>
+    <br>
+    <strong class="article-url">本文链接：</strong>
+    <a href="https://cloudflare.luhawxem.com/2021/06/14/InstallAndGenerateSSLCertificate/" title="在服务器上申请SSL证书——使用API完成" target="_blank">https://cloudflare.luhawxem.com/2021/06/14/InstallAndGenerateSSLCertificate/</a>
+    <br>
+    <strong class="copyright">版权声明：</strong>
+    本作品采用
+    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+    许可协议进行许可。转载请注明出处！
+    
+  </div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">windows</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">安全证书</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/06/14/InstallAndGenerateSSLCertificate/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/8192/12/24/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2021/06/11/TheFirstRepair/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一次修理东西</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
+  
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
   
 
-    
+  
+
+  
 
 
           </div>
@@ -295,9 +461,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
