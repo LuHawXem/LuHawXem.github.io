@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/Linux-List-mm.png">
 <meta property="article:published_time" content="2021-06-03T07:11:58.000Z">
-<meta property="article:modified_time" content="2021-06-15T14:37:25.426Z">
+<meta property="article:modified_time" content="2021-06-16T03:27:44.757Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -69,6 +69,8 @@
 				<li><a href="/categories">分类</a></li>
 	        
 				<li><a href="/tags/Linux">Linux</a></li>
+	        
+				<li><a href="/tags/%E5%B0%8F%E7%99%BD%E7%8E%A9%E6%9C%BA">小白玩机</a></li>
 	        
 			</ul>
 		</nav>
@@ -131,6 +133,8 @@
 			
 				
 			
+				
+			
 			
 			
 			
@@ -158,11 +162,13 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/categories">分类</a></li>
+					<li style="width: 25%"><a href="/categories">分类</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/tags/Linux">Linux</a></li>
+					<li style="width: 25%"><a href="/tags/Linux">Linux</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/%E5%B0%8F%E7%99%BD%E7%8E%A9%E6%9C%BA">小白玩机</a></li>
 		        
 				</ul>
 				<ul style="width: 50%">
@@ -300,6 +306,7 @@
 <p>if语句判断是否能正常获得一页空闲页面，或者能否将取得的空闲页面放到指定的线性地址，如果有一个操作不能完成则显示out of memory，并且释放申请的页面(注释说明若tmp为0没有申请到一页空闲页面，free_page函数也能正常退出)。</p>
 <p>try_to_share函数，尝试对当前进程指定地址处的页面进行共享：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">try_to_share</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> address, struct task_struct * p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> from;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> to;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> from_page;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> to_page;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> phys_addr;</span><br><span class="line"></span><br><span class="line">	from_page = to_page = ((address&gt;&gt;<span class="number">20</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	from_page += ((p-&gt;start_code&gt;&gt;<span class="number">20</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	to_page += ((current-&gt;start_code&gt;&gt;<span class="number">20</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line"><span class="comment">/* is there a page-directory at from? */</span></span><br><span class="line">	from = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page;</span><br><span class="line">	<span class="keyword">if</span> (!(from &amp; <span class="number">1</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	from &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	from_page = from + ((address&gt;&gt;<span class="number">10</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	phys_addr = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page;</span><br><span class="line"><span class="comment">/* is the page clean and present? */</span></span><br><span class="line">	<span class="keyword">if</span> ((phys_addr &amp; <span class="number">0x41</span>) != <span class="number">0x01</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	phys_addr &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	<span class="keyword">if</span> (phys_addr &gt;= HIGH_MEMORY || phys_addr &lt; LOW_MEM)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	to = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page;</span><br><span class="line">	<span class="keyword">if</span> (!(to &amp; <span class="number">1</span>))</span><br><span class="line">		<span class="keyword">if</span> (to = get_free_page())</span><br><span class="line">			*(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page = to | <span class="number">7</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			oom();</span><br><span class="line">	to &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	to_page = to + ((address&gt;&gt;<span class="number">10</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="number">1</span> &amp; *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page)</span><br><span class="line">		panic(<span class="string">&quot;try_to_share: to_page already exists&quot;</span>);</span><br><span class="line"><span class="comment">/* share them: write-protect */</span></span><br><span class="line">	*(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page &amp;= ~<span class="number">2</span>;</span><br><span class="line">	*(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page;</span><br><span class="line">	invalidate();</span><br><span class="line">	phys_addr -= LOW_MEM;</span><br><span class="line">	phys_addr &gt;&gt;= <span class="number">12</span>;</span><br><span class="line">	mem_map[phys_addr]++;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先定义了<code>from</code>、<code>to</code>、<code>from_page</code>、<code>to_page</code>、<code>phys_addr</code>五个变量，<code>from_page</code>和<code>to_page</code>用于存放指定进程和当前进程中逻辑地址address对应的页目录项。然后<code>from</code>和<code>to</code>用于存放页目录项的内容，<code>phys_addr</code>用于保存物理页面地址。</p>
 <p>…未完待续…</p>
 <h5 id="page-s">page.s</h5>
 <p>…未完待续…</p>
@@ -324,7 +331,7 @@
     2021-06-03
     <br>
     <strong class="update-time">最后更新：</strong>
-    2021-06-15
+    2021-06-16
     <br>
     <strong class="article-titles">本文标题：</strong>
     <a href="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/" title="Linux内存管理" target="_blank">Linux内存管理</a>
@@ -635,6 +642,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">小白玩机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
@@ -704,10 +719,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电脑维修</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">windows</a>
               </li>
              
               <li class="article-tag-list-item">
