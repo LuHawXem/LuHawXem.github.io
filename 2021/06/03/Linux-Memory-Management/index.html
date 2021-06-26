@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/Linux-List-mm.png">
 <meta property="article:published_time" content="2021-06-03T07:11:58.000Z">
-<meta property="article:modified_time" content="2021-06-16T03:27:44.757Z">
+<meta property="article:modified_time" content="2021-06-18T03:26:04.708Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -306,7 +306,35 @@
 <p>if语句判断是否能正常获得一页空闲页面，或者能否将取得的空闲页面放到指定的线性地址，如果有一个操作不能完成则显示out of memory，并且释放申请的页面(注释说明若tmp为0没有申请到一页空闲页面，free_page函数也能正常退出)。</p>
 <p>try_to_share函数，尝试对当前进程指定地址处的页面进行共享：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">try_to_share</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> address, struct task_struct * p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> from;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> to;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> from_page;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> to_page;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> phys_addr;</span><br><span class="line"></span><br><span class="line">	from_page = to_page = ((address&gt;&gt;<span class="number">20</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	from_page += ((p-&gt;start_code&gt;&gt;<span class="number">20</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	to_page += ((current-&gt;start_code&gt;&gt;<span class="number">20</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line"><span class="comment">/* is there a page-directory at from? */</span></span><br><span class="line">	from = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page;</span><br><span class="line">	<span class="keyword">if</span> (!(from &amp; <span class="number">1</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	from &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	from_page = from + ((address&gt;&gt;<span class="number">10</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	phys_addr = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page;</span><br><span class="line"><span class="comment">/* is the page clean and present? */</span></span><br><span class="line">	<span class="keyword">if</span> ((phys_addr &amp; <span class="number">0x41</span>) != <span class="number">0x01</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	phys_addr &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	<span class="keyword">if</span> (phys_addr &gt;= HIGH_MEMORY || phys_addr &lt; LOW_MEM)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	to = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page;</span><br><span class="line">	<span class="keyword">if</span> (!(to &amp; <span class="number">1</span>))</span><br><span class="line">		<span class="keyword">if</span> (to = get_free_page())</span><br><span class="line">			*(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page = to | <span class="number">7</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			oom();</span><br><span class="line">	to &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	to_page = to + ((address&gt;&gt;<span class="number">10</span>) &amp; <span class="number">0xffc</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="number">1</span> &amp; *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page)</span><br><span class="line">		panic(<span class="string">&quot;try_to_share: to_page already exists&quot;</span>);</span><br><span class="line"><span class="comment">/* share them: write-protect */</span></span><br><span class="line">	*(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page &amp;= ~<span class="number">2</span>;</span><br><span class="line">	*(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) to_page = *(<span class="keyword">unsigned</span> <span class="keyword">long</span> *) from_page;</span><br><span class="line">	invalidate();</span><br><span class="line">	phys_addr -= LOW_MEM;</span><br><span class="line">	phys_addr &gt;&gt;= <span class="number">12</span>;</span><br><span class="line">	mem_map[phys_addr]++;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>首先定义了<code>from</code>、<code>to</code>、<code>from_page</code>、<code>to_page</code>、<code>phys_addr</code>五个变量，<code>from_page</code>和<code>to_page</code>用于存放指定进程和当前进程中逻辑地址address对应的页目录项。然后<code>from</code>和<code>to</code>用于存放页目录项的内容，<code>phys_addr</code>用于保存物理页面地址。</p>
+<p>首先定义了<code>from</code>、<code>to</code>、<code>from_page</code>、<code>to_page</code>、<code>phys_addr</code>五个变量，<code>from_page</code>和<code>to_page</code>用于存放指定进程和当前进程中逻辑地址address对应的页目录项。然后<code>from</code>和<code>to</code>用于存放页目录项的内容，<code>phys_addr</code>用作临时变量。</p>
+<p>分别求得指定进程p中和当前进程中逻辑地址address对应的页目录项。为了计算方便先求出指定逻辑地址address处的“逻辑”页目录项号，即以进程空间(0~64MB)算出的页目录项号。该“逻辑”页目录项号加上进程p在CPU的4G线性空间中起始地址对应的页目录项，即得到进程p中地址address处页面所对应的4G线性空间中的实际页目录项from_page。而“逻辑”页目录项号加上当前进程CPU的4G线性地址空间中起始地址对应的页目录项，即可最后得到当前进程中地址address处页面所对应的4G线性空间中的实际页目录项to_page。</p>
+<p>得到了p进程和当前进程address对应的目录项后，分别对进程p和当前进程进行处理。</p>
+<p>首先对p进程的表项进行操作(from)，先取目录项内容，如果该目录项无效，表示目录项对应的二级页表不存在，于是返回。否则取该目录项对应页表地址from，用于计算逻辑地址address对应的页表项指针，并取出该页表项内容临时保存在phys_addr中。</p>
+<p>接着判断页表项映射的物理页面是否存在且干净，0x41对应页表项中的dirty和present标志。如果页面不干净或无效则返回。然后我们从该表项中取出物理页面地址再保存在phys_addr中。最后我们再检查一下这个物理页面地址的有效性，即它不应该超过机器最大物理地址值，也不应该小于内存低端(1MB)。</p>
+<p>然后对当前进程进行处理(to)，先对当前进程的表项进行操作，以取得address对应的页表地址，并且该页表项还未映射物理页面，present位为0。</p>
+<p>先取当前进程页目录项内容存放到变量to中。如果该页目录项无效，即目录项对应的二级页表不存在，则申请一空闲页面来存放页表，并且更新目录项to_page内容，让其指向该内存页面。</p>
+<p>否则取目录项中的页表地址存放到变量to中，加上页表项索引值&lt;&lt;2，即页表项在表中偏移地址，得到页表项地址存放到变量to_page中。如果该页表项对应的物理页面已存在，说明原本想共享进程p中对应的物理页面，但现在我们已经占有了物理页面，说明内核出错，用panic打印错误信息并死机。</p>
+<p>找到进程p中逻辑地址address处对应的干净且存在的物理页面，而且也确定了当前进程中逻辑地址address所对应的二级页表项地址之后，对其进行共享操作。首先对p进程的页表项进行修改设置写保护标志，然后让当前进程复制p进程的这个页表项。此时当前逻辑地址address处页面即被映射到p进程逻辑地址address处映射的物理页面上(两个虚拟页面同时映射同一个物理页面)。</p>
+<p>随后刷新页变换高速缓冲。计算所操作物理页面的页面号，并将对应页面映射字节数组项中的引用递增1。最后返回1，表示共享页面成功。</p>
+<p>share_page()，尝试找到一个进程可以与当前进程共享页面：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">share_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> address)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> ** <span class="title">p</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!current-&gt;executable)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (current-&gt;executable-&gt;i_count &lt; <span class="number">2</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (p = &amp;LAST_TASK ; p &gt; &amp;FIRST_TASK ; --p) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!*p)<span class="comment">//如果任务项空闲则继续寻找</span></span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">if</span> (current == *p)<span class="comment">//如果为当前任务则继续寻找</span></span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">if</span> ((*p)-&gt;executable != current-&gt;executable)<span class="comment">//值不等说明文件不同，继续寻找</span></span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">if</span> (try_to_share(address,*p))<span class="comment">//尝试共享</span></span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在发生缺页异常时，首先尝试能否与运行同一个执行文件的其他进程进行页面共享处理。函数先判断系统中是否存在另一个进程运行与当前进程同样的执行文件。若存在，则尝试与其共享指定地址处的页面。若系统中没有其他任务正在运行与当前进程相同的执行文件，那么共享页面的前提条件不成立，函数直接退出。</p>
+<p>判断是否存在另一个进程也在运行同一个执行文件的方法是利用进程任务数据结构中的executable字段。该字段指向进程正在执行程序在内存中的i节点。根据该i节点的引用次数i_count可以进行这种判断。若<code>executable-&gt;i_count</code>值大于1，则表明系统中可能有两个进程在运行同一个执行文件，然后再对任务结构数组中所有任务比较是否有相同的executable字段来最后确定多个进程运行着相同执行文件的情况。</p>
+<p>函数的参数address是进程中的逻辑地址，即是当前进程欲与p进程共享页面的逻辑页面地址，<code>**p</code>表示任务项指针。</p>
+<p>首先判断当前进程的executable字段是否指向某执行文件的i节点，以判断本进程是否有对应的执行文件。如果没有，则返回0。如果executable的确指向某个i节点，则检查该i节点引用计数值。如果当前进程运行的执行文件的内存i节点引用计数等于1(<code>executable-&gt;i_count=1</code>)，表示当前系统中只有1个进程(即当前进程)在运行该执行文件，共享条件不满足，函数直接退出。</p>
+<p>否则搜索任务数组中所有任务，寻找与当前进程可共享页面的进程，即运行相同执行文件的另一个进程，并尝试对指定地址的页面进行共享。如果找到某个进程p，其executable字段值与当前进程相同，则调用try_to_share()尝试进行页面共享。若共享操作成功，则函数返回值1，否则返回0，表示共享页面失败。</p>
+<p>缺页处理函数do_no_page()，在页异常中断处理过程中被调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">do_no_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> error_code,<span class="keyword">unsigned</span> <span class="keyword">long</span> address)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> nr[<span class="number">4</span>];</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> tmp;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> page;</span><br><span class="line">	<span class="keyword">int</span> block,i;</span><br><span class="line"></span><br><span class="line">	address &amp;= <span class="number">0xfffff000</span>;</span><br><span class="line">	tmp = address - current-&gt;start_code;</span><br><span class="line">	<span class="keyword">if</span> (!current-&gt;executable || tmp &gt;= current-&gt;end_data) &#123;</span><br><span class="line">		get_empty_page(address);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (share_page(tmp))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (!(page = get_free_page()))</span><br><span class="line">		oom();</span><br><span class="line"><span class="comment">/* remember that 1 block is used for header */</span></span><br><span class="line">	block = <span class="number">1</span> + tmp/BLOCK_SIZE;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span> ; i&lt;<span class="number">4</span> ; block++,i++)</span><br><span class="line">		nr[i] = bmap(current-&gt;executable,block);</span><br><span class="line">	bread_page(page,current-&gt;executable-&gt;i_dev,nr);</span><br><span class="line">	i = tmp + <span class="number">4096</span> - current-&gt;end_data;</span><br><span class="line">	tmp = page + <span class="number">4096</span>;</span><br><span class="line">	<span class="keyword">while</span> (i-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		tmp--;</span><br><span class="line">		*(<span class="keyword">char</span> *)tmp = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (put_page(page,address))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	free_page(page);</span><br><span class="line">	oom();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数error_code和address是进程在访问页面时由CPU因缺页异常而自动生成的。error_code指出出错类型，address是产生该异常的页面线性地址。</p>
+<p>该函数首先尝试与已加载的相同文件进行页面共享，或者只是由于进程动态申请页面而只需映射一页物理内存页即可。若共享操作不成功，那么只能从相应文件中读入所缺的页面到指定线性地址处。</p>
+<p>首先取线性空间中指定地址address处页面地址，用以计算出指定线性地址在进程空间中相对于进程基址的偏移长度值tmp，即对应的逻辑地址。</p>
+<p>若当前进程的executable节点指针空，或指定地址超出(代码 + 数据)的长度，则申请一页物理内存，并映射到指定的线性地址处。executable是进程正在运行的执行文件的i节点结构。由于任务0和任务1的代码在内核中，因此任务0、任务1以及任务1派生的没有调用过execve()的所有任务的executable都为0。若该值为0，或者参数指定的线性地址超出代码加数据长度，则表明进程在申请新的内存页面存放堆或栈中数据。因此直接调用取空闲页面函数get_empty_page()为进程申请一页物理内存并映射到指定线性地址处。进程任务结构字段start_code是线性地址空间中进程代码段地址，字段end_data是代码加数据长度。对于Linux-v0.11内核，它的代码段和数据段起始基址相同。</p>
+<p>否则说明所缺页面在进程执行映像文件范围内，尝试进行共享页面操作，成功则退出，不成功则申请一页物理内存页面page，然后从存储设备上读取执行文件中的相应页面并映射到进程页面逻辑地址tmp处。</p>
+<p>因为块设备上存放的执行文件映像第1块数据是程序头结构，因此在读取该文件时需要跳过第1块数据。所以需要首先计算缺页所在的数据块号。因为每块数据长度为BLOCK_SIZE = 1KB，因此一页内存可存放4个数据块。进程逻辑地址tmp除以数据块大小再加1即可得出缺少的页面在执行映像文件中的起始块号block。根据这个块号和执行文件的i节点，我们就可以从映射位图中找到对应块设备中对应的设备逻辑块号(保存在nr[]数组中)。利用bread_page()即可把这4个逻辑块读入到物理页面page中。</p>
+<p>在读设备逻辑块操作时，可能会碰到读取位置距离文件尾部不到一个页面长度的情况，因此就可能读入一些无用的信息，<code>i = tmp +4096 - current-&gt;end_data</code>到<code>if</code>之前的语句就是用来处理这种情况的，此部分将超出执行文件end_data以后的部分进行清零。</p>
+<p>最后<code>if()</code>把引起缺页异常的一页物理页面映射到指定线性地址address处。若操作成功就返回。否则释放内存页，显示out of memory。</p>
+<p>物理内存管理初始化函数mem_init()：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mem_init</span><span class="params">(<span class="keyword">long</span> start_mem, <span class="keyword">long</span> end_mem)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	HIGH_MEMORY = end_mem;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span> ; i&lt;PAGING_PAGES ; i++)</span><br><span class="line">		mem_map[i] = USED;</span><br><span class="line">	i = MAP_NR(start_mem);</span><br><span class="line">	end_mem -= start_mem;</span><br><span class="line">	end_mem &gt;&gt;= <span class="number">12</span>;</span><br><span class="line">	<span class="keyword">while</span> (end_mem--&gt;<span class="number">0</span>)</span><br><span class="line">		mem_map[i++]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>…未完待续…</p>
 <h5 id="page-s">page.s</h5>
 <p>…未完待续…</p>
@@ -331,7 +359,7 @@
     2021-06-03
     <br>
     <strong class="update-time">最后更新：</strong>
-    2021-06-16
+    2021-06-18
     <br>
     <strong class="article-titles">本文标题：</strong>
     <a href="https://cloudflare.luhawxem.com/2021/06/03/Linux-Memory-Management/" title="Linux内存管理" target="_blank">Linux内存管理</a>
@@ -610,14 +638,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Arduino</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">博客搭建</a>
               </li>
              
@@ -627,6 +647,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Arduino</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,11 +674,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,10 +691,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">openwrt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
