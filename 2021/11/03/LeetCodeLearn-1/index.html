@@ -16,7 +16,7 @@
 <meta property="og:description" content="力扣刷题记录[一]。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-03T12:20:53.000Z">
-<meta property="article:modified_time" content="2021-11-25T11:10:59.254Z">
+<meta property="article:modified_time" content="2021-11-26T02:55:44.544Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -738,6 +738,7 @@
 </ul>
 <p><strong>解答：</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span></span>&#123;</span><br><span class="line">  	<span class="comment">//从官方题解获得的思路</span></span><br><span class="line">    <span class="comment">//状态转移方程st[i] = max(st[i-2] + nums[i]),st[i - 1])</span></span><br><span class="line">    <span class="keyword">if</span>(numsSize == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">if</span>(numsSize == <span class="number">2</span>) <span class="keyword">return</span> nums[<span class="number">0</span>]&gt;nums[<span class="number">1</span>]?nums[<span class="number">0</span>]:nums[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span>* st = <span class="built_in">calloc</span>(numsSize,<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; numsSize;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>) st[i] = nums[i];</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">1</span>) st[i] = nums[i]&gt;nums[i<span class="number">-1</span>]?nums[i]:nums[i<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= <span class="number">2</span>) st[i] = (st[i<span class="number">-2</span>] + nums[i])&gt;st[i<span class="number">-1</span>]?(st[i<span class="number">-2</span>] + nums[i]):st[i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> st[numsSize<span class="number">-1</span>]&gt;st[numsSize<span class="number">-2</span>]?st[numsSize<span class="number">-1</span>]:st[numsSize<span class="number">-2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//k神题解,空间复杂度O(1),因为f[i]只与f[i-1]和f[i-2]有关,所以用两个变量保存即可</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span></span>&#123;</span><br><span class="line">    <span class="comment">//fi = fi-2 + i || fi - 1</span></span><br><span class="line">    <span class="keyword">int</span> cur = <span class="number">0</span>;<span class="comment">//f[i-1]</span></span><br><span class="line">    <span class="keyword">int</span> pre = <span class="number">0</span>;<span class="comment">//f[i-2]</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; numsSize;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = cur;</span><br><span class="line">        cur = (pre + nums[i])&gt;cur?(pre + nums[i]):cur;</span><br><span class="line">        pre = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cur;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><b style="color:blue;">120.三角形最小路径和</b></p>
 <p>给定一个三角形 <code>triangle</code> ，找出自顶向下的最小路径和。</p>
 <p>每一步只能移动到下一行中相邻的结点上。<strong>相邻的结点</strong> 在这里指的是 <strong>下标</strong> 与 <strong>上一层结点下标</strong> 相同或者等于 <strong>上一层结点下标 + 1</strong> 的两个结点。也就是说，如果正位于当前行的下标 <code>i</code> ，那么下一步可以移动到下一行的下标 <code>i</code> 或 <code>i + 1</code> 。</p>
@@ -1323,11 +1324,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1351,11 +1352,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1371,19 +1372,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">微信小程序</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">NodeJs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1392,6 +1385,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">手工焊接</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">NodeJs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1411,15 +1412,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">程序设计</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
