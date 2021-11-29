@@ -11,14 +11,14 @@
   <meta name="description" content="上学期期末做的，这学期又要学汇编😅，这都快忘光了，复习一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机组成原理与体系结构课程设计">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/index.html">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
 <meta property="og:description" content="上学期期末做的，这学期又要学汇编😅，这都快忘光了，复习一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_1.png">
-<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_2.png">
-<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_3.png">
-<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_4.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_1.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_2.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_3.png">
+<meta property="og:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_4.png">
 <meta property="article:published_time" content="2021-03-09T11:33:09.000Z">
 <meta property="article:modified_time" content="2021-03-13T01:06:10.467Z">
 <meta property="article:author" content="BBSD丿草丶帽">
@@ -26,7 +26,7 @@
 <meta property="article:tag" content="课程设计">
 <meta property="article:tag" content="汇编语言">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_1.png">
+<meta name="twitter:image" content="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_1.png">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
   
@@ -190,7 +190,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-PrincipleOfComputerCompositionCourseDesign" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-PrincipleOfComputerOrganizationCourseDesign" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -202,7 +202,7 @@
   
 
         
-        <a href="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" class="archive-article-date">
+        <a href="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/" class="archive-article-date">
   	<time datetime="2021-03-09T11:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
 </a>
         
@@ -214,18 +214,18 @@
 <a id="more"></a>
 <h4 id="一-课设题目">一. 课设题目</h4>
 <p>设计并实现具有以下16条指令的指令集结构的模型计算机：</p>
-<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_1.png" class="">
+<img src="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_1.png" class="">
 <h4 id="二-检查方式">二. 检查方式</h4>
 <p>跑两个指定的测试程序，要求实验箱显示正确结果。如果题目不变的话，测试13条非转移指令的测试程序结果为：寄存器R0-R3分别显示00、11、22、33，IOH显示33。测试3条转移指令的测试程序结果为：寄存器R0-R3分别显示00、11、22、33，若显示EE则程序有误。</p>
 <h4 id="三-设计思路">三. 设计思路</h4>
 <p>其实前12条指令加上最后一条HALT停机指令都没有什么难度，如果前面的计组实验是认真做过的应该很快能搞定。这里的HALT指令我是偷鸡做的，因为CMStudio里的MXJ4.IS自带这条HALT指令，并且恰好在所需要的07E0H这个位置，所以我这个课设其实是基于MXJ4这一条HALT再去做的其他15条指令的。</p>
 <p>1.微指令起始入口(0000H~0001H)</p>
 <p>不过也有同学是直接从头到尾自己写的微指令文件，<b>出现了一个很神奇的问题就是：</b></p>
-<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_2.png" class="">
+<img src="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_2.png" class="">
 <p>程序入口语句0001H此处的uPC，正常来说是填的程序入口地址，即第一条汇编指令的微指令地址(0600H)，如果此处是手写的，很可能出现忘了将<b>+1</b>改成0600H的情况。导致<b>脱机时完全没有问题，联机微单步运行大概7、8步之后运行顺序紊乱。</b></p>
 <p>经过与老师探讨，此处的问题貌似是<b>软件硬件状态不匹配</b>，若uPC为<b>+1</b>，硬件执行指令时，需要多次自增以达到指令位置(大概就是要等他慢慢+1+1一直加到比如0600H这样才行)，而软件仅能以一条汇编指令为单位运行，出现了汇编指令栏运行结束、微指令还不知道在哪的问题。</p>
 <p>2.SUB指令(0600H~0602H)</p>
-<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_3.png" class="">
+<img src="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_3.png" class="">
 <p>减法指令，取数、取数、相减、放回目标寄存器。这里<b>要注意的是此处取数的总线规则</b>。为什么同样能取R0寄存器，一个是偶送偶、一个是奇送偶呢？</p>
 <p>如果你认真思考我这个问题那说明你还没有完全理解。此处偶送偶、奇送偶其实只是<em>表象</em>，SUB指令的指令码是0000RdRs，取数是从Rd取还是从Rs取<em>其实是看XP、OP控制位的</em>，但是这两个控制位的改变会导致总线规则的改变，于是表现出偶送偶和奇送偶的差异。</p>
 <p>3.ADD指令、AND指令同SUB指令，不再赘述。</p>
@@ -235,7 +235,7 @@
 <p>7.LDI指令。将指令中的立即数送入Rd。首先要注意到，这条指令的机器指令码为<b>1000 Rd00 XXXX XXXX</b>，为两字节的指令，即指令长度为2。同时，<b>指令中的立即数</b>，立即数即为指令码中XXXX XXXX这一段。要注意到的是，<b>指令和数据(立即数)，本质上都是0/1字符</b>，都是储存在程序存储器(ROM)中的，所以此处的取立即数，需要在执行指令时，取出当前指令的下一个ROM单元内的数据，例如这条指令它存在了ROM中00H和01H号单元中，那么00H存放的即为1000 Rd00这一段指令码，而01H中即为指令所操作的立即数。需要注意的是，<b>ROM(程序存储器)和RAM(数据存储器)每个单元均只能存放一字节数据</b>(其实寄存器也是，R0-R7都是只能存放一字节数据，在本实验中你所能看到的AX、BX、CX、DX其实都是两个寄存器所组成的，容易给人一种错觉就是一个寄存器能存放两字节数据)。同时，由于本条指令的指令长度为2(占据两个ROM单元)，需要在指令执行过程中手动将PC自增，否则会出现找不到下一条指令的情况。因为正常执行完一条指令总会回到0000H-0001H，而在0001H处PC自增是为了寻找下一条指令所存放的ROM单元，但是<b>本条指令长度为2，自增一次时所读取到的ROM单元存放的是当前指令的操作数(立即数)</b>，将操作数当作指令执行于是出现问题。同理，若指令长度为3，则需要在执行过程中自增两次，自增位置视情况而定。</p>
 <p>8.OUT指令。Rs送IOH，没啥好说的，注意控制位和总线规则，送IO口高位，别送到低位了。</p>
 <p>9.LDA指令。数据存储器单元中的数据送寄存器。</p>
-<img src="/2021/03/09/PrincipleOfComputerCompositionCourseDesign/PccCs_4.png" class="">
+<img src="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/PccCs_4.png" class="">
 <p>此处要<b>注意</b>的是，首先这是一条长度为3的指令，需要在过程中自增两次。同时，要从数据存储器中取数，必须要先知道数据存放的单元地址，而数据地址长度为两字节，从程序存储器中取出数据时只能取一字节，所以还需要进行<b>拼地址</b>的操作。先从ROM的第一个单元(假设为00H)取出数据地址的低八位，送到AL/BL；再将PC自增，从ROM的第二个单元(01H)取出数据地址的高八位，送到AH/BH拼成两字节的数据地址(此处显示为TmpB=ROM,PC++；但实际运行顺序是PC++,TmpB=ROM)。拼完地址后由ALU送AR地址寄存器，再由该地址取出预先存放在该地址单元的数据(<b>注意E/M控制位</b>，此控制位决定是从ROM取数据还是从RAM取数据)。</p>
 <p>10.STA指令。寄存器数据送数据存储器单元。其实就是把LDA指令的最后一步反一下，前面仍旧是拼地址、送AR，只是最后一步从RAM送寄存器变成了从寄存器送RAM。</p>
 <p>11.JMP指令。跳转。其实跟上面两条差不多，也是拼地址，只是这时候不送AR地址寄存器而是直接送PC了。</p>
@@ -271,10 +271,10 @@
     2021-03-13
     <br>
     <strong class="article-titles">本文标题：</strong>
-    <a href="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" title="计算机组成原理与体系结构课程设计" target="_blank">计算机组成原理与体系结构课程设计</a>
+    <a href="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/" title="计算机组成原理与体系结构课程设计" target="_blank">计算机组成原理与体系结构课程设计</a>
     <br>
     <strong class="article-url">本文链接：</strong>
-    <a href="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" title="计算机组成原理与体系结构课程设计" target="_blank">https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/</a>
+    <a href="https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/" title="计算机组成原理与体系结构课程设计" target="_blank">https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/</a>
     <br>
     <strong class="copyright">版权声明：</strong>
     本作品采用
@@ -361,7 +361,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerCompositionCourseDesign/" alt="微信分享二维码">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -583,6 +583,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">后端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">小白玩机</a>
               </li>
              
@@ -615,23 +627,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">后端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">硬件设计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">手工焊接</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,6 +636,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">硬件设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">手工焊接</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -688,10 +692,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">硬盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
             
             <div class="clearfix"></div>
