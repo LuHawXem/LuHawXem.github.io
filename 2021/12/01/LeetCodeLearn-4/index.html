@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>BBSD丿草丶帽的个人博客</title>
+  <title>力扣刷题记录[四](2021.12.01 ~ 2021.12.xx) | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/page/4/index.html">
+  <meta name="description" content="力扣刷题记录[四]。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣刷题记录[四](2021.12.01 ~ 2021.12.xx)">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/12/01/LeetCodeLearn-4/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="力扣刷题记录[四]。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-01T00:43:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T10:39:11.797Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
@@ -181,118 +183,190 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-TheOriginalOrPiracy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-LeetCodeLearn-4" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/TheOriginalOrPiracy/">正版？盗版？</a>
+    <h1 class="article-title" itemprop="name">
+      力扣刷题记录[四](2021.12.01 ~ 2021.12.xx)
     </h1>
   
 
         
-        <a href="/2021/03/14/TheOriginalOrPiracy/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+        <a href="/2021/12/01/LeetCodeLearn-4/" class="archive-article-date">
+  	<time datetime="2021-12-01T00:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近看到我校的“正版”软件服务平台发的有关正版windows系统、Office的文章，想写一下有关windows的正版和盗版的一些事情。</p>
-        
-      
+        <p>力扣刷题记录[四]。</p>
+<a id="more"></a>
+<h4 id="2021-12-01">2021.12.01</h4>
+<p><strong>剑指 Offer 15. 二进制中1的个数</strong></p>
+<p>编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 ‘1’ 的个数（也被称为 <em>汉明重量</em>).）。</p>
+<p>提示：</p>
+<ul>
+<li>请注意，在某些语言（如 Java）中，没有无符号整数类型。在这种情况下，输入和输出都将被指定为有符号整数类型，并且不应影响您的实现，因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。</li>
+<li>在 Java 中，编译器使用 <em>二进制补码</em> 记法来表示有符号整数。因此，在上面的 <strong>示例 3</strong> 中，输入表示有符号整数 <code>-3</code>。</li>
+</ul>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n &#x3D; 11 (控制台输入 00000000000000000000000000001011)</span><br><span class="line">输出：3</span><br><span class="line">解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 &#39;1&#39;。</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n &#x3D; 128 (控制台输入 00000000000000000000000010000000)</span><br><span class="line">输出：1</span><br><span class="line">解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 &#39;1&#39;。</span><br></pre></td></tr></table></figure>
+<p>示例 3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n &#x3D; 4294967293 (控制台输入 11111111111111111111111111111101，部分语言中 n &#x3D; -3）</span><br><span class="line">输出：31</span><br><span class="line">解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 &#39;1&#39;。</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li>输入必须是长度为 <code>32</code> 的 <strong>二进制串</strong> 。</li>
+</ul>
+<p>注意：本题与主站 191 题相同</p>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">  	<span class="comment">//循环右移进行判断</span></span><br><span class="line">    <span class="keyword">while</span>(n != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(n &amp; <span class="number">1</span> == <span class="number">1</span>) count++;</span><br><span class="line">        n = n &gt;&gt; <span class="number">1</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">剑指 Offer 65. 不用加减乘除做加法</b></p>
+<p>写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: a &#x3D; 1, b &#x3D; 1</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>a</code>, <code>b</code> 均可能是负数或 0</li>
+<li>结果不会溢出 32 位整数</li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="comment">//addl把$1 + $2放到$2中,即第二个寄存器存放返回值</span></span><br><span class="line">    __asm(<span class="string">&quot;addl %%eax, %%ecx\n&quot;</span></span><br><span class="line">        :<span class="string">&quot;=c&quot;</span>(a)</span><br><span class="line">        :<span class="string">&quot;a&quot;</span>(a),<span class="string">&quot;c&quot;</span>(b)</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">1143. 最长公共子序列</b></p>
+<p>给定两个字符串 <code>text1</code> 和 <code>text2</code>，返回这两个字符串的最长 <strong>公共子序列</strong> 的长度。如果不存在 <strong>公共子序列</strong> ，返回 <code>0</code> 。</p>
+<p>一个字符串的 <strong>子序列</strong> 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。</p>
+<ul>
+<li>例如，<code>&quot;ace&quot;</code> 是 <code>&quot;abcde&quot;</code> 的子序列，但 <code>&quot;aec&quot;</code> 不是 <code>&quot;abcde&quot;</code> 的子序列。</li>
+</ul>
+<p>两个字符串的 <strong>公共子序列</strong> 是这两个字符串所共同拥有的子序列。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：text1 &#x3D; &quot;abcde&quot;, text2 &#x3D; &quot;ace&quot; </span><br><span class="line">输出：3  </span><br><span class="line">解释：最长公共子序列是 &quot;ace&quot; ，它的长度为 3 。</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：text1 &#x3D; &quot;abc&quot;, text2 &#x3D; &quot;abc&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：最长公共子序列是 &quot;abc&quot; ，它的长度为 3 。</span><br></pre></td></tr></table></figure>
+<p>示例 3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：text1 &#x3D; &quot;abc&quot;, text2 &#x3D; &quot;def&quot;</span><br><span class="line">输出：0</span><br><span class="line">解释：两个字符串没有公共子序列，返回 0 。</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= text1.length, text2.length &lt;= 1000</code></li>
+<li><code>text1</code> 和 <code>text2</code> 仅由小写英文字符组成。</li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划,dp[i][j]表示text1[0:i-1]和text2[0:j-1]的最长公共子序列长度</span></span><br><span class="line"><span class="comment">//状态转移方程为:dp[i][j] = dp[i-1][j-1] + 1 当text1[i-1] == text2[j-1]时;或dp[i][j] = max(dp[i-1][j],dp[i][j-1]) 当text1[i-1] != text2[j-1]时;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(<span class="keyword">char</span> * text1, <span class="keyword">char</span> * text2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> M = <span class="built_in">strlen</span>(text1);</span><br><span class="line">    <span class="keyword">int</span> N = <span class="built_in">strlen</span>(text2);</span><br><span class="line">  	<span class="comment">//声明dp数组</span></span><br><span class="line">    <span class="keyword">int</span> dp[M+<span class="number">1</span>][N+<span class="number">1</span>];</span><br><span class="line">  	<span class="comment">//初始化为0</span></span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">  	<span class="comment">//由于dp[0][0]、dp[i][0]、dp[0][j]均为空字符串与另一个字符串的匹配,结果为0,所以直接从1开始进行循环遍历</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= M; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(text1[i<span class="number">-1</span>] == text2[j<span class="number">-1</span>]) &#123;</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j] &gt; dp[i][j<span class="number">-1</span>] ? dp[i<span class="number">-1</span>][j] : dp[i][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[M][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">583. 两个字符串的删除操作</b></p>
+<p>给定两个单词 <em>word1</em> 和 <em>word2</em>，找到使得 <em>word1</em> 和 <em>word2</em> 相同所需的最小步数，每步可以删除任意一个字符串中的一个字符。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;sea&quot;, &quot;eat&quot;</span><br><span class="line">输出: 2</span><br><span class="line">解释: 第一步将&quot;sea&quot;变为&quot;ea&quot;，第二步将&quot;eat&quot;变为&quot;ea&quot;</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ol>
+<li>给定单词的长度不超过500。</li>
+<li>给定单词中的字符只含有小写字母。</li>
+</ol>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//其实就是在求最长子序列,与上一题相同</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="keyword">char</span>* word1, <span class="keyword">char</span>* word2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> M = <span class="built_in">strlen</span>(word1);</span><br><span class="line">    <span class="keyword">int</span> N = <span class="built_in">strlen</span>(word2);</span><br><span class="line">  	<span class="comment">//声明dp数组</span></span><br><span class="line">    <span class="keyword">int</span> dp[M+<span class="number">1</span>][N+<span class="number">1</span>];</span><br><span class="line">  	<span class="comment">//初始化为0</span></span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">  	<span class="comment">//由于dp[0][0]、dp[i][0]、dp[0][j]均为空字符串与另一个字符串的匹配,结果为0,所以直接从1开始进行循环遍历</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= M; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(word1[i<span class="number">-1</span>] == word2[j<span class="number">-1</span>]) &#123;</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j] &gt; dp[i][j<span class="number">-1</span>] ? dp[i<span class="number">-1</span>][j] : dp[i][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//求到最长子序列之后,用字符串的长度减去最长子序列的长度,即为需要进行删除操作的步数</span></span><br><span class="line">    <span class="keyword">return</span> (M - dp[M][N]) + (N - dp[M][N]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>1446. 连续字符</strong></p>
+<p>给你一个字符串 <code>s</code> ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。</p>
+<p>请你返回字符串的能量。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;leetcode&quot;</span><br><span class="line">输出：2</span><br><span class="line">解释：子字符串 &quot;ee&quot; 长度为 2 ，只包含字符 &#39;e&#39; 。</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;abbcccddddeeeeedcba&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：子字符串 &quot;eeeee&quot; 长度为 5 ，只包含字符 &#39;e&#39; 。</span><br></pre></td></tr></table></figure>
+<p>示例 3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;triplepillooooow&quot;</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure>
+<p>示例 4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;hooraaaaaaaaaaay&quot;</span><br><span class="line">输出：11</span><br></pre></td></tr></table></figure>
+<p>示例 5：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;tourist&quot;</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 500</code></li>
+<li><code>s</code> 只包含小写英文字母。</li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//每日一题</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxPower</span><span class="params">(<span class="keyword">char</span> * s)</span></span>&#123;</span><br><span class="line">  	<span class="comment">//三个变量,一个用于保存最大值,一个用于保存字符下标,一个用于遍历过程中保存当前子串的长度</span></span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> tmp = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">strlen</span>(s); i++) &#123;</span><br><span class="line">      	<span class="comment">//如果当前字符等于保存的下标对应的字符,说明s[p:i]均为同一个字符,tmp++</span></span><br><span class="line">        <span class="keyword">if</span>(s[i] == s[p]) &#123;</span><br><span class="line">            tmp++;</span><br><span class="line">        &#125;</span><br><span class="line">      	<span class="comment">//如果不等,说明当前字符与上一个字符不同,将当前字符的位置保存,并将tmp值赋给max,还原tmp值为1</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            p = i;</span><br><span class="line">            max = max &gt; tmp ? max : tmp;</span><br><span class="line">            tmp = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//返回max和tmp中的最大值,因为最后一次遍历的tmp可能不会被赋值就结束循环了</span></span><br><span class="line">    <span class="keyword">return</span> max &gt; tmp ? max : tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2021-12-02">2021.12.02</h4>
+<p><b style="color:blue;">剑指 Offer 56 - I. 数组中数字出现的次数</b></p>
+<p>一个整型数组 <code>nums</code> 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [4,1,4,6]</span><br><span class="line">输出：[1,6] 或 [6,1]</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [1,2,10,4,1,4,3,3]</span><br><span class="line">输出：[2,10] 或 [10,2]</span><br></pre></td></tr></table></figure>
+<p>限制：</p>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 10000</code></li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先通过一次异或,得出的数字即为所求的两个数字的异或</span></span><br><span class="line"><span class="comment">//然后由异或的定义,得出的数字中第一位为1的数位即为两个数字不同的数位</span></span><br><span class="line"><span class="comment">//以这个二进制位进行分割,再次异或,即可分别得到两个数字</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">singleNumbers</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize, <span class="keyword">int</span>* returnSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">        n = n ^ nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">1</span>;</span><br><span class="line">  	<span class="comment">//按位操作需要加括号,位操作优先级较低</span></span><br><span class="line">    <span class="keyword">while</span>((n &amp; m) == <span class="number">0</span>) &#123;</span><br><span class="line">        m = m &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    *returnSize = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span>* res = <span class="built_in">calloc</span>(<span class="number">2</span>, <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">0</span>; <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">      	<span class="comment">//按位操作需要加括号,位操作优先级较低</span></span><br><span class="line">        <span class="keyword">if</span>((nums[i] &amp; m) != <span class="number">0</span>) res[<span class="number">0</span>] = res[<span class="number">0</span>] ^ nums[i];</span><br><span class="line">        <span class="keyword">else</span> res[<span class="number">1</span>] = res[<span class="number">1</span>] ^ nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">剑指 Offer 56 - II. 数组中数字出现的次数 II</b></p>
+<p>在一个数组 <code>nums</code> 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [3,4,3,3]</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [9,1,7,9,7,9,7]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+<p>限制：</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 10000</code></li>
+<li><code>1 &lt;= nums[i] &lt; 2^31</code></li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最容易想到的应该是排序之后for循环查找</span></span><br><span class="line"><span class="comment">//有限状态自动机,各个二进制位的位运算规则相同,只需考虑一位,对于所有数字中的某个二进制位1的个数,存在三种状态,即对3余数为0,1,2;若输入二进制位1,则状态进行转移0-&gt;1-&gt;2;若输入二进制位0,状态不变</span></span><br><span class="line"><span class="comment">//由于存在三种状态,所以需要两个二进制位来表示,设这两位分别为two、one,则状态转移为00-&gt;01-&gt;10;</span></span><br><span class="line"><span class="comment">//通过状态转换表导出状态转换公式,题解如下:</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ones = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> twos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">      	<span class="comment">//如果twos = 1,则ones转移后一定为0,只能从10-&gt;10或10-&gt;00;如果two = 0,则one转移后的状态由nums[i]决定,ones ^ 0 = ones,ones ^ 1 = ~one</span></span><br><span class="line">        ones = (ones ^ nums[i]) &amp; (~twos);</span><br><span class="line">      	<span class="comment">//twos同理,如果ones等于1,只能从01-&gt;01或01-&gt;00(+10)</span></span><br><span class="line">        twos = (twos ^ nums[i]) &amp; (~ones);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ones;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">72. 编辑距离</b></p>
+<p>给你两个单词 <code>word1</code> 和 <code>word2</code>，请你计算出将 <code>word1</code> 转换成 <code>word2</code> 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<ul>
+<li>插入一个字符</li>
+<li>删除一个字符</li>
+<li>替换一个字符</li>
+</ul>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 &#x3D; &quot;horse&quot;, word2 &#x3D; &quot;ros&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">horse -&gt; rorse (将 &#39;h&#39; 替换为 &#39;r&#39;)</span><br><span class="line">rorse -&gt; rose (删除 &#39;r&#39;)</span><br><span class="line">rose -&gt; ros (删除 &#39;e&#39;)</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 &#x3D; &quot;intention&quot;, word2 &#x3D; &quot;execution&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：</span><br><span class="line">intention -&gt; inention (删除 &#39;t&#39;)</span><br><span class="line">inention -&gt; enention (将 &#39;i&#39; 替换为 &#39;e&#39;)</span><br><span class="line">enention -&gt; exention (将 &#39;n&#39; 替换为 &#39;x&#39;)</span><br><span class="line">exention -&gt; exection (将 &#39;n&#39; 替换为 &#39;c&#39;)</span><br><span class="line">exection -&gt; execution (插入 &#39;u&#39;)</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>0 &lt;= word1.length, word2.length &lt;= 500</code></li>
+<li><code>word1</code> 和 <code>word2</code> 由小写英文字母组成</li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//动态规划,dp[i][j]表示从word1[i]变换到word2[j]所需的最小操作数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="keyword">char</span> * word1, <span class="keyword">char</span> * word2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="built_in">strlen</span>(word1);</span><br><span class="line">    <span class="keyword">int</span> m = <span class="built_in">strlen</span>(word2);</span><br><span class="line">  	<span class="comment">//多声明一个位置,dp[0][]表示从空字符串变换成word2所需的操作数,dp[][0]表示将word1变换成空字符串所需的操作数,dp[0][0]即为空字符串变成空字符串所需的操作数</span></span><br><span class="line">    <span class="keyword">int</span> dp[n+<span class="number">1</span>][m+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m + <span class="number">1</span>; j++) &#123;</span><br><span class="line">        dp[<span class="number">0</span>][j] = j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n + <span class="number">1</span>; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n + <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; m + <span class="number">1</span>; j++) &#123;</span><br><span class="line">          	<span class="comment">//dp状态转移方程</span></span><br><span class="line">            <span class="keyword">if</span>(word1[i - <span class="number">1</span>] == word2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = min(dp[i - <span class="number">1</span>][j - <span class="number">1</span>], min(dp[i][j - <span class="number">1</span>], dp[i - <span class="number">1</span>][j])) + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//返回最后的值即为最小操作步数</span></span><br><span class="line">    <span class="keyword">return</span> dp[n][m];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于dp[i][j]只与dp[i - 1][j - 1]或dp[i - 1][j]或dp[i][j - 1]有关,可以将dp状态数组压缩成一维数组以减少时间复杂度</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="keyword">char</span> * word1, <span class="keyword">char</span> * word2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="built_in">strlen</span>(word1);</span><br><span class="line">    <span class="keyword">int</span> m = <span class="built_in">strlen</span>(word2);</span><br><span class="line">    <span class="keyword">int</span> dp[m+<span class="number">1</span>];</span><br><span class="line">  	<span class="comment">//初始化第一层,即dp[0][]这一层</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m + <span class="number">1</span>; j++) &#123;</span><br><span class="line">        dp[j] = j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n + <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> p = dp[<span class="number">0</span>]; <span class="comment">//dp[1][1]时初始的dp[i-1][j-1],用变量保存下来,因为后续转移过程这个值会改变;</span></span><br><span class="line">        dp[<span class="number">0</span>] = i; <span class="comment">//dp[i][1]时初始的dp[i-1][j];</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; m + <span class="number">1</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> q = dp[j];<span class="comment">//dp[i-1][j],用变量保存下来以便最后赋值给dp[i-1][j-1],因为此时还未开始转移,所以dp[j]为上一层的结果即为dp[i-1][j];而dp[i][j-1]可以不保存,因为这个是同一层的,已经是转移之后的状态了,不会影响</span></span><br><span class="line">            <span class="keyword">if</span>(word1[i - <span class="number">1</span>] == word2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                dp[j] = p;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[j] = min(p, min(q, dp[j - <span class="number">1</span>])) + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            p = q;<span class="comment">//dp[i-1][j-1]转移到dp[i-1][j]作为下一个数的dp[i-1][j-1]</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">322. 零钱兑换</b></p>
+<p>给你一个整数数组 <code>coins</code> ，表示不同面额的硬币；以及一个整数 <code>amount</code> ，表示总金额。</p>
+<p>计算并返回可以凑成总金额所需的 <strong>最少的硬币个数</strong> 。如果没有任何一种硬币组合能组成总金额，返回 <code>-1</code> 。</p>
+<p>你可以认为每种硬币的数量是无限的。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：coins &#x3D; [1, 2, 5], amount &#x3D; 11</span><br><span class="line">输出：3 </span><br><span class="line">解释：11 &#x3D; 5 + 5 + 1</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：coins &#x3D; [2], amount &#x3D; 3</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
+<p>示例 3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：coins &#x3D; [1], amount &#x3D; 0</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+<p>示例 4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：coins &#x3D; [1], amount &#x3D; 1</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+<p>示例 5：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：coins &#x3D; [1], amount &#x3D; 2</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= coins.length &lt;= 12</code></li>
+<li><code>1 &lt;= coins[i] &lt;= 2^31 - 1</code></li>
+<li><code>0 &lt;= amount &lt;= 10^4</code></li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//动态规划,完全背包问题</span></span><br><span class="line"><span class="comment">//dp[i][j]表示对于前i种硬币,凑成金额j需要的最少硬币个数,则dp[i][j] = min(dp[i-1][j], dp[i][j-coins[i]] + 1)</span></span><br><span class="line"><span class="comment">//由于dp[i][j]只与同层的dp[i][j-coins[i]]和前一层的正上方元素dp[i-1][j]相关,可以将状态数组压缩成一维数组以减少空间消耗</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span>* coins, <span class="keyword">int</span> coinsSize, <span class="keyword">int</span> amount)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> dp[amount + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">//memset函数按字节对内存块进行初始化,所以不能用它将 int 数组初始化为 0 和 -1 之外的其他值</span></span><br><span class="line">    <span class="comment">//用memset(dp, INT_MAX, sizeof(dp))来初始化dp数组是不行的</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; amount + <span class="number">1</span>; j++) &#123;</span><br><span class="line">        dp[j] = INT_MAX;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; coinsSize; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; amount + <span class="number">1</span>; j++) &#123;</span><br><span class="line">          	<span class="comment">//j-coins[i]可能越界,也可能落到初始值上,这两种情况下是无效的</span></span><br><span class="line">            <span class="keyword">if</span>(j - coins[i] &gt;= <span class="number">0</span> &amp;&amp; dp[j - coins[i]] != INT_MAX)</span><br><span class="line">                dp[j] = min(dp[j - coins[i]] + <span class="number">1</span>, dp[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//如果循环结束后dp[amount]仍为INT_MAX说明无法凑出amount,return -1;</span></span><br><span class="line">    <span class="keyword">if</span>(dp[amount] == INT_MAX) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">343. 整数拆分</b></p>
+<p>给定一个正整数 n，将其拆分为 <strong>至少</strong> 两个正整数的和，并使这些整数的乘积最大化。 返回你可以获得的最大乘积。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 2</span><br><span class="line">输出: 1</span><br><span class="line">解释: 2 &#x3D; 1 + 1, 1 × 1 &#x3D; 1。</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 10</span><br><span class="line">输出: 36</span><br><span class="line">解释: 10 &#x3D; 3 + 3 + 4, 3 × 3 × 4 &#x3D; 36。</span><br></pre></td></tr></table></figure>
+<p>说明: 你可以假设 n 不小于 2 且不大于 58。</p>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数学推导,通过数学公式推导出,将n分为a个相同的数字相乘的值最大,并计算出最大值点为e即2.7附近;然后通过验证得到在本题中的最大值点即为3,以3为每个数字的大小将n分割,解答如下</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">integerBreak</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">  	<span class="comment">//当n &lt;= 3时,分出1之后即为最大值(按推导来说应该不分,但本题要求至少分成两个)</span></span><br><span class="line">    <span class="keyword">if</span>(n &lt;= <span class="number">3</span>) <span class="keyword">return</span> n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> a = n / <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> b = n % <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> <span class="built_in">pow</span>(<span class="number">3</span>, a);</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">1</span>) <span class="keyword">return</span> <span class="built_in">pow</span>(<span class="number">3</span>, a - <span class="number">1</span>) * <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">pow</span>(<span class="number">3</span>, a) * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划,对于每个大于2的数,均可以拆成至少两个数,设dp[i]表示将i拆分为至少两个正整数之后这些正整数的最大乘积</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">integerBreak</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> dp[n + <span class="number">1</span>];</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; j++) &#123;</span><br><span class="line">          	<span class="comment">//将i拆分为j和i - j,此时i - j 可以选择继续拆分即dp[i - j],或者不继续拆分,选择两者的最大值,与j相乘,再判断此是否为本轮拆分的最大值,保持dp[i]为最大值</span></span><br><span class="line">            dp[i] = fmax(dp[i], fmax(j * (i - j), j * dp[i - j]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">windows</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/TheOriginalOrPiracy/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-OperatingSystem-ChapterOne" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/OperatingSystem-ChapterOne/">操作系统——第一章(操作系统引论)</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/13/OperatingSystem-ChapterOne/" class="archive-article-date">
-  	<time datetime="2021-03-13T02:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上课记的笔记，整理一下。课本为孟庆昌的《操作系统(第三版)》。</p>
-        
       
 
       <!-- 《添加版权声明 -->
@@ -321,10 +395,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -332,16 +402,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/OperatingSystem-ChapterOne/">阅读全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/12/01/LeetCodeLearn-4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/8192/12/24/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/24/LeetCodeLearn-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">力扣刷题记录[三](2021.11.24 ~ 2021.11.30)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -361,592 +499,27 @@
 
 
 
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
+  
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
 
   
-    <article id="post-PrincipleOfComputerOrganizationCourseDesign" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/">计算机组成原理与体系结构课程设计</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/" class="archive-article-date">
-  	<time datetime="2021-03-09T11:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上学期期末做的，这学期又要学汇编😅，这都快忘光了，复习一下。</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计组</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">汇编语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/09/PrincipleOfComputerOrganizationCourseDesign/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
 
   
-    <article id="post-ProgrammingCourseDesign" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/06/ProgrammingCourseDesign/">程序设计课程设计</a>
-    </h1>
-  
 
-        
-        <a href="/2021/03/06/ProgrammingCourseDesign/" class="archive-article-date">
-  	<time datetime="2021-03-06T14:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个课程设计其实是去年下学期期末做的，不过今年才搭建了博客，把这个课程设计的过程写一下，顺便给这学期即将要课程设计的学弟们做个参考。</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">程序设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/06/ProgrammingCourseDesign/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-BusuanziCounter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/18/BusuanziCounter/">添加不蒜子访问量统计功能</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/18/BusuanziCounter/" class="archive-article-date">
-  	<time datetime="2021-02-18T13:37:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>添加不蒜子访问量统计功能及代码阅读。阅读不蒜子源码的想法是想学习一下如何在前端做到访问量统计，看到后面发现好像还是后端完成的。</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/18/BusuanziCounter/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-BlogCommentSystem" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/16/BlogCommentSystem/">添加博客评论系统——yilia主题</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/16/BlogCommentSystem/" class="archive-article-date">
-  	<time datetime="2021-02-16T03:53:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前两篇文章中，博客搭建的大部分步骤都已经完成了，搭建出来的博客已经可以正常地使用了。但是，作为一个博客系统，没有评论区怎么能行呢？毕竟人的理解都是片面的，很多时候总会出现偏差，需要别人的批评指正。此篇文章就来说一下个人在yilia主题下添加博客评论系统的过程。</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/16/BlogCommentSystem/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-AppendOfBlogBuilding" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/05/AppendOfBlogBuilding/">博客搭建的补充</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/05/AppendOfBlogBuilding/" class="archive-article-date">
-  	<time datetime="2021-02-05T02:11:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一篇文章中，我将博客部署在了<b>github/gitee</b>上，由于当时的网络环境特殊，github.io此类域名可以正常使用，之后发现github.io此类域名会被DNS污染(127.0.0.1)，而同为git pages项目的gitee.io虽然可以正常使用，但在每次<code>hexo deploy</code>后仍需进入到仓库页面重新更新Gitee Pages服务(付费用户可以自动更新)，多有不便，于是便趁着<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up?spm=5176.10695662.1173276.1.3ad2315cTchlcQ">阿里云云翼计划</a>的优惠入手了一台轻量应用服务器用于部署个人博客，现在本博客有三个部署地址：<a target="_blank" rel="noopener" href="https://luhawxem.github.io/">github.io</a>、<a target="_blank" rel="noopener" href="https://luhawxem.gitee.io/">gitee.io</a>以及<a target="_blank" rel="noopener" href="https://www.luhawxem.com:4000/">阿里云服务器</a>。在此对在服务器上搭建博客进行一点小小的补充。</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/05/AppendOfBlogBuilding/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MyFirstBlogArticle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/22/MyFirstBlogArticle/">我的第一篇博客文章</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/22/MyFirstBlogArticle/" class="archive-article-date">
-  	<time datetime="2021-01-22T08:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本博客使用<b>hexo框架</b>，通过Git Pages服务部署在了<b>github/gitee</b>上。在这里说一下Windows系统(<em>Windows10 20H2，可能会有系统版本不同导致的差异，但应该问题不大</em>)在部署过程中可能遇到的一些问题以及yilia主题美化有关的一些东西。</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NodeJs</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/22/MyFirstBlogArticle/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
   
 
 
@@ -1007,8 +580,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
