@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>Tag: 程序设计 | BBSD丿草丶帽的个人博客</title>
+  <title>CSharp中的非对称加密RSA | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/index.html">
+  <meta name="description" content="最近在参与一个项目的开发，其中需要使用RSA加密传输数据，写一下遇到的一些问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSharp中的非对称加密RSA">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2021/12/03/RSAcryptOnCSharp/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="最近在参与一个项目的开发，其中需要使用RSA加密传输数据，写一下遇到的一些问题。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-03T11:21:15.000Z">
+<meta property="article:modified_time" content="2021-12-03T11:58:50.765Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
@@ -181,48 +183,73 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-RSAcryptOnCSharp" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/06/ProgrammingCourseDesign/" class="archive-article-date">
-  	<time datetime="2021-03-06T14:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/06/ProgrammingCourseDesign/">程序设计课程设计</a>
+    <h1 class="article-title" itemprop="name">
+      CSharp中的非对称加密RSA
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/12/03/RSAcryptOnCSharp/" class="archive-article-date">
+  	<time datetime="2021-12-03T11:21:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在参与一个项目的开发，其中需要使用RSA加密传输数据，写一下遇到的一些问题。</p>
+<a id="more"></a>
+<h4 id="介绍">介绍</h4>
+<p>RSA加密算法本质上为欧拉定理的应用，使用RSA加密算法需要生成一串公钥及一串私钥，一般来说私钥由服务提供者保存，公钥写进服务程序中，程序使用公钥对要传输的信息进行加密，服务提供者使用私钥解密获得信息。</p>
+<p>由于公钥加密私钥解密和私钥加密公钥解密是对称的，所以使用私钥加密的数据可以唯一地由对应的公钥解密出来，问题就产生在这里。</p>
+<h4 id="加密">加密</h4>
+<p>使用C#中自带的加密库<code>System.Security.Cryptography</code>来实现数据的加解密，由于C#中的公钥和私钥均为Xml格式，而以其他编程语言生成的公钥和私钥一般为Base64格式的字符串，所以首先需要进行预处理，将Base64格式转成Xml格式，代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">ToXmlPublicKey</span>(<span class="params"><span class="built_in">string</span> publicKey</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    RsaKeyParameters p = PublicKeyFactory.CreateKey(Convert.FromBase64String(publicKey)) <span class="keyword">as</span> RsaKeyParameters;</span><br><span class="line">    <span class="keyword">using</span> (RSACryptoServiceProvider rsa = <span class="keyword">new</span> RSACryptoServiceProvider())</span><br><span class="line">    &#123;</span><br><span class="line">        RSAParameters rsaParams = <span class="keyword">new</span> RSAParameters</span><br><span class="line">        &#123;</span><br><span class="line">            Exponent = p.Exponent.ToByteArrayUnsigned(),</span><br><span class="line">        		Modulus = p.Modulus.ToByteArrayUnsigned()</span><br><span class="line">        &#125;;</span><br><span class="line">				rsa.ImportParameters(rsaParams);</span><br><span class="line">				<span class="keyword">return</span> rsa.ToXmlString(<span class="literal">false</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后使用Xml格式的公钥对信息进行加密：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;xmlPublicKey&quot;&gt;</span>公钥<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;encryptString&quot;&gt;</span>待加密的字符串<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">RSAEncrypt</span>(<span class="params"><span class="built_in">string</span> xmlPublicKey, <span class="built_in">string</span> encryptString</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">    		<span class="built_in">byte</span>[] PlainTextBArray;</span><br><span class="line">        <span class="built_in">byte</span>[] CypherTextBArray;</span><br><span class="line">        <span class="built_in">string</span> Result;</span><br><span class="line">        RSACryptoServiceProvider rsa = <span class="keyword">new</span> RSACryptoServiceProvider();</span><br><span class="line">        rsa.FromXmlString(xmlPublicKey);</span><br><span class="line">        PlainTextBArray = Encoding.Default.GetBytes(encryptString); ;</span><br><span class="line">        CypherTextBArray = rsa.Encrypt(PlainTextBArray, RSAEncryptionPadding.Pkcs1);</span><br><span class="line">        Result = Convert.ToBase64String(CypherTextBArray);</span><br><span class="line">        <span class="keyword">return</span> Result;</span><br><span class="line">     &#125;</span><br><span class="line">     catch (Exception ex)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里都还比较正常，要注意的是将encryptString转换为[]byte时可以直接使用<code>System.Text</code>库的Encoding函数，一开始的时候使用了另一个转码库(忘了是什么了)，会在转换之后的byte数组中插入<code>\u0000</code>字符。</p>
+<p>接下来就掉坑里了，在最上面的时候我说了，公钥加密私钥解密和私钥加密公钥解密是对称过程，并且在很多编程语言中也都是能实现的，所以呢在这个项目中负责后端的小姐姐一开始也是这么想的。</p>
+<p>因为有一部分数据需要加密后在客户端存储，所以后端一开始的计划就是用RSA的私钥进行加密，然后发到客户端再使用公钥解密。</p>
+<p>悲剧发生了，调了两个多小时的bug，我非常确定我的解密函数没有写错(因为我尝试过使用私钥是可以正常解密的)，但是一旦使用公钥解密，就会抛出<code>值不存在</code>的错误，即解密结果为<code>null</code>。</p>
+<p>然后就是各种改啊查资料啊，最后查到一个解释是：公钥解密的功能是为了对数据进行签名验证，C#的<code>System.Security.Cryptography</code>库自带验签函数，所以并不支持使用公钥对数据进行解密。</p>
+<p>😂好么我这掉一大坑里浪费俩小时。又查了一圈，发现有一个开源库<code>BouncyCastle.Crypto</code>是支持公钥解密操作的，不过相关资料少之又少。</p>
+<p>跟项目主管沟通了一下，项目主管说让我和后端沟通一下使用哪种加密，要能双向解密的(那这不就对称式加密吗，这安全性瞬间就下来了)，再深入的沟通了一下，其实这部分需要加密发回来的数据，只是为了存储在本地的时候数据不要是明文存储，于是我提出“明文发到客户端，客户端使用对称式加密对数据加密后再进行存储”的解决方案，得到采用，算是变相地将问题解决了，毕竟要加密的那部分数据，实际上并没有包含什么重要信息，就是一个类似过期时间的东西。</p>
+<h4 id="End">End</h4>
+<p>谨以此文作个记录，如果有C#大神就当看看小白的笑话了，基本上算是第二天熟悉代码就开始开发了，C#也不太熟悉，只在大一的时候做程序设计课设的时候用过而已，到现在基本算是重新了解了。</p>
+<p>不过给到我的任务(实现将数据进行RSA加密后发送到服务端再将接收到的response展示出来)也不太难，如果不是踩坑里了应该两三个小时可以解决。网络请求使用的是<code>BestHttp</code>库，因为这个项目是Unity的所以用的这个库，基本实现完成，除了将response的数据格式化成json并拿到其中一个值还没做以外都没啥问题了。</p>
+<p>整个从踩坑到基本完成用时5小时(还是太菜了😂)，还要继续学习。</p>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare" hidden="hidden"></div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">课程设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">程序设计</a>
-        		</li>
-      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
@@ -230,19 +257,128 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2021/12/03/RSAcryptOnCSharp/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/8192/12/24/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2021/12/03/SomeGitOrSVNCommandInCommonUse/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">个人常用的Git命令和SVN命令</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
+  
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
   
 
-    
+  
+
+  
 
 
           </div>
@@ -303,9 +439,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
