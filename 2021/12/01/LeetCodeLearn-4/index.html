@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>力扣刷题记录[四](2021.12.01 ~ 2021.12.xx) | BBSD丿草丶帽的个人博客</title>
+  <title>力扣刷题记录[四](2021.12.01 ~ 2021.12.16) | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="力扣刷题记录[四]。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣刷题记录[四](2021.12.01 ~ 2021.12.xx)">
+<meta property="og:title" content="力扣刷题记录[四](2021.12.01 ~ 2021.12.16)">
 <meta property="og:url" content="https://cloudflare.luhawxem.com/2021/12/01/LeetCodeLearn-4/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
 <meta property="og:description" content="力扣刷题记录[四]。">
@@ -18,8 +18,10 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/02/25/plane1.jpg">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/02/25/plane2.jpg">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/serdeser.jpg">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1626927345-DZmfxB-PascalTriangleAnimated2.gif">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/04/12/250px-sudoku-by-l2g-20050714svg.png">
 <meta property="article:published_time" content="2021-12-01T00:43:00.000Z">
-<meta property="article:modified_time" content="2021-12-14T01:21:14.129Z">
+<meta property="article:modified_time" content="2021-12-17T03:05:52.383Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -194,7 +196,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      力扣刷题记录[四](2021.12.01 ~ 2021.12.xx)
+      力扣刷题记录[四](2021.12.01 ~ 2021.12.16)
     </h1>
   
 
@@ -849,6 +851,86 @@
 </ul>
 <p><strong>解答：</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划,dp[i]只与前面prices[0]~prices[i-1]中的最小值有关,使用两个变量维护dp[i]和之前的min</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>* prices, <span class="keyword">int</span> pricesSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> min = INT_MAX;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pricesSize; i++) &#123;</span><br><span class="line">        min = min &lt; prices[i] ? min : prices[i];</span><br><span class="line">        max = max &gt; prices[i] - min ? max : prices[i] - min;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2021-12-15">2021.12.15</h4>
+<p><strong>566. 重塑矩阵</strong></p>
+<p>在 MATLAB 中，有一个非常有用的函数 <code>reshape</code> ，它可以将一个 <code>m x n</code> 矩阵重塑为另一个大小不同（<code>r x c</code>）的新矩阵，但保留其原始数据。</p>
+<p>给你一个由二维数组 <code>mat</code> 表示的 <code>m x n</code> 矩阵，以及两个正整数 <code>r</code> 和 <code>c</code> ，分别表示想要的重构的矩阵的行数和列数。</p>
+<p>重构后的矩阵需要将原始矩阵的所有元素以相同的 <strong>行遍历顺序</strong> 填充。</p>
+<p>如果具有给定参数的 <code>reshape</code> 操作是可行且合理的，则输出新的重塑矩阵；否则，输出原始矩阵。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：mat &#x3D; [[1,2],[3,4]], r &#x3D; 1, c &#x3D; 4</span><br><span class="line">输出：[[1,2,3,4]]</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：mat &#x3D; [[1,2],[3,4]], r &#x3D; 2, c &#x3D; 4</span><br><span class="line">输出：[[1,2],[3,4]]</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>m == mat.length</code></li>
+<li><code>n == mat[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 100</code></li>
+<li><code>-1000 &lt;= mat[i][j] &lt;= 1000</code></li>
+<li><code>1 &lt;= r, c &lt;= 300</code></li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//两层for循环</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">matrixReshape</span><span class="params">(mat [][]<span class="keyword">int</span>, r <span class="keyword">int</span>, c <span class="keyword">int</span>)</span> [][]<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">len</span>(mat)</span><br><span class="line">    n := <span class="built_in">len</span>(mat[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> r * c != m * n || r == m &amp;&amp; c == n &#123;</span><br><span class="line">        <span class="keyword">return</span> mat;</span><br><span class="line">    &#125;</span><br><span class="line">    row, col := <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    res := <span class="built_in">make</span>([][]<span class="keyword">int</span>, r)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; m; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; n; j++ &#123;</span><br><span class="line">            res[row] = <span class="built_in">append</span>(res[row],mat[i][j])</span><br><span class="line">            <span class="keyword">if</span> col &lt; c - <span class="number">1</span> &#123;</span><br><span class="line">                col++</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                col = <span class="number">0</span></span><br><span class="line">                row++</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>118. 杨辉三角</strong></p>
+<p>给定一个非负整数 <em>numRows</em>，生成「杨辉三角」的前 <em>numRows</em> 行。</p>
+<p>在「杨辉三角」中，每个数是它左上方和右上方的数的和。</p>
+<p><img src="https://pic.leetcode-cn.com/1626927345-DZmfxB-PascalTriangleAnimated2.gif" alt=""></p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: numRows &#x3D; 5</span><br><span class="line">输出: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: numRows &#x3D; 1</span><br><span class="line">输出: [[1]]</span><br></pre></td></tr></table></figure>
+<p>提示:</p>
+<ul>
+<li><code>1 &lt;= numRows &lt;= 30</code></li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划,dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">generate</span><span class="params">(numRows <span class="keyword">int</span>)</span> [][]<span class="title">int</span></span> &#123;</span><br><span class="line">    dp := <span class="built_in">make</span>([][]<span class="keyword">int</span>, numRows)</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="built_in">append</span>(dp[<span class="number">0</span>], <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt; numRows; i++ &#123;</span><br><span class="line">        dp[i] = <span class="built_in">make</span>([]<span class="keyword">int</span>, i + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt;= i; j++ &#123;</span><br><span class="line">            <span class="keyword">if</span> j - <span class="number">1</span> &lt; <span class="number">0</span> &#123;</span><br><span class="line">                dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> j == i &#123;</span><br><span class="line">                dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>]</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = dp[i - <span class="number">1</span>][j] + dp[i - <span class="number">1</span>][j - <span class="number">1</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2021-12-16">2021.12.16</h4>
+<p><b style="color:blue;">36. 有效的数独</b></p>
+<p>请你判断一个 <code>9 x 9</code> 的数独是否有效。只需要 <strong>根据以下规则</strong> ，验证已经填入的数字是否有效即可。</p>
+<p>1.数字 <code>1-9</code> 在每一行只能出现一次。<br>
+2.数字 <code>1-9</code> 在每一列只能出现一次。<br>
+3.数字 <code>1-9</code> 在每一个以粗实线分隔的 <code>3x3</code> 宫内只能出现一次。（请参考示例图）</p>
+<p>注意：</p>
+<ul>
+<li>一个有效的数独（部分已被填充）不一定是可解的。</li>
+<li>只需要根据以上规则，验证已经填入的数字是否有效即可。</li>
+<li>空白格用 <code>'.'</code> 表示。</li>
+</ul>
+<p>示例 1：</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/04/12/250px-sudoku-by-l2g-20050714svg.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入：board &#x3D; </span><br><span class="line">[[&quot;5&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]</span><br><span class="line">,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]</span><br><span class="line">,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入：board &#x3D; </span><br><span class="line">[[&quot;8&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]</span><br><span class="line">,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]</span><br><span class="line">,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]</span><br><span class="line">输出：false</span><br><span class="line">解释：除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。 但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>board.length == 9</code></li>
+<li><code>board[i].length == 9</code></li>
+<li><code>board[i][j]</code> 是一位数字（<code>1-9</code>）或者 <code>'.'</code></li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidSudoku</span><span class="params">(<span class="keyword">char</span>** board, <span class="keyword">int</span> boardSize, <span class="keyword">int</span>* boardColSize)</span></span>&#123;</span><br><span class="line">  	<span class="comment">//使用数组作为哈希表,memset置所有元素为0即false</span></span><br><span class="line">    <span class="keyword">bool</span> row[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">memset</span>(row, <span class="number">0</span>, <span class="keyword">sizeof</span>(row));</span><br><span class="line">    <span class="keyword">bool</span> col[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">memset</span>(col, <span class="number">0</span>, <span class="keyword">sizeof</span>(col));</span><br><span class="line">    <span class="keyword">bool</span> area[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">memset</span>(area, <span class="number">0</span>, <span class="keyword">sizeof</span>(area));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> c = board[i][j];</span><br><span class="line">          	<span class="comment">//如果为空则跳过</span></span><br><span class="line">            <span class="keyword">if</span>(c == <span class="string">&#x27;.&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">          	<span class="comment">//不为空时判断数字是多少</span></span><br><span class="line">            <span class="keyword">int</span> u = c - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">          	<span class="comment">//idx表示当前数字所位于的九宫格</span></span><br><span class="line">            <span class="keyword">int</span> idx = i / <span class="number">3</span> * <span class="number">3</span> + j / <span class="number">3</span>;</span><br><span class="line">          	<span class="comment">//如果当前行或当前列或当前九宫格中出现过当前数字,说明数独不合格,false</span></span><br><span class="line">            <span class="keyword">if</span>(row[i][u] || col[j][u] || area[idx][u]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          	<span class="comment">//置位当前行当前列当前九宫格中本数字出现情况为true</span></span><br><span class="line">            row[i][u] = col[j][u] = area[idx][u] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><b style="color:blue;">73. 矩阵置零</b></p>
+<p>给定一个 <code>m x n</code> 的矩阵，如果一个元素为 <strong>0</strong> ，则将其所在行和列的所有元素都设为 <strong>0</strong> 。请使用 <em>原地</em> 算法。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix &#x3D; [[1,1,1],[1,0,1],[1,1,1]]</span><br><span class="line">输出：[[1,0,1],[0,0,0],[1,0,1]]</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix &#x3D; [[0,1,2,0],[3,4,5,2],[1,3,1,5]]</span><br><span class="line">输出：[[0,0,0,0],[0,4,5,0],[0,3,1,0]]</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<ul>
+<li><code>m == matrix.length</code></li>
+<li><code>n == matrix[0].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 200</code></li>
+<li><code>-2^31 &lt;= matrix[i][j] &lt;= 2^31 - 1</code></li>
+</ul>
+<p>进阶：</p>
+<ul>
+<li>一个直观的解决方案是使用  <code>O(mn)</code> 的额外空间，但这并不是一个好的解决方案。</li>
+<li>一个简单的改进方案是使用 <code>O(m + n)</code> 的额外空间，但这仍然不是最好的解决方案。</li>
+<li>你能想出一个仅使用常量空间的解决方案吗？</li>
+</ul>
+<p><strong>解答：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原地算法,使用原数组的第一行和第一列作为标志位,标志当前列或当前行是否存在元素0,同时使用额外的两个元素标记第一行和第一列是否存在元素0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setZeroes</span><span class="params">(<span class="keyword">int</span>** matrix, <span class="keyword">int</span> matrixSize, <span class="keyword">int</span>* matrixColSize)</span></span>&#123;</span><br><span class="line">  	<span class="comment">//判断第一行是否存在元素0</span></span><br><span class="line">    <span class="keyword">bool</span> flag_row = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; (*matrixColSize); j++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix[<span class="number">0</span>][j] == <span class="number">0</span>) &#123;</span><br><span class="line">            flag_row = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">		<span class="comment">//判断第一列是否存在元素0</span></span><br><span class="line">    <span class="keyword">bool</span> flag_col = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrixSize; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">            flag_col = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">		<span class="comment">//用第一行和第一列保存0元素的位置</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; matrixSize; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; (*matrixColSize); j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                matrix[<span class="number">0</span>][j] = matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">		<span class="comment">//由于保存位置的时候已经置0了,所以再次循环改变元素时也可以跳过第一行第一列,循环每个元素然后对标志位为0的元素进行改变</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; matrixSize; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; (*matrixColSize); j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[<span class="number">0</span>][j] == <span class="number">0</span> || matrix[i][<span class="number">0</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">                matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">		<span class="comment">//如果第一行的标志为true,将第一行全部置0</span></span><br><span class="line">    <span class="keyword">if</span>(flag_row) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; (*matrixColSize); j++) &#123;</span><br><span class="line">            matrix[<span class="number">0</span>][j] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果第一列的标志为true,将第一列全部置0</span></span><br><span class="line">    <span class="keyword">if</span>(flag_col) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrixSize; i++) &#123;</span><br><span class="line">            matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -1174,11 +1256,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1234,19 +1316,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">subversion</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电工修理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1258,15 +1340,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">硬盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">windows</a>
               </li>
             
             <div class="clearfix"></div>
