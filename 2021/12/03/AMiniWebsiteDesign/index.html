@@ -16,7 +16,7 @@
 <meta property="og:description" content="为了参加学校的一个网页设计比赛，小小地做了一个前后端分离的网页，可惜没有拿奖(还是太菜了😂)。写一下遇到的问题吧。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-03T06:30:13.000Z">
-<meta property="article:modified_time" content="2021-12-06T10:04:45.191Z">
+<meta property="article:modified_time" content="2022-03-18T16:06:40.112Z">
 <meta property="article:author" content="BBSD丿草丶帽">
 <meta property="article:tag" content="Vue">
 <meta property="article:tag" content="Golang">
@@ -222,7 +222,7 @@
 <p>生产环境需要后端配置CORS以允许跨源访问，Gin下可以使用全局中间件，内容如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Cors处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Cors</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		method := c.Request.Method</span><br><span class="line"></span><br><span class="line">		c.Header(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>,<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		c.Header(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>,<span class="string">&quot;Content-Type,AccessToken.X-CSRF-Token,Authorization,Token&quot;</span>)<span class="comment">//如果浏览器请求包括Access-Control-Request-Headers字段，则Access-Control-Allow-Headers字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段，不限于浏览器在&quot;预检&quot;中请求的字段。</span></span><br><span class="line">		c.Header(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>,<span class="string">&quot;POST,GET,OPTIONS&quot;</span>)</span><br><span class="line">		c.Header(<span class="string">&quot;Access-Control-Expose-Headers&quot;</span>,<span class="string">&quot;Content-Length,Access-Control-Allow-Origin,Access-Control-Allow-Headers,Content-Type&quot;</span>)<span class="comment">//可选字段,CORS请求时,XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段,如果想拿到其他字段,就需要在Access-Control-Expose-Headers字段里指定</span></span><br><span class="line">		c.Header(<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>,<span class="string">&quot;true&quot;</span>)<span class="comment">//允许发送Cookie</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> method == <span class="string">&quot;OPTIONS&quot;</span> &#123;</span><br><span class="line">			c.AbortWithStatus(http.StatusNoContent)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		c.Next()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//路由注册</span></span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.Use(Cors())</span><br></pre></td></tr></table></figure>
 <p>最重要的一步即为设置<code>Access-Control-Allow-Origin</code>，可以设置为<code>*</code>通配表示接受任意域名的请求，但此时浏览器出于安全考虑将不会在请求中发送<code>Cookie</code>，或者直接设置为请求域。</p>
-<p>同时，还需要设置允许的请求方法<code>Access-Control-Allow-Methods</code>，注意，如果设置了允许<code>POST</code>方法，必须同时设置允许<code>OPTIONS</code>方法，因为<code>POST</code>请求在发送前，会先发送一个<code>OPTIONS</code>请求进行预检，同时需要对<code>OPTIONS</code>方法进行特殊处理，返回状态码<code>204</code>表示预检通过可以继续发送数据。</p>
+<p>同时，还需要设置允许的请求方法<code>Access-Control-Allow-Methods</code>，注意，如果设置了允许<code>POST</code>方法，必须同时设置允许<code>OPTIONS</code>方法，因为在跨域情况下的<code>POST</code>请求在发送前，会先发送一个<code>OPTIONS</code>请求进行预检，同时需要对<code>OPTIONS</code>方法进行特殊处理，返回状态码<code>204</code>表示预检通过可以继续发送数据。</p>
 <p><strong>2. Axios</strong></p>
 <p><strong>POST：</strong> axios发送post请求默认是使用<code>application/json</code>格式发送的，而后端常用的<code>Content-Type</code>一般是<code>application/x-www-form-urlencoded</code>，如果直接使用axios的post请求会导致后端拿不到post参数，个人使用的解决方案是使用qs对param进行序列化，即<code>data: qs.stringify(data)</code>，如果整个项目都是使用<code>application/x-www-form-urlencoded</code>方式发送请求的话，可以创建一个axios的实例，并在实例上使用请求拦截器<code>interceptors</code>对所有的请求的data进行qs序列化，代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> config = &#123;</span><br><span class="line">  headers: &#123;</span><br><span class="line">    <span class="string">&#x27;content-type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> _axios = axios.create(config);</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求拦截器,在请求发送出去之前进行处理的拦截器,响应拦截器为_axios.interceptors.response</span></span><br><span class="line">_axios.interceptors.request.use(</span><br><span class="line">  <span class="comment">//第一个function为promise状态为onFulfilled状态的处理函数,即resolve的处理函数,config为AxiosRequestConfig即请求信息</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">    config.data = qs.stringify(config.data);</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//第二个function为promise状态为onRejected状态的处理函数,即reject的处理函数</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -557,23 +557,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">博客搭建</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,11 +585,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">刷机</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全证书</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">openwrt</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,11 +601,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color3">刷机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+                <a href="javascript:void(0)" class="js-tag color3">openwrt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,6 +653,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">subversion</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">故障判断</a>
               </li>
              
@@ -657,7 +665,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,11 +677,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">subversion</a>
+                <a href="javascript:void(0)" class="js-tag color3">windows</a>
               </li>
             
             <div class="clearfix"></div>
