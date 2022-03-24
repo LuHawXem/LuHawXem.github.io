@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://cloudflare.luhawxem.com">
-  <title>Archives | BBSD丿草丶帽的个人博客</title>
+  <title>WebsocketDemo | BBSD丿草丶帽的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BBSD丿草丶帽的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BBSD丿草丶帽的个人博客">
-<meta property="og:url" content="https://cloudflare.luhawxem.com/archives/page/2/index.html">
+  <meta name="description" content="项目里有想法想加个聊天功能，因此稍微写个websocket小demo熟悉一下大致的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebsocketDemo">
+<meta property="og:url" content="https://cloudflare.luhawxem.com/2022/03/24/WebsocketDemo/index.html">
 <meta property="og:site_name" content="BBSD丿草丶帽的个人博客">
-<meta property="og:description" content="BBSD丿草丶帽的个人博客">
+<meta property="og:description" content="项目里有想法想加个聊天功能，因此稍微写个websocket小demo熟悉一下大致的过程">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-24T13:46:23.000Z">
+<meta property="article:modified_time" content="2022-03-24T14:15:10.063Z">
 <meta property="article:author" content="BBSD丿草丶帽">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="BBSD丿草丶帽的个人博客" type="application/atom+xml">
@@ -175,74 +178,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-WebsocketDemo" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/29/MiniProgramNavToAnother/" class="archive-article-date">
-  	<time datetime="2021-07-29T01:29:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/29/MiniProgramNavToAnother/">微信小程序跳转另一个小程序</a>
+    <h1 class="article-title" itemprop="name">
+      WebsocketDemo
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/29/MiniProgramSafetyHeight/" class="archive-article-date">
-  	<time datetime="2021-07-29T01:23:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-29</time>
+        
+        <a href="/2022/03/24/WebsocketDemo/" class="archive-article-date">
+  	<time datetime="2022-03-24T13:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/29/MiniProgramSafetyHeight/">微信小程序安全高度</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目里有想法想加个聊天功能，因此稍微写个websocket小demo熟悉一下大致的过程</p>
+<a id="more"></a>
+<h4 id="后端代码">后端代码</h4>
+<p>使用go语言的gin框架<code>&quot;github.com/gin-gonic/gin&quot;</code>和第三方websocket库<code>&quot;github.com/gorilla/websocket&quot;</code>编写，代码如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gorilla/websocket&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* connect为全局的map,用于存储连接,实际开发中可换成redis缓存 */</span></span><br><span class="line"><span class="keyword">var</span> connect = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]*websocket.Conn)</span><br><span class="line"><span class="comment">/* 测试环境没有数据库,因此用data这个map模拟数据库,即处理当对方不在线时的数据缓存 */</span></span><br><span class="line"><span class="keyword">var</span> data = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>][]<span class="keyword">byte</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 创建一个websocket的Upgrader实例,具体参数可以看api文档,ReadBufferSize和WriteBufferSize若不填值则默认4096,CheckOrigin函数用于验证请求域,此处直接返回true,真实开发时需验证请求域,若合法则返回true */</span></span><br><span class="line"><span class="keyword">var</span> up = websocket.Upgrader&#123;</span><br><span class="line">	ReadBufferSize: <span class="number">1024</span>,</span><br><span class="line">	WriteBufferSize: <span class="number">1024</span>,</span><br><span class="line">	CheckOrigin: <span class="function"><span class="keyword">func</span><span class="params">(r *http.Request)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* gin框架的handlerFunc */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ws</span><span class="params">(c *gin.Context)</span></span>  &#123;</span><br><span class="line">  <span class="comment">/* 模拟数据,因ws默认发起GET请求,因此从GET请求携带的参数中获得所需参数 */</span></span><br><span class="line">  <span class="comment">/* 此处的from和to分别模拟用户本人和需要通信的另一名用户,也可以将to参数设置为某个会话群的id,以实现多人聊天而非单对单聊天 */</span></span><br><span class="line">	from := c.Query(<span class="string">&quot;from&quot;</span>)</span><br><span class="line">	to := c.Query(<span class="string">&quot;to&quot;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 将普通的http请求Upgrade成websocket请求,因为websocket请求之前也需要先进行握手,websocket和http均承载于TCP连接之上 */</span></span><br><span class="line">	webs, err := up.Upgrade(c.Writer, c.Request, <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">println</span>(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 将当前连接存入全局map,以便会话另一端用户发起会话时找到当前连接 */</span></span><br><span class="line">	key := fmt.Sprintf(<span class="string">&quot;from:%s,to:%s&quot;</span>, from, to)</span><br><span class="line">	connect[key] = webs</span><br><span class="line">	<span class="comment">/* 另一端会话的key */</span></span><br><span class="line">	rkey := fmt.Sprintf(<span class="string">&quot;from:%s,to:%s&quot;</span>, to, from)</span><br><span class="line">	<span class="comment">/* go routine执行函数 */</span></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">/* 定义当连接即将断开前的处理函数,关闭websocket,删除map中的当前连接 */</span></span><br><span class="line">		<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">			webs.Close()</span><br><span class="line">			<span class="built_in">println</span>(fmt.Sprintf(<span class="string">&quot;链接%s断开&quot;</span>, key))</span><br><span class="line">			<span class="built_in">delete</span>(connect, key)</span><br><span class="line">		&#125;()</span><br><span class="line">		<span class="comment">/* for循环持续监听websocket */</span></span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">      <span class="comment">/* 如果data中存在另一端发送的数据(即真实开发中,数据库内部存有对当前用户发送的数据),则在连接建立后立即将数据发送给当前用户,并删除数据或标记数据为已发送 */</span></span><br><span class="line">			<span class="keyword">if</span> v, ok := data[rkey]; ok &#123;</span><br><span class="line">				err = webs.WriteMessage(<span class="number">1</span>, v)</span><br><span class="line">				<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">					<span class="built_in">println</span>(err)</span><br><span class="line">					<span class="keyword">return</span></span><br><span class="line">				&#125;</span><br><span class="line">				<span class="built_in">delete</span>(data, rkey)</span><br><span class="line">			&#125;</span><br><span class="line">      <span class="comment">/* 监听用户发送来的数据,可以使用ReadJSON()和WriteJSON()来接收和发送复杂数据 */</span></span><br><span class="line">			t, ms, err := webs.ReadMessage()</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="built_in">println</span>(err)</span><br><span class="line">				<span class="keyword">return</span></span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="built_in">println</span>(fmt.Sprintf(<span class="string">&quot;type:%d, message:%s&quot;</span>, t,ms))</span><br><span class="line">			<span class="comment">/* 数据回显,也可仅发送&#x27;服务器成功接收信息&#x27;的通知 */</span></span><br><span class="line">			err = webs.WriteMessage(t, ms)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="built_in">println</span>(err)</span><br><span class="line">				<span class="keyword">return</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">/* 如果另一端的连接存在,说明双方均在线,向另一位用户发送当前用户所发送的信息;否则,将数据写入数据库并标记为未发送 */</span></span><br><span class="line">			<span class="keyword">if</span> webs2, ok := connect[rkey]; ok &#123;</span><br><span class="line">				err = webs2.WriteMessage(t, ms)</span><br><span class="line">				<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">					<span class="built_in">println</span>(err)</span><br><span class="line">					<span class="keyword">return</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				data[key] = ms</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">  <span class="comment">/* 正常监听GET请求即可,在handlerFunc内部会将GET请求提升为websocket */</span></span><br><span class="line">	r.GET(<span class="string">&quot;/ws&quot;</span>, ws)</span><br><span class="line">	r.Run(<span class="string">&quot;:8000&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="前端">前端</h4>
+<p>由于项目是小程序，所以demo写的也是小程序，普通Javascript大同小异</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    input: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="keyword">from</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    to: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    message: [],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">/* 用于存储websocket实例,由于该实例不涉及页面交互,出于性能考虑,不放入data中 */</span></span><br><span class="line">  ws: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onLoad</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> that = <span class="built_in">this</span>;</span><br><span class="line">    <span class="comment">/* 这里使用设备类型来假性设定from和to,实际开发时有用户唯一id可用 */</span></span><br><span class="line">    wx.getSystemInfo(&#123;</span><br><span class="line">      success (res) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res.platform)</span><br><span class="line">        <span class="keyword">if</span>(res.platform === <span class="string">&quot;devtools&quot;</span>) &#123;</span><br><span class="line">          that.setData(&#123;</span><br><span class="line">            <span class="keyword">from</span>: <span class="string">&quot;devtools&quot;</span>,</span><br><span class="line">            to: <span class="string">&quot;phone&quot;</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          that.setData(&#123;</span><br><span class="line">            <span class="keyword">from</span>: <span class="string">&quot;phone&quot;</span>,</span><br><span class="line">            to: <span class="string">&quot;devtools&quot;</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">		</span><br><span class="line">    <span class="comment">/* 微信小程序的封装,相当于new Websocket(url),这里使用了同一台路由器下的两个设备(开发者工具和微信小程序)进行模拟调试 */</span></span><br><span class="line">    <span class="built_in">this</span>.ws = wx.connectSocket(&#123;</span><br><span class="line">      url: <span class="string">&#x27;ws://192.168.1.2:8000/ws?from=&#x27;</span> + <span class="built_in">this</span>.data.from + <span class="string">&#x27;&amp;to=&#x27;</span> + <span class="built_in">this</span>.data.to</span><br><span class="line">    &#125;)</span><br><span class="line">		<span class="comment">/* 添加接受信息的回调函数,将数据放入数组进行渲染 */</span></span><br><span class="line">    <span class="built_in">this</span>.ws.onMessage(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(res);</span><br><span class="line">      <span class="keyword">let</span> message = <span class="built_in">this</span>.data.message;</span><br><span class="line">      message.push(res.data);</span><br><span class="line">      <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">        message,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">	<span class="comment">/* 在页面的Unload事件中关闭websocket连接 */</span></span><br><span class="line">  <span class="function"><span class="title">onUnload</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.ws.close();</span><br><span class="line">  &#125;,</span><br><span class="line">	<span class="comment">/* 发送数据事件,input+button,按下button时触发此函数,input的输入数据双向绑定到this.data.input上 */</span></span><br><span class="line">  <span class="function"><span class="title">send</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.data.input);</span><br><span class="line">    <span class="built_in">this</span>.ws.send(&#123;</span><br><span class="line">      data: <span class="built_in">this</span>.data.input</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">      input: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="写在最后">写在最后</h4>
+<p>由于只是个小demo，并没有连接池、连接控制、发送心跳包判断是否在线等一些重要的处理，写真实项目时会注意的😃</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare" hidden="hidden"></div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -252,344 +239,133 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a> -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cloudflare.luhawxem.com/2022/03/24/WebsocketDemo/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/14/InstallAndGenerateSSLCertificate/" class="archive-article-date">
-  	<time datetime="2021-06-13T16:22:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/8192/12/24/Notice/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          公告
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/23/HandwrittenPromise/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">手写符合Promise/A+规范的Promise类</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+  <!-- 《utteranc评论：基于github issue的评论系统 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/14/InstallAndGenerateSSLCertificate/">在服务器上申请SSL证书——使用API完成</a>
-    </h1>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 100%;}
+      </style>
+      <script src="https://utteranc.es/client.js"
+        repo="LuHawXem/blog_comment"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
+  
+  <!-- utteranc评论》 -->
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">安全证书</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/11/TheFirstRepair/" class="archive-article-date">
-  	<time datetime="2021-06-11T15:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/11/TheFirstRepair/">第一次修理东西</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">电工修理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/09/TheFirstTimeTringDocker/" class="archive-article-date">
-  	<time datetime="2021-06-08T16:15:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/09/TheFirstTimeTringDocker/">第一次尝试使用Docker</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/03/Linux-Memory-Management/" class="archive-article-date">
-  	<time datetime="2021-06-03T07:11:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/03/Linux-Memory-Management/">Linux内存管理</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/30/TheMethodUsedInMM/" class="archive-article-date">
-  	<time datetime="2021-05-30T01:47:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/30/TheMethodUsedInMM/">Linux内存管理中使用的两种机制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/19/Mi-Router-4C-flash-openwrt/" class="archive-article-date">
-  	<time datetime="2021-05-19T07:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/19/Mi-Router-4C-flash-openwrt/">小米路由器4C刷openwrt</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">刷机</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">openwrt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/10/MyFirstPCB-Version3.0/" class="archive-article-date">
-  	<time datetime="2021-05-09T16:15:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/10/MyFirstPCB-Version3.0/">自己的第一块PCB——第三版</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">手工焊接</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/27/Linux-syscall-fork/" class="archive-article-date">
-  	<time datetime="2021-04-27T10:38:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/27/Linux-syscall-fork/">Linux系统调用:fork()</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">上一页</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/3/">下一页</a>
-    </nav>
   
 
 
@@ -651,8 +427,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
