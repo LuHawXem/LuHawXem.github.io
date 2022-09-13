@@ -264,6 +264,107 @@
 
 
   
+    <article id="post-BaiduWritten-2022-Autumn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/13/BaiduWritten-2022-Autumn/">百度秋招笔试</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/13/BaiduWritten-2022-Autumn/" class="archive-article-date">
+  	<time datetime="2022-09-13T12:39:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="/2022/09/13/BaiduWritten-2022-Autumn/1-1.png" class="">
+<img src="/2022/09/13/BaiduWritten-2022-Autumn/1-2.png" class="">
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = readline();</span><br><span class="line"><span class="keyword">const</span> x = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;u&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.length - <span class="number">3</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">if</span> (x.includes(str[i]) || x.includes(str[i + <span class="number">3</span>])) &#123;</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!x.includes(str[i + <span class="number">1</span>]) || !x.includes(str[i + <span class="number">2</span>]) || !x.includes(str[i + <span class="number">4</span>])) &#123;</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> substr = str.slice(i, i + <span class="number">5</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">6</span>; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j === <span class="number">5</span>) &#123;</span><br><span class="line">      count++;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> char = substr[j];</span><br><span class="line">    <span class="keyword">if</span> (substr.indexOf(char) !== substr.lastIndexOf(char)) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(count);</span><br></pre></td></tr></table></figure>
+<img src="/2022/09/13/BaiduWritten-2022-Autumn/2-1.png" class="">
+<img src="/2022/09/13/BaiduWritten-2022-Autumn/2-2.png" class="">
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> q = +readline();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">query</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> bin = readline();</span><br><span class="line">  <span class="keyword">if</span> (bin.indexOf(<span class="string">&#x27;1&#x27;</span>) === -<span class="number">1</span> || bin.indexOf(<span class="string">&#x27;0&#x27;</span>) === <span class="string">&#x27;-1&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Yes&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> count0 = <span class="number">0</span>, count1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; bin.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (bin[i] === <span class="string">&#x27;1&#x27;</span>) count1++;</span><br><span class="line">    <span class="keyword">else</span> count0++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ((count0 % <span class="number">2</span> !== <span class="number">0</span>) &amp;&amp; (count1 % <span class="number">2</span> !== <span class="number">0</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;No&#x27;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Yes&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; q; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(query());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/2022/09/13/BaiduWritten-2022-Autumn/3-1.png" class="">
+<img src="/2022/09/13/BaiduWritten-2022-Autumn/3-2.png" class="">
+<img src="/2022/09/13/BaiduWritten-2022-Autumn/3-3.png" class="">
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = +readline();</span><br><span class="line"><span class="keyword">const</span> arr = readline().split(<span class="string">&#x27; &#x27;</span>).map(<span class="function"><span class="params">v</span> =&gt;</span> +v);</span><br><span class="line"><span class="keyword">let</span> mp = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (arr.length &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  arr.forEach(<span class="function"><span class="params">v</span> =&gt;</span> &#123;</span><br><span class="line">    mp += v;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">console</span>.log(mp);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = arr.length - <span class="number">1</span>; i &gt;= <span class="number">2</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">while</span> (arr[i - <span class="number">2</span>] &gt;= <span class="number">1</span> &amp;&amp; arr[i - <span class="number">1</span>] &gt;= <span class="number">2</span> &amp;&amp; arr[i] &gt;= <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> sub3 = <span class="built_in">Math</span>.floor(arr[i] / <span class="number">3</span>);</span><br><span class="line">      <span class="keyword">let</span> sub2 = <span class="built_in">Math</span>.floor(arr[i - <span class="number">1</span>] / <span class="number">2</span>);</span><br><span class="line">      <span class="keyword">let</span> sub1 = arr[i - <span class="number">2</span>];</span><br><span class="line">      <span class="keyword">let</span> min = sub1 &lt; sub2 ? </span><br><span class="line">          (sub1 &lt; sub3 ? sub1 : sub3) : </span><br><span class="line">          (sub2 &lt; sub3 ? sub2 : sub3);</span><br><span class="line">      arr[i - <span class="number">2</span>] = (arr[i - <span class="number">2</span>] - min) &gt; <span class="number">0</span> ? (arr[i - <span class="number">2</span>] - min) : <span class="number">0</span>;</span><br><span class="line">      arr[i - <span class="number">1</span>] = (arr[i - <span class="number">1</span>] - <span class="number">2</span> * min) &gt; <span class="number">0</span> ? (arr[i - <span class="number">1</span>] - <span class="number">2</span> * min) : <span class="number">0</span>;</span><br><span class="line">      arr[i] =  (arr[i] - <span class="number">3</span> * min) &gt; <span class="number">0</span> ? (arr[i] - <span class="number">3</span> * min) : <span class="number">0</span>;</span><br><span class="line">      mp += <span class="number">5</span> * min;</span><br><span class="line">    &#125;</span><br><span class="line">    mp += arr[i];</span><br><span class="line">  &#125;</span><br><span class="line">  mp += arr[<span class="number">1</span>] + arr[<span class="number">0</span>];</span><br><span class="line">  <span class="built_in">console</span>.log(mp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      <!-- 《添加版权声明 -->
+      
+        <!-- 《添加版权声明 -->
+<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+
+
+<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+
+  <div class="declare" hidden="hidden"></div>
+
+<!-- 添加版权声明》 -->
+      
+      <!-- 添加版权声明》 -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/13/BaiduWritten-2022-Autumn/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MihoyoWritten-2022-Autumn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -312,11 +413,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -404,11 +505,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -496,11 +597,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -588,11 +689,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -768,11 +869,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -959,11 +1060,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -1003,101 +1104,9 @@
 
 
   
-    <article id="post-WebsocketDemo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/24/WebsocketDemo/">WebsocketDemo</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/24/WebsocketDemo/" class="archive-article-date">
-  	<time datetime="2022-03-24T13:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目里有想法想加个聊天功能，因此稍微写个websocket小demo熟悉一下大致的过程</p>
-        
-      
-
-      <!-- 《添加版权声明 -->
-      
-        <!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-      <!-- 添加版权声明》 -->
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/24/WebsocketDemo/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </nav>
   
 
@@ -1222,22 +1231,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">后端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">博客搭建</a>
               </li>
              
@@ -1259,6 +1252,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">笔试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">后端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1350,15 +1359,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">windows</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">故障判断</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电脑维修</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">windows</a>
               </li>
              
               <li class="article-tag-list-item">
